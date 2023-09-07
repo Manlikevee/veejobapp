@@ -75,6 +75,16 @@
   margin-left:-40px;
 }
 
+.header-menu{
+  display: flex;
+}
+.header-menu a{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
 img {
   max-width: 100%;
 }
@@ -3374,4 +3384,383 @@ cursor: pointer;
     word-wrap: break-word;
 }
   
+}
+
+.toptextdata{
+  color: var(--subtitle-color);
+font-family: poppins;
+font-size: 22px;
+font-style: normal;
+font-weight: 500;
+margin-bottom: 3px;
+line-height: 35px; /* 177.778% */
+}
+
+.assenttext{
+  color: var(--subtitle-color);
+font-size: 14px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+text-transform: capitalize;
+}
+
+.dashboardintroduction{
+  margin-top: 8px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  column-gap: 35px;
+  row-gap: 35px;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.dashboarddatacard{
+  background-image: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.6)),url(https://images.unsplash.com/photo-1688494963827-9f9dc1c51bd0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80);
+  background-position: 100%;
+  background-position-x: center;
+  background-position-y: center;
+  border-radius: 5px;
+  box-shadow: 0 4px 16px 0 rgba(0,0,0,.05);
+  padding: 35px;
+  border-radius: 5px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.rolematch{
+  background-image: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.6)),url(   https://images.unsplash.com/photo-1688494930420-694c13332f83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80);
+
+}
+
+.bookmark{
+  background-position-x: bottom;
+  background-position-y: bottom;
+}
+
+.dashboarddatacard .dbtitle{
+  color: #FFF;
+font-size: 28px;
+font-style: normal;
+font-weight: 500;
+line-height: 24px; /* 100% */
+}
+.dbtextdata{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dashboarddatacard .dbsubtext{
+  color: rgba(237, 237, 237, 0.721);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.6em;
+}
+
+.dbicons{
+  display: flex;
+  width: 74px;
+  height: 74px;
+  padding: 11px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 50px;
+  font-size: 86px;
+color: rgba(52, 152, 219, 1);
+  background: rgba(52, 152, 219, 0.20);
+}
+
+.dbicons span{
+  font-size: 26px;
+}
+
+.submit{
+  border-radius: 50px;
+  background: rgba(242, 153, 74, 0.20);
+  color: rgba(243, 156, 18, 1)
+}
+
+.mysave{
+  border-radius: 50px;
+background: rgba(187, 107, 217, 0.20);
+color: rgba(187, 107, 217, 1);
+}
+
+
+.bigs{
+  font-size: 15px;
+  margin-top: 0;
+  color: var(--subtitle-color);
+  line-height: 1.6em;
+  overflow-wrap: break-word;
+/* word-break: break-all; */
+overflow: hidden;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+}
+
+.jmini{
+  color: #737373;
+font-size: 15px;
+font-style: normal;
+font-weight: 300;
+line-height: 1.6em;
+width: 100%;
+}
+
+
+.dbd{
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+
+.veedbflex{
+  display: flex;
+  gap: 40px;
+  margin-top: 10px;
+}
+
+.dbflexsideone{
+  width: 100%;
+
+}
+
+.dbsideflextwo{
+  width: 35%;
+
+}
+
+.containerflex{
+  display: flex;
+  align-items: center;
+
+}
+
+.containerflex .forminput{
+  width: 100%;
+}
+.messagingflow{
+  margin-top: 14px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 60vh;
+  overflow: scroll;
+}
+.messagingbox{
+  padding: 13px;
+  background-color: var(--header-bg-color);
+  border-radius: 6px;
+
+  transition: 0.2s;
+  box-shadow: 0 3px 3px 0 rgb(0 0 0 / 5%), 0 5px 15px 0 rgb(0 0 0 / 5%);
+}
+.jobssection{
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 60vh;
+  overflow-y: scroll;
+  padding: 30px;
+}
+.dbjobscard{
+  background-color: var(--header-bg-color);
+  border-radius: 5px;
+  padding: 20px;
+  transition: 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 3px 3px 0 rgb(0 0 0 / 5%), 0 5px 15px 0 rgb(0 0 0 / 5%);
+}
+.messagingboxicon{
+  display: flex;
+  width: 64px;
+  height: 64px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 50px;
+  font-size: 86px;
+color: rgba(52, 152, 219, 1);
+  background: rgba(52, 152, 219, 0.20); 
+}
+
+.messagingboxicon img{
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 50px;
+}
+.dbmessagingbox{
+  display: flex;
+  gap: 10px;
+transition: 0.5s;
+  padding: 7px;
+  border-radius: 6px;
+  align-items: center;
+}
+
+.dbmessagingbox:hover{
+  background-color: var(--theme-bg-color);
+  cursor: pointer;
+}
+
+.dbmessagingtext{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dbmessagingtext .job-card-title{
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.2em;
+}
+.dbmessagingtext .jmini{
+  font-size: 13px;
+  /* white-space: nowrap; */
+overflow-wrap: break-word;
+/* word-break: break-all; */
+overflow: hidden;
+display: -webkit-box;
+-webkit-line-clamp: 1;
+-webkit-box-orient: vertical;
+}
+
+.cardcolumntitle{
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+:root {
+  --service: #424243;
+}
+.dark-mode {
+  --service: #c3c3c3;
+}
+.dbjobservice{
+  color: var(--active-color);
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height:1.3;
+}
+.cardcolumntop{
+  display: flex;
+align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+.dbjobtitle{
+  color:  var(--service);
+font-size: 17px;
+font-style: normal;
+font-weight: 500;
+line-height: 1.4;
+}
+
+.local{
+  color: var(--service);
+font-size: 13px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+.dbcompanylogo{
+width: fit-content;
+  height: 100%;
+}
+
+.dbcompanylogo img{
+  width: 121.5px;
+
+height: auto;
+flex-shrink: 0;
+object-fit: contain;
+}
+.dbjobscard .job-detail-buttons{
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.dbjobscard .detail-button {
+  margin-top: 0;
+  /* background-color: var(--active-light-color); */
+  width: fit-content;
+  color: white;
+  font-size: 11px;
+  margin-left: 0;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+
+.active{
+  padding: 10px;
+  background-color:var(--theme-bg-color);
+  border-radius: 7px;
+}
+
+
+.dbcompanylocation{
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+
+.myllogo{
+  width: 140px;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media screen and (max-width:1100px) {
+  .veedbflex{
+      flex-direction: column;
+  }
+  .jobssection{
+      display: grid;
+      align-items: center;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      column-gap: 25px;
+      grid-auto-rows: 1fr;
+      row-gap: 25px;
+      padding: 10px;
+      text-decoration: none;
+  }
+
+  .messagingflow{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      column-gap: 25px;
+      grid-auto-rows: 1fr;
+      row-gap: 25px;
+      padding: 10px;
+  }
+
+  .dbjobscard{
+      height: 100%;
+  }
+  .dbsideflextwo {
+      width: 100%;
+  }
+
+  .messagingbox{
+      width: 100%;
+  }
 }
