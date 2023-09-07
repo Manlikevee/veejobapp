@@ -2,16 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'gatsby'
 const Header = () => {
      const [navclicked, setnavclicked] = useState(false)
-     const [bodyClassName, setBodyClassName] = useState('');
 
-     const addClassNameToBody = () => {
-       setBodyClassName('dark-mode');
-     };
-   
-     useEffect(() => {
-       // Add the class to the body element when bodyClassName changes
-       document.body.className = bodyClassName;
-     }, [bodyClassName]);
+     const [darkMode, setDarkMode] = useState(() => {
+      // Check if a "darkMode" key exists in local storage and use its value,
+      // otherwise, use the default value (false for light mode).
+      const storedDarkMode = localStorage.getItem('darkMode');
+      return storedDarkMode ? JSON.parse(storedDarkMode) : false;
+    });
+  
+    const toggleDarkMode = () => {
+      // Toggle the darkMode state value.
+      setDarkMode((prevDarkMode) => !prevDarkMode);
+    };
+  
+    // Update local storage whenever darkMode changes.
+    useEffect(() => {
+      localStorage.setItem('darkMode', JSON.stringify(darkMode));
+    }, [darkMode]);
+  
+    useEffect(() => {
+      // Update the body class based on the darkMode state.
+      document.body.className = darkMode ? 'dark-mode' : '';
+    }, [darkMode]);
+
 
      const handleClick = () => {
 
@@ -28,26 +41,26 @@ const Header = () => {
     </div>
     
     <div className={`header-menu ${navclicked ? 'navactive' : 'header-menu'}`}>
-      <Link to='/Jobs' activeClassName="activated"  >
+      <Link to='/' activeClassName="active"  >
          
       <span class="material-symbols-outlined">
     space_dashboard
     </span>
      Dashboard
       </Link>
-      <Link to='/Jobdetail' activeClassName="activated">
+      <Link to='/Jobs' activeClassName="active">
         <span class="material-symbols-outlined">
     work_update
     </span>All Jobs </Link>
-      <Link to='/Messaging' activeClassName="activated"><span class="material-symbols-outlined">
+      <Link to='/Jobdetail' activeClassName="active"><span class="material-symbols-outlined">
     work_history
     </span> Applications</Link>
-    <Link to='/Messaging' activeClassName="activated"><span class="material-symbols-outlined">
+    <Link to='/Userprofile' activeClassName="active"><span class="material-symbols-outlined">
     account_box
     </span> Profile</Link>
     </div>
     <div className="user-settings">
-      <div className="dark-light" onClick={addClassNameToBody}>
+      <div className="dark-light" onClick={toggleDarkMode}>
         <svg
           viewBox="0 0 24 24"
           stroke="currentColor"
