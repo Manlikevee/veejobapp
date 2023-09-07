@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'gatsby'
 const Header = () => {
      const [navclicked, setnavclicked] = useState(false)
-
-     const [darkMode, setDarkMode] = useState(() => {
+    const[darkMode, setDarkMode]= useState('')
+     useEffect(() => {
       // Check if a "darkMode" key exists in local storage and use its value,
       // otherwise, use the default value (false for light mode).
       const storedDarkMode = localStorage.getItem('darkMode');
-      return storedDarkMode ? JSON.parse(storedDarkMode) : false;
-    });
+      setDarkMode(storedDarkMode ? JSON.parse(storedDarkMode) : false);
+    }, []);
   
     const toggleDarkMode = () => {
       // Toggle the darkMode state value.
@@ -24,7 +24,7 @@ const Header = () => {
       // Update the body class based on the darkMode state.
       document.body.className = darkMode ? 'dark-mode' : '';
     }, [darkMode]);
-
+     
 
      const handleClick = () => {
 
