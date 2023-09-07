@@ -154,7 +154,8 @@ body{
       background-size: contain;
 }
 .header{
-  box-shadow: 0px 4px 18px 0px rgb(0 0 0 / 4%);;
+  box-shadow: 0px 4px 18px 0px rgb(0 0 0 / 4%);
+  box-shadow: 0 4px 18px 0 rgba(0,0,0,.04);
   background-color: var(--header-bg-color);
 }
 
@@ -3425,11 +3426,20 @@ text-transform: capitalize;
   box-shadow: 0 4px 16px 0 rgba(0,0,0,.05);
   padding: 35px;
   border-radius: 5px;
+  cursor: pointer;
   display: flex;
   gap: 20px;
   align-items: center;
+  border: 1px solid transparent;
+  transition: all 0.3s ease-out;
 }
 
+
+.dashboarddatacard:hover {
+  border: 1px solid #00838d;
+  box-shadow: 0px 0px 999px 999px var(--inactive-color);
+  z-index: 500;
+}
 .rolematch{
   background-image: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.6)),url(   https://images.unsplash.com/photo-1688494930420-694c13332f83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80);
 
