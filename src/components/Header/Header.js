@@ -28,21 +28,21 @@ const Header = () => {
     </div>
     
     <div className={`header-menu ${navclicked ? 'navactive' : 'header-menu'}`}>
-      <Link to='/Jobs'  className="active">
+      <Link to='/Jobs' activeClassName="activated"  >
          
       <span class="material-symbols-outlined">
     space_dashboard
     </span>
      Dashboard
       </Link>
-      <Link to='/Jobdetail'>
+      <Link to='/Jobdetail' activeClassName="activated">
         <span class="material-symbols-outlined">
     work_update
     </span>All Jobs </Link>
-      <Link to='/Messaging'><span class="material-symbols-outlined">
+      <Link to='/Messaging' activeClassName="activated"><span class="material-symbols-outlined">
     work_history
     </span> Applications</Link>
-    <Link to='/Messaging'><span class="material-symbols-outlined">
+    <Link to='/Messaging' activeClassName="activated"><span class="material-symbols-outlined">
     account_box
     </span> Profile</Link>
     </div>

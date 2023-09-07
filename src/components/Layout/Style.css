@@ -817,14 +817,14 @@ body {
 @-webkit-keyframes slideY {
   0% {
     opacity: 0;
-    transform: translateY(200px);
+    transform: translateY(0);
   }
 }
 
 @keyframes slideY {
   0% {
     opacity: 0;
-    transform: translateY(200px);
+    transform: translateY(0);
   }
 }
 .searched-bar {
