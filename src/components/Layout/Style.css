@@ -516,6 +516,11 @@ body {
   background-color: var(--active-color);
 }
 
+.auto-scroll {
+  scroll-behavior: auto; /* Disable smooth scrolling when auto-scrolling */
+  scroll-snap-type: y mandatory; /* Optional: Enable snapping to the bottom */
+}
+
 .user-profile {
   width: 32px;
   height: 32px;
@@ -524,7 +529,14 @@ body {
      object-fit: cover;
   margin-right: 10px;
 }
-
+.myjob {
+  background-color: var(--theme-bg-color);
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 20px;
+  padding-top: 60px;
+}
 .job-card-buttons a {
   width: 100%;
   text-align: center;

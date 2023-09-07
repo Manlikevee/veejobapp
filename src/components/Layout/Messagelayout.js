@@ -6,8 +6,9 @@ const Messagelayout = ({children}) => {
   return (
    <>
            <Header/>
+           <div className='myjob'>
 {children}
-
+</div>
    </>
   )
 }
