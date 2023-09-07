@@ -52,7 +52,7 @@ const Header = () => {
         <span class="material-symbols-outlined">
     work_update
     </span>All Jobs </Link>
-      <Link to='/Jobdetail' activeClassName="active"><span class="material-symbols-outlined">
+      <Link to='/Jobdetail/' activeClassName="active"><span class="material-symbols-outlined">
     work_history
     </span> Applications</Link>
     <Link to='/Userprofile' activeClassName="active"><span class="material-symbols-outlined">
