@@ -525,6 +525,12 @@ body {
   margin-right: 10px;
 }
 
+.job-card-buttons a {
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+}
+
 .wrapper {
   width: 100%;
   display: flex;

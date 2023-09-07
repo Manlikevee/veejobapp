@@ -1,10 +1,11 @@
 import React from 'react'
 import Layout from '../components/Layout/Layout'
+import Messagelayout from '../components/Layout/Messagelayout'
 
 const Messaging = () => {
   return (
     
-    <Layout>
+    <Messagelayout>
         <br/>
        <div className="shareintotwo">
   <div className="share1">
@@ -516,7 +517,7 @@ const Messaging = () => {
   </div>
 </div>
 
-        </Layout>
+        </Messagelayout>
   )
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import Layout from '../components/Layout/Layout'
+import { Link } from 'gatsby'
 
 const Userprofile = () => {
   return (
@@ -30,7 +31,7 @@ const Userprofile = () => {
             <div className="btadm">
               CV
               <div className="btnrl">
-                <button
+                <Link to= ''
                   className="btn accept"
                   style={{
                     width: "100%",
@@ -40,7 +41,7 @@ const Userprofile = () => {
                   }}
                 >
                   Download
-                </button>
+                </Link>
               </div>
             </div>
             <div className="btadm">
