@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import { Link } from 'gatsby'
 const Header = () => {
+     const [navclicked, setnavclicked] = useState(false)
+     const [bodyClassName, setBodyClassName] = useState('');
+
+     const addClassNameToBody = () => {
+       setBodyClassName('dark-mode');
+     };
+   
+     useEffect(() => {
+       // Add the class to the body element when bodyClassName changes
+       document.body.className = bodyClassName;
+     }, [bodyClassName]);
+
+     const handleClick = () => {
+
+      setnavclicked(!navclicked);
+    };
   return (
-    
+    <>
+    <div id="navlinkovalay" className={` ${navclicked ? 'navlinkactiveovalay' : ''}`}  />
     <div className="header">
     <div className="logo">
       <Link to='/' style={{ color: "inherit", textDecoration: "none" }}>
@@ -29,15 +46,16 @@ const Header = () => {
         Milao
       </Link>
     </div>
-    <div className="header-menu">
+    
+    <div className={`header-menu ${navclicked ? 'navactive' : 'header-menu'}`}>
       <Link to='/Jobs'  className="active">
         Find Job
       </Link>
-      <Link to=''>Company Review</Link>
-      <Link to=''>Find Salaries</Link>
+      <Link to='/Jobdetail'>Company Review</Link>
+      <Link to='/Messaging'>Find Salaries</Link>
     </div>
     <div className="user-settings">
-      <div className="dark-light" onclick="updateCookie()">
+      <div className="dark-light" onClick={addClassNameToBody}>
         <svg
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -49,7 +67,7 @@ const Header = () => {
           <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
         </svg>
       </div>
-      <div className="user-menu" onclick="menuToggle()">
+      <div className="user-menu" onClick={handleClick} >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -72,6 +90,8 @@ const Header = () => {
       </Link>
     </div>
   </div>
+    </>
+   
   
   )
 }
