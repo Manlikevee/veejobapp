@@ -1,5 +1,6 @@
 import React from 'react'
 import Layout from '../components/Layout/Layout'
+import {  handleLogin, isLoggedIn, getUser , logout}  from '../service/auth'
 import { Link } from 'gatsby'
 
 const Userprofile = () => {
@@ -24,7 +25,7 @@ const Userprofile = () => {
                 <div className="nam"> VICTOR ODAH</div>
                 <div className="rolee">Admin</div>
                 <div className="state">Lagos, Nigeria</div>
-                <div className="emai">Odahviktor@gmail.com</div>
+                <div className="emai">  {getUser().email} </div>
                 <div className="phon">0701373576</div>
               </div>
             </div>

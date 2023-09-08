@@ -56,7 +56,7 @@ const Header = () => {
       <Link to='/Jobdetail/' activeClassName="active"><span class="material-symbols-outlined">
     work_history
     </span> Applications</Link>
-    <Link to='/Userprofile' activeClassName="active"><span class="material-symbols-outlined">
+    <Link to='/app/profile' activeClassName="active"><span class="material-symbols-outlined">
     account_box
     </span> Profile</Link>
     </div>

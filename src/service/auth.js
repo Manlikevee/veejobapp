@@ -20,7 +20,7 @@ const setUser = user =>
   export const handleLogin = async ({ username, password }) => {
     try {
       // Call the authentication API here
-      const response = await axios.post('https://isslblog.vercel.app/token/', {
+      const response = await axios.post('https://veejobapi.vercel.app/token/', {
         username,
         password,
       });
@@ -86,5 +86,5 @@ export const isLoggedIn = () => {
 export const logout = callback => {
   setUser({})
   callback()
-  navigate('/Userlogin/');
+  navigate('/Login/');
 }
