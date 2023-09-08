@@ -44,7 +44,7 @@ const Login = () => {
         </label>
         <div className="forminput">
           <input
-            type="email"
+            type="text"
             placeholder="Search for Job"
             name="username"
             id="id_username"
@@ -58,9 +58,9 @@ const Login = () => {
         </label>
         <div className="forminput">
           <input
-            type="email"
+            type="password"
             placeholder="Search for Job"
-            name="username"
+            name="password"
             id="id_username"
             value={password}
             onChange={handleUpdate}

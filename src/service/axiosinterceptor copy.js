@@ -48,7 +48,7 @@ axiosInstance.interceptors.request.use(async (req) => {
           position: toast.POSITION.BOTTOM_CENTER,
         });
         logout();
-        navigate('/Userlogin/');
+        navigate('/Login/');
         // Call the logout function if token refresh fails
         throw error;
       }

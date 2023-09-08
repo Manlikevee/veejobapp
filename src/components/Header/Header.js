@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'gatsby'
+import {  isLoggedIn , getUser, logout } from '../../service/auth';
+import {navigate} from "gatsby";
+
 const Header = () => {
     const [navclicked, setnavclicked] = useState(false)
     const[darkMode, setDarkMode]= useState('')
@@ -92,7 +95,21 @@ const Header = () => {
         src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%283%29+%281%29.png"
         alt=""
       />
-      <div className="user-name">Suhayel Nasim</div>
+      <div className="user-name">
+
+      {isLoggedIn() ? (
+          <a
+            href="/"
+            onClick={event => {
+              event.preventDefault()
+              logout(() => navigate(`/app/login`))
+            }}
+          >
+            Logout
+          </a>
+        ) : 'Login'}
+
+      </div>
       </Link>
     </div>
   </div>
