@@ -10,8 +10,6 @@ const Header = () => {
       setDarkMode(storedDarkMode ? JSON.parse(storedDarkMode) : false);
     }, []);
   
-
-
     
     const toggleDarkMode = () => {
       // Toggle the darkMode state value.
