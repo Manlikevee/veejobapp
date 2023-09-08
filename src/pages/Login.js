@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState  } from 'react'
 import Loginlayout from '../components/Loginlayout/Loginlayout'
 import { Link } from "gatsby"
 import { navigate } from "gatsby";
