@@ -62,7 +62,7 @@ const Login = () => {
             placeholder="Search for Job"
             name="username"
             id="id_username"
-            value={password}
+            valatue={password}
             onChange={handleUpdate}
           />
         </div>
@@ -73,7 +73,7 @@ const Login = () => {
         </div>
         <div className="logintitle">
           Don’t have an account?{" "}
-          <a href="/Userregistration/">Create An Account</a>{" "}
+          <a href="/Userregistrion/">Create An Account</a>{" "}
         </div>
       </div>
 </form>
