@@ -3967,6 +3967,14 @@ padding: 0px;
 flex-direction: column;
 align-items: flex-start;
 }
+.messages {
+  word-wrap: break-word;
+  font-size: 13px;
+  line-height: 1.4em;
+}
+.tpsds {
+  padding: 4px;
+}
 .loginsideone {
 height: 100%;
 padding: 27px;
