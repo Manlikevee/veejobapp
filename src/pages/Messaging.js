@@ -3,10 +3,14 @@ import Layout from '../components/Layout/Layout'
 import Messagelayout from '../components/Layout/Messagelayout'
 import Messagebodycontainer from "../components/Messagebody/Messagebodycontainer";
 import Messageprofiledata from "../components/Messagebody/Messageprofiledata";
-import Tick from "../components/Messagebody/tick";
+import Tick from "../components/Messagebody/Tick";
 import { toast } from 'react-toastify';
 import axiosInstance from '../service/axiosinterceptor'
 import { getUser } from "../service/auth";
+
+
+
+
 
 const Messaging = () => {
   const [isloading, setisloading] = useState(true);
