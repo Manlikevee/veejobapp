@@ -3,7 +3,6 @@ import Loginlayout from '../components/Loginlayout/Loginlayout'
 import { Link } from "gatsby"
 import { navigate } from "gatsby";
 import { handleLogin, isLoggedIn } from "../service/auth";
-import Spinner from '../components/Utility/spinner';
 import { useLocation } from "@reach/router";
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -79,7 +78,12 @@ const Login = () => {
       <div className="spc">
         <div className="forminput">
           <button className='myboton' disabled={putloading}>
-          { putloading ? (<> <Spinner/> Processing..</>) : 'Login' }
+          { putloading ? (<> 
+          
+            <div className="simple-spinner">
+    <span />
+    </div>
+           Processing..</>) : 'Login' }
 
           </button>
         </div>

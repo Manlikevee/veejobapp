@@ -1,5 +1,4 @@
-// Import any necessary modules or data here
-
+// Import any necessary modules or data he
 exports.onCreatePage = async ({ page, actions }) => {
   const { createPage } = actions;
 
