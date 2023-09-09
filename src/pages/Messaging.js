@@ -7,7 +7,7 @@ import Tick from "../components/Messagebody/Tick";
 import { toast } from 'react-toastify';
 import axiosInstance from '../service/axiosinterceptor'
 import { getUser } from "../service/auth";
-
+import dayjs from 'dayjs';
 
 
 
@@ -92,23 +92,32 @@ const Messaging = () => {
     setInputText(e.target.value);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (inputText.trim() === "") {
       return; // Don't send empty messages
     }
-
-    // Create a new message object with the current time
-    const newMessage = {
-      text: inputText,
-      time: new Date().toLocaleTimeString(),
-    };
-
-    // Add the new message to the list of messages
-    setMessages([...messages, newMessage]);
-
-    // Clear the input field
-    setInputText("");
+  
+    try {
+      alert(inputText)
+      // Make an API request to send the message
+      const response = await axiosInstance.post(`/messageportal/${myresponsed}/`, {
+        keyword: inputText,
+      });
+  
+      // Handle the successful response, if needed
+      console.log("Message sent:", response.data);
+      toast.success('send successfully')
+      // Clear the input field
+      setInputText("");
+  
+      // Update the state or take any other action
+      // For example, you can set a status to "Sending" or update the UI
+    } catch (error) {
+      // Handle the error (e.g., show an error message)
+      console.error("Message sending failed:", error);
+    }
   };
+  
 
   
 
