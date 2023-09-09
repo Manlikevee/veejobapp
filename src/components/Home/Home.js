@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getUser } from '../../service/auth'
 import { Link } from 'gatsby'
 
-const Home = ({responseData,timeOfDay}) => {
+const Home = ({responseData,timeOfDay, Usersname}) => {
   const [activityDataList, setActivityDataList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -223,7 +223,9 @@ const Home = ({responseData,timeOfDay}) => {
                 />
               </div>
               <div className="dbmessagingtext">
-                <div className="job-card-title">Victor Odah</div>
+                <div className="job-card-title">
+                  {md.sender.username == Usersname ? (md.reciever.username) : (md.sender.username) }
+                  </div>
                 <div className="jmini">
                   victor odah ebube dbd d Lorem ipsum dolor sit.
                 </div>
@@ -231,7 +233,7 @@ const Home = ({responseData,timeOfDay}) => {
             </Link>   ))
            ) : '' }
 </>
-            <div className="dbmessagingbox">
+            {/* <div className="dbmessagingbox">
               <div className="messagingboxicon">
                 <img
                   src="https://i.pinimg.com/564x/37/ef/13/37ef13b5f1d38d72b01ff07675b4d8bd.jpg"
@@ -258,7 +260,7 @@ const Home = ({responseData,timeOfDay}) => {
                   victor odah ebube dbd d Lorem ipsum dolor sit.
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

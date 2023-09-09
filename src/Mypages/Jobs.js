@@ -211,11 +211,11 @@ return () => clearInterval(intervalId);
         </div>
       </div>
      
-      {loading ? (
+      {!loading ? (
       <div className="job-cards">
 
   
-{responseData.jobcards.length > 0 ? (
+{responseData?.jobcards?.length > 0 ? (
                   responseData.jobcards.map((activityData, index) => (
         <div className="job-card">
           <div className="job-card-header">
@@ -560,7 +560,7 @@ return () => clearInterval(intervalId);
             </div>
           </div>
         </div>
-        
+
       </div>
       </>) }
   

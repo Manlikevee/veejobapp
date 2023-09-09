@@ -3,11 +3,12 @@ import Home from '../components/Home/Home'
 import Layout from '../components/Layout/Layout'
 import axiosInstance from '../service/axiosinterceptor'
 import { toast } from 'react-toastify';
+import { getUser } from "../service/auth";
 
     const Dashboard = () => {
     const [loading, setLoading] = useState(true);
     const [responseData, setResponseData] = useState('');
-
+    const [Usersname, setUsersname] = useState();
 
     let timeOfDay;
     const date = new Date();
@@ -30,6 +31,7 @@ import { toast } from 'react-toastify';
           .then(response => {
             // Handle the response as needed
             toast.success('successfully fetched');
+            setUsersname(getUser().username)
             setResponseData(response.data);
             console.log(response.data);
             setLoading(false);
@@ -75,7 +77,7 @@ import { toast } from 'react-toastify';
     <>
     <Layout>
   
-    {loading ? ( <>Loading.......</> ) : ( <Home responseData={responseData} timeOfDay={timeOfDay} />) }
+    {loading ? ( <>Loading.......</> ) : ( <Home responseData={responseData} timeOfDay={timeOfDay} Usersname={Usersname} />) }
    
     </Layout>
     </>
