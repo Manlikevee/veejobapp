@@ -138,7 +138,7 @@ const Messaging = () => {
                    {responsedata.messageserialized.testj.length > 0 ? (
                   responsedata.messageserialized.testj.map((activityData, index) => (
    
-                    <div className={`messages ${activityData.sender === Usersname ? 'sent' : activityData.reciever === Usersname ? 'sent' : ''}`}>
+                    <div className={`messages ${activityData.sender === Usersname ? 'sent' : activityData.reciever === Usersname ? 'sent' : 'received'}`}>
                    {activityData.message}
                        <span className="metadata">
                    
