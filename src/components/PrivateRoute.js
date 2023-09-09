@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { navigate } from "gatsby";
 import {isLoggedIn } from "../service/auth";
 
+
 const PrivateRoute = ({ component: Component, location, ...rest }) => {
   useEffect(() => {
     if (!isLoggedIn() && location.pathname !== `/app/login`) {

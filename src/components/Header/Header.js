@@ -45,14 +45,14 @@ const Header = () => {
     </div>
     
     <div className={`header-menu ${navclicked ? 'navactive' : 'header-menu'}`}>
-      <Link to='/' activeClassName="active"  >
+      <Link to='/app/Dashboard' activeClassName="active"  >
          
       <span class="material-symbols-outlined">
     space_dashboard
     </span>
      Dashboard
       </Link>
-      <Link to='/Jobs' activeClassName="active">
+      <Link to='/app/Alljobs' activeClassName="active">
         <span class="material-symbols-outlined">
     work_update
     </span>All Jobs </Link>

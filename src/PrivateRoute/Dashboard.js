@@ -1,13 +1,15 @@
 import React from 'react'
+import Home from '../components/Home/Home'
 import Layout from '../components/Layout/Layout'
-const index = () => {
+
+const Dashboard = () => {
   return (
     <>
-  <Layout>
-
+    <Layout>
+    <Home/>
     </Layout>
     </>
   )
 }
 
-export default index
+export default Dashboard

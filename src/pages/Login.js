@@ -3,12 +3,13 @@ import Loginlayout from '../components/Loginlayout/Loginlayout'
 import { Link } from "gatsby"
 import { navigate } from "gatsby";
 import { handleLogin, isLoggedIn } from "../service/auth";
-
+import Spinner from '../components/Utility/spinner';
+import { useLocation } from "@reach/router";
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    
-    
+    const [putloading, setputloading] = useState(false);    
+    const location = useLocation();
   const handleUpdate = event => {
     const { name, value } = event.target;
     if (name === 'username') {
@@ -20,14 +21,22 @@ const Login = () => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-
+    setputloading(true)
     const loginSuccessful = await handleLogin({
       username,
       password,
     });
 
     if (loginSuccessful) {
-        navigate(`/app/profile`);
+        setputloading(false)
+        if (location.state?.from) {
+          navigate(location.state.from);
+        } else {
+          navigate(`/app/profile`);
+        }
+    }
+    else{
+        setputloading(false)
     }
   };
 
@@ -69,7 +78,10 @@ const Login = () => {
       </div>
       <div className="spc">
         <div className="forminput">
-          <input type="submit" defaultValue="Login" />
+          <button className='myboton' disabled={putloading}>
+          { putloading ? (<> <Spinner/> Processing..</>) : 'Login' }
+
+          </button>
         </div>
         <div className="logintitle">
           Don’t have an account?{" "}
