@@ -2,9 +2,9 @@ import React from "react"
 import { Router } from "@reach/router"
 import PrivateRoute from "../components/PrivateRoute"
 import Login from "./Login"
-import Userprofile from "../privateroute/Userprofile"
-import Dashboard from "../privateroute/Dashboard"
-import Jobs from "../privateroute/Jobs"
+import Userprofile from "../Mypages/Userprofile"
+import Dashboard from "../Mypages/Dashboard"
+import Jobs from "../Mypages/Jobs"
 const App = () => (
 
     <Router>
