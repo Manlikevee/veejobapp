@@ -320,6 +320,247 @@ return () => clearInterval(intervalId);
             </div>
           </div>
         </div>
+        <div className="job-card cars">
+          <div className="postcard">
+            <div className="postcardheader details">
+              <div className="creatrprofile skelent">
+                <span />
+              </div>
+              <div className="postcardname skelent">
+                <div className="pcardname" />
+                <div className="pcardesignation" />
+              </div>
+            </div>
+            <div className="pcardbody">
+              <div className="description">
+                <div className="linez line-1" />
+                <div className="linez line-2" />
+                <div className="linez line-3" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="job-card cars">
+          <div className="postcard">
+            <div className="postcardheader details">
+              <div className="creatrprofile skelent">
+                <span />
+              </div>
+              <div className="postcardname skelent">
+                <div className="pcardname" />
+                <div className="pcardesignation" />
+              </div>
+            </div>
+            <div className="pcardbody">
+              <div className="description">
+                <div className="linez line-1" />
+                <div className="linez line-2" />
+                <div className="linez line-3" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="job-card cars">
+          <div className="postcard">
+            <div className="postcardheader details">
+              <div className="creatrprofile skelent">
+                <span />
+              </div>
+              <div className="postcardname skelent">
+                <div className="pcardname" />
+                <div className="pcardesignation" />
+              </div>
+            </div>
+            <div className="pcardbody">
+              <div className="description">
+                <div className="linez line-1" />
+                <div className="linez line-2" />
+                <div className="linez line-3" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="job-card cars">
+          <div className="postcard">
+            <div className="postcardheader details">
+              <div className="creatrprofile skelent">
+                <span />
+              </div>
+              <div className="postcardname skelent">
+                <div className="pcardname" />
+                <div className="pcardesignation" />
+              </div>
+            </div>
+            <div className="pcardbody">
+              <div className="description">
+                <div className="linez line-1" />
+                <div className="linez line-2" />
+                <div className="linez line-3" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="job-card cars">
+          <div className="postcard">
+            <div className="postcardheader details">
+              <div className="creatrprofile skelent">
+                <span />
+              </div>
+              <div className="postcardname skelent">
+                <div className="pcardname" />
+                <div className="pcardesignation" />
+              </div>
+            </div>
+            <div className="pcardbody">
+              <div className="description">
+                <div className="linez line-1" />
+                <div className="linez line-2" />
+                <div className="linez line-3" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="job-card cars">
+          <div className="postcard">
+            <div className="postcardheader details">
+              <div className="creatrprofile skelent">
+                <span />
+              </div>
+              <div className="postcardname skelent">
+                <div className="pcardname" />
+                <div className="pcardesignation" />
+              </div>
+            </div>
+            <div className="pcardbody">
+              <div className="description">
+                <div className="linez line-1" />
+                <div className="linez line-2" />
+                <div className="linez line-3" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="job-card cars">
+          <div className="postcard">
+            <div className="postcardheader details">
+              <div className="creatrprofile skelent">
+                <span />
+              </div>
+              <div className="postcardname skelent">
+                <div className="pcardname" />
+                <div className="pcardesignation" />
+              </div>
+            </div>
+            <div className="pcardbody">
+              <div className="description">
+                <div className="linez line-1" />
+                <div className="linez line-2" />
+                <div className="linez line-3" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="job-card cars">
+          <div className="postcard">
+            <div className="postcardheader details">
+              <div className="creatrprofile skelent">
+                <span />
+              </div>
+              <div className="postcardname skelent">
+                <div className="pcardname" />
+                <div className="pcardesignation" />
+              </div>
+            </div>
+            <div className="pcardbody">
+              <div className="description">
+                <div className="linez line-1" />
+                <div className="linez line-2" />
+                <div className="linez line-3" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="job-card cars">
+          <div className="postcard">
+            <div className="postcardheader details">
+              <div className="creatrprofile skelent">
+                <span />
+              </div>
+              <div className="postcardname skelent">
+                <div className="pcardname" />
+                <div className="pcardesignation" />
+              </div>
+            </div>
+            <div className="pcardbody">
+              <div className="description">
+                <div className="linez line-1" />
+                <div className="linez line-2" />
+                <div className="linez line-3" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="job-card cars">
+          <div className="postcard">
+            <div className="postcardheader details">
+              <div className="creatrprofile skelent">
+                <span />
+              </div>
+              <div className="postcardname skelent">
+                <div className="pcardname" />
+                <div className="pcardesignation" />
+              </div>
+            </div>
+            <div className="pcardbody">
+              <div className="description">
+                <div className="linez line-1" />
+                <div className="linez line-2" />
+                <div className="linez line-3" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="job-card cars">
+          <div className="postcard">
+            <div className="postcardheader details">
+              <div className="creatrprofile skelent">
+                <span />
+              </div>
+              <div className="postcardname skelent">
+                <div className="pcardname" />
+                <div className="pcardesignation" />
+              </div>
+            </div>
+            <div className="pcardbody">
+              <div className="description">
+                <div className="linez line-1" />
+                <div className="linez line-2" />
+                <div className="linez line-3" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="job-card cars">
+          <div className="postcard">
+            <div className="postcardheader details">
+              <div className="creatrprofile skelent">
+                <span />
+              </div>
+              <div className="postcardname skelent">
+                <div className="pcardname" />
+                <div className="pcardesignation" />
+              </div>
+            </div>
+            <div className="pcardbody">
+              <div className="description">
+                <div className="linez line-1" />
+                <div className="linez line-2" />
+                <div className="linez line-3" />
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
       </>) }
   
