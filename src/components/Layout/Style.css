@@ -53,6 +53,15 @@
 }
 
 
+.send    .loading-icon {
+  animation: spin 1.9s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 
 
 ::-moz-placeholder {
@@ -1645,7 +1654,9 @@ margin-top: 64.5px;
 
 
 }
-
+.opc{
+  opacity: 0.7;
+}
 .canclb {
   height: 72px;
   width: 72px;
@@ -2546,7 +2557,7 @@ top: 10%;
     display: flex;
     flex-direction: column;
     grid-gap: 20px;
-    padding: 10px;
+    padding: 0px;
 }
 
 .tpsds{
@@ -3204,7 +3215,7 @@ text-align: left;
 .messages {
   color: #000;
 clear: both;
-  line-height: 18px;
+  line-height: 1.5;
   font-size: 15px;
   padding: 4px;
   line-height: 1.5em;
@@ -3293,6 +3304,8 @@ transform: perspective(800px) rotateY(-179.9deg);
   padding: 0 0 0 16px;
 }
 
+
+
 .messages.received:after {
   border-width: 0px 10px 10px 0;
   border-color: transparent var(--header-bg-color) transparent transparent;
@@ -3343,10 +3356,13 @@ align-items: flex-end;
 .conversation-compose .input-msg {
   border: 0;
   flex: 1 1 auto;
-  font-size: 16px;
+  font-size: 15px;
+  font-family: poppins;
+  line-height: 1.3;
   margin: 0;
   outline: none;
   min-width: 50px;
+  
 }
 
 .conversation-compose .photo {
@@ -3426,7 +3442,7 @@ cursor: pointer;
     height: calc(85vh - 55px);
   }
   .conversation .conversation-container {
-    height: calc(86vh - 120px);
+    height: calc(86vh - 130px);
   }
 .back{
     font-size:30px;

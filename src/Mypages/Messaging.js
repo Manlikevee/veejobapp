@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import axiosInstance from '../service/axiosinterceptor'
 import { getUser } from "../service/auth";
 import dayjs from 'dayjs';
+import MySpinner from "../components/Messagebody/MySpinner"
 
 
 
@@ -18,7 +19,8 @@ const Messaging = () => {
   const [responsedata, setresponsedata] = useState('');
   const [inputText, setInputText] = useState("");
   const [messages, setMessages] = useState([]);
-  const [Usersname, setUsersname] = useState()
+  const [Usersname, setUsersname] = useState();
+  const [sendingmessage, setSendingmessage] = useState(false);
 
 
   useEffect(() => {
@@ -94,26 +96,48 @@ const Messaging = () => {
 
   const handleSendMessage = async () => {
     if (inputText.trim() === "") {
+      toast.error('message cannot be blank')
       return; // Don't send empty messages
     }
+    // Create a new message object with the current time
+    setSendingmessage(true)
+    const newMessage = {
+    
+      text: inputText,
+      time: new Date().toLocaleTimeString(),
+      status: "sending", // You can set a sending status
+    };
   
+    // Add the new message to the list of messages
+    setMessages([...messages, newMessage]);
     try {
-      alert(inputText)
+   
       // Make an API request to send the message
       const response = await axiosInstance.post(`/messageportal/${myresponsed}/`, {
         keyword: inputText,
       });
   
+      const updatedMessages = messages.filter(
+        (message) => message.text !== inputText
+      );
+      setMessages(updatedMessages);
+  
+      // Clear the input field
+      setInputText("");
+
       // Handle the successful response, if needed
       console.log("Message sent:", response.data);
       toast.success('send successfully')
+      setresponsedata(response.data);
+      setSendingmessage(false)
       // Clear the input field
-      setInputText("");
+
   
       // Update the state or take any other action
       // For example, you can set a status to "Sending" or update the UI
     } catch (error) {
       // Handle the error (e.g., show an error message)
+      setSendingmessage(false)
       console.error("Message sending failed:", error);
     }
   };
@@ -165,7 +189,7 @@ const Messaging = () => {
                 {messages.map((message, index) => (
                 <>
       
-        <div className="messages sent" key={index}>
+        <div className="messages sent opc" key={index}>
         {message.text}
         <span className="metadata">
     
@@ -207,14 +231,23 @@ const Messaging = () => {
 
             </div>
             <span id="speak" />
-            <span className="send" onClick={handleSendMessage}>
+{!sendingmessage ? (      <span className="send" onClick={handleSendMessage}>
               <div className="circle">
               <span class="material-symbols-outlined zmdi zmdi-mail-send">
 send
 </span>
-            
+
               </div>
-            </span>
+            </span>) : (      <span className="send ">
+              <div className="circle">
+              <span class="material-symbols-outlined zmdi loading-icon zmdi-mail-send">
+              cached
+</span>
+ 
+              </div>
+            </span>) }
+
+      
           </div>
         </div>
      

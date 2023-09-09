@@ -215,7 +215,7 @@ const Home = ({responseData,timeOfDay}) => {
           {messagedata.length > 0 ? (
                   messagedata.map((md, index) => (
          
-          <Link to={`/Messaging/?messageid=${md.messageid}`} className="dbmessagingbox">
+          <Link to={`/app/Messaging/?messageid=${md.messageid}`} className="dbmessagingbox">
               <div className="messagingboxicon">
                 <img
                   src="https://i.pinimg.com/564x/f8/25/2a/f8252af763f0bb3b53a0cb8477f80711.jpg"
