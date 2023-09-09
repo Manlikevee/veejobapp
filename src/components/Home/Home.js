@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { getUser } from '../../service/auth'
+import { Link } from 'gatsby'
 
 const Home = ({responseData,timeOfDay}) => {
   const [activityDataList, setActivityDataList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
+  const [messagedata, setmessageData] = useState([]);
   
   useEffect(() => {
     setActivityDataList(responseData.jobserialized);
+    setmessageData(responseData.usecase)
     setLoading(false);
   });
 
@@ -209,7 +211,11 @@ const Home = ({responseData,timeOfDay}) => {
             <div className="jmini">Discover Opportunities..</div>
           </div>
           <div className="messagingflow">
-            <div className="dbmessagingbox">
+          <>
+          {messagedata.length > 0 ? (
+                  messagedata.map((md, index) => (
+         
+          <Link to={`/Messaging/?messageid=${md.messageid}`} className="dbmessagingbox">
               <div className="messagingboxicon">
                 <img
                   src="https://i.pinimg.com/564x/f8/25/2a/f8252af763f0bb3b53a0cb8477f80711.jpg"
@@ -222,7 +228,9 @@ const Home = ({responseData,timeOfDay}) => {
                   victor odah ebube dbd d Lorem ipsum dolor sit.
                 </div>
               </div>
-            </div>
+            </Link>   ))
+           ) : '' }
+</>
             <div className="dbmessagingbox">
               <div className="messagingboxicon">
                 <img

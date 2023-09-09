@@ -3696,6 +3696,7 @@ transition: 0.5s;
   font-size: 15px;
   font-weight: 500;
   line-height: 1.2em;
+  color: var(--subtitle-color);
 }
 .dbmessagingtext .jmini{
   font-size: 13px;

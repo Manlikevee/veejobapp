@@ -17,6 +17,7 @@ const Messagelayout = ({children}) => {
     {/* Add more head tags here */}
   </Helmet>  
            <Header/>
+           <ToastContainer/>
            <div className='myjob'>
 {children}
 </div>
