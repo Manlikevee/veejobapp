@@ -6,7 +6,7 @@ import { setUser, logout } from './auth';
 import { getUser } from './auth';
 import { navigate } from 'gatsby';
 
-const baseURL = 'https://isslblog.vercel.app';
+const baseURL = 'https://veejobapi.vercel.app';
 
 const axiosInstance = axios.create({
   baseURL: baseURL,

@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { getUser } from '../../service/auth'
 
-const Home = () => {
+const Home = ({responseData,timeOfDay}) => {
+  const [activityDataList, setActivityDataList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  
+  useEffect(() => {
+    setActivityDataList(responseData.jobserialized);
+    setLoading(false);
+  });
+
+
   return (
     <div>
 <div className="wrapper detail-page">
   <div className="main-content">
     <br />
-    <div className="toptextdata">Welcome Vee!</div>
+    <div className="toptextdata">Good {timeOfDay} {getUser().username}</div>
     <div className="assenttext">Here is what we have for you today</div>
     <div className="dashboardintroduction">
       <div className="dashboarddatacard">
@@ -143,6 +155,10 @@ const Home = () => {
               </div>
             </div>
           </div>
+
+          <>
+                {activityDataList.length > 0 ? (
+                  activityDataList.map((activityData, index) => (
           <div className="dbjobscard">
             <div className="cardcolumntop">
               <div className="dbcompanylogo">
@@ -155,37 +171,35 @@ const Home = () => {
                 <div className="spanicon">
                   <span className="material-symbols-outlined">pin_drop</span>
                 </div>
-                <div className="local">Abuja, Nigeria</div>
+                <div className="local">{activityData.joblocation}</div>
               </div>
             </div>
             <div className="cardcolumntitle">
-              <div className="dbjobservice">Financial Services</div>
-              <div className="dbjobtitle">Risk Consulting Director</div>
+              <div className="dbjobservice">{activityData.jobcategory}</div>
+              <div className="dbjobtitle">{activityData.jobtitle}</div>
             </div>
             <div className="cardcolumnbody">
               <div className="job-card-subtitle bigs">
-                victo Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Porro, ipsum est veniam pariatur tempora modi molestias mollitia
-                deleniti distinctio minima voluptatibus alias dolore corrupti
-                molestiae. Nobis facere dolorem tempora accusamus modi, commodi
-                sit amet eos voluptates soluta provident facilis ab suscipit!
-                Explicabo sequi quo amet dolor, quam nesciunt facere error!
+            {activityData.jobdescription}
               </div>
             </div>
             <div className="dbtags">
               <div className="job-detail-buttons">
                 <button className="search-buttons detail-button">
-                  Full Time
+                 {activityData.jobemploymenttype}
                 </button>
                 <button className="search-buttons detail-button">
-                  Min. 1 Year
+                  Min. {activityData.jobminimumexperience} Year
                 </button>
                 <button className="search-buttons detail-button">
-                  Senior Level
+                  {activityData.workinglevel}
                 </button>
               </div>
             </div>
-          </div>
+          </div>   ))
+           ) : '' }
+</>
+
         </div>
       </div>
       <div className="dbsideflextwo">

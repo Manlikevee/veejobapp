@@ -483,7 +483,7 @@ body {
   font-size: 14px;
   position: fixed;
   justify-content: space-between;
-  z-index: 9999999;
+  z-index: 9999;
   box-shadow: 0px 2px 4px 0px rgb(0 0 0 / 6%);
 
 }
@@ -3488,14 +3488,16 @@ text-transform: capitalize;
   gap: 20px;
   align-items: center;
   border: 1px solid transparent;
-  transition: all 0.3s ease-out;
+  transition: all 0.3s ease-in-out;
+  height: 100%;
 }
 
 
 .dashboarddatacard:hover {
   border: 1px solid #00838d;
-  box-shadow: 0px 0px 999px 999px var(--inactive-color);
+  /* box-shadow: 0px 0px 999px 999px var(--inactive-color); */
   z-index: 500;
+  
 }
 .rolematch{
   background-image: linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.6)),url(   https://images.unsplash.com/photo-1688494930420-694c13332f83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80);
@@ -3803,12 +3805,15 @@ object-fit: contain;
   .jobssection{
       display: grid;
       align-items: center;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       column-gap: 25px;
       grid-auto-rows: 1fr;
       row-gap: 25px;
       padding: 10px;
       text-decoration: none;
+      overflow-x: hidden;
+      max-height: 90vh;
+      
   }
 
   .messagingflow{
@@ -3947,5 +3952,24 @@ align-items: flex-start;
 .loginsideone {
 height: 100%;
 padding: 27px;
+}
+.bigs {
+  font-size: 14px;
+  margin-top: 0;
+  color: var(--subtitle-color);
+  line-height: 1.5em;
+}
+.dbjobtitle {
+  color: var(--service);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.dbjobscard {
+  background-color: var(--header-bg-color);
+  border-radius: 5px;
+  padding: 17px;
 }
 }
