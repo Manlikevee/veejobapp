@@ -1,12 +1,49 @@
-import React from 'react'
+import React, { useEffect,  useState } from "react";
 import Layout from '../components/Layout/Layout'
-
+import { toast } from 'react-toastify';
+import axiosInstance from '../service/axiosinterceptor'
+import { getUser } from "../service/auth";
 
 const Jobdetail = () => {
+  const [isloading, setisloading] = useState(true);
+  const [myresponsed, setmuresponsed] = useState('');
+  const [responsedata, setresponsedata] = useState('');
+  const [Usersname, setUsersname] = useState();
+
+  useEffect(() => {
+    // Get the loanReference query parameter from the URL
+    const queryParams = new URLSearchParams(window.location.search);
+    const mmmm = queryParams.get('jobid');
+    setmuresponsed(mmmm);
+    const myres = mmmm
+    if (myres) {
+    axiosInstance.get(`/userjobssinglepage/${myres}/`)
+      .then(response => {
+        console.log(response.data);
+        toast.success('fetched data')
+        setresponsedata(response.data);
+        setUsersname(getUser().username)
+        setisloading(false);
+      })
+      .catch(error => {
+        toast.error('Error fetching profile data')
+        console.error("Error fetching profile data:", error);
+        setisloading(false);
+      });
+
+    }
+    else{
+      alert('no ref')
+    }
+  }, []);
+
   return (
     <div>
         <Layout>
-        <div className="wrapper detail-page">
+
+        {isloading ?  ( <>Loading.......</> ) : (  
+          
+          <div className="wrapper detail-page">
   <div className="search-menu">
     <div className="search-bar">
       <input type="text" className="search-box" autofocus="" />
@@ -273,7 +310,7 @@ const Jobdetail = () => {
           </div>
           <div className="job-explain-content">
             <div className="job-title-wrapper">
-              <div className="job-card-title">UI / UX Designer</div>
+              <div className="job-card-title">    { myresponsed?.jobcard?.jobtitle }</div>
               <div className="job-action">
                 <svg
                   className="heart"
@@ -319,7 +356,7 @@ const Jobdetail = () => {
             </div>
             <div className="job-subtitle-wrapper">
               <div className="company-name">
-                Patreon <span className="comp-location">Londontowne, MD.</span>
+                Patreon <span className="comp-location">  { myresponsed?.jobcard?.joblocation }.</span>
               </div>
               <div className="posted">
                 Posted 8 days ago
@@ -329,15 +366,15 @@ const Jobdetail = () => {
             <div className="explain-bar">
               <div className="explain-contents">
                 <div className="explain-title">Experience</div>
-                <div className="explain-subtitle">Minimum 1 Year</div>
+                <div className="explain-subtitle">Minimum {myresponsed?.jobcard?.jobminimumexperience} Year</div>
               </div>
               <div className="explain-contents">
                 <div className="explain-title">Work Level</div>
-                <div className="explain-subtitle">Senior level</div>
+                <div className="explain-subtitle">{myresponsed?.jobcard?.workinglevel}</div>
               </div>
               <div className="explain-contents">
                 <div className="explain-title">Employee Type</div>
-                <div className="explain-subtitle">Full Time Jobs</div>
+                <div className="explain-subtitle">Full Time {myresponsed?.jobcard?.jobemploymenttype}  Job</div>
               </div>
               <div className="explain-contents">
                 <div className="explain-title">Offer Salary</div>
@@ -347,18 +384,10 @@ const Jobdetail = () => {
             <div className="overview-text">
               <div className="overview-text-header">Overview</div>
               <div className="overview-text-subheader">
-                We believe that design (and you) will be critical to the
-                company's success. You will work with our founders and our early
-                customers to help define and build our product functionality,
-                while maintaining the quality bar that customers have come to
-                expect from modern SaaS applications. You have a strong
-                background in product design with a quantitavely anf
-                qualitatively analytical mindset. You will also have the
-                opportunity to craft our overall product and visual identity and
-                should be comfortable to flex into working.
+                { myresponsed?.jobcard?.jobdescription }
               </div>
             </div>
-            <div className="overview-text">
+            {/* <div className="overview-text">
               <div className="overview-text-header">Job Description</div>
               <div className="overview-text-item">
                 3+ years working as a product designer.
@@ -381,13 +410,15 @@ const Jobdetail = () => {
                 Up-level our overall design and bring consistency to end-user
                 facing properties
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</div>)  }
+
+ 
 </Layout>
     </div>
   )

@@ -1113,8 +1113,11 @@ height: 100%;
   background-color: var(--header-bg-color);
   margin-left: 30px;
   border-radius: 0 0 8px 8px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
   height: fit-content;
   box-shadow: 0 3px 3px 0 rgb(0 0 0 / 5%), 0 5px 15px 0 rgb(0 0 0 / 5%);
+  width: 100%;
 }
 
 .job-bg {

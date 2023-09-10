@@ -4,9 +4,47 @@ import {  isLoggedIn , getUser, logout } from '../../service/auth';
 import {navigate} from "gatsby";
 
 const Header = () => {
+  
     const [navclicked, setnavclicked] = useState(false)
     const[darkMode, setDarkMode]= useState('')
-     useEffect(() => {
+     
+
+    const [isFullScreen, setIsFullScreen] = useState(false);
+
+
+
+  
+    const toggleFullScreen = () => {
+      if (!isFullScreen) {
+        // Enter full-screen mode
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+          document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) {
+          document.documentElement.msRequestFullscreen();
+        }
+      } else {
+        // Exit full-screen mode
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+  
+      // Toggle the full-screen state
+      setIsFullScreen(!isFullScreen);
+    };
+    
+    
+    useEffect(() => {
       // Check if a "darkMode" key exists in local storage and use its value,
       // otherwise, use the default value (false for light mode).
       const storedDarkMode = localStorage.getItem('darkMode');
@@ -62,6 +100,11 @@ const Header = () => {
     <Link to='/app/profile' activeClassName="active"><span class="material-symbols-outlined">
     account_box
     </span> Profile</Link>
+    <Link  >
+    <span class="material-symbols-outlined" onClick={toggleFullScreen}>
+expand_content
+</span>
+    </Link>
     </div>
     <div className="user-settings">
       <div className="dark-light" onClick={toggleDarkMode}>

@@ -242,9 +242,9 @@ return () => clearInterval(intervalId);
             <button className="search-buttons detail-button">
             {activityData.workinglevel}
             </button>
-          </div>
+          </div> 
           <div className="job-card-buttons">
-            <Link to='' className="search-buttons card-buttons">Apply Now</Link>
+            <Link to={`/Jobdetail/?jobid=${activityData.id}`} className="search-buttons card-buttons">Apply Now</Link>
             <Link to="" className="search-buttons card-buttons-msg">
               Messages
             </Link>
