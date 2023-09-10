@@ -22,7 +22,7 @@ const Messaging = () => {
   const [Usersname, setUsersname] = useState();
   const [sendingmessage, setSendingmessage] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-
+  const [selectedimageurl, setselectedimageurl] = useState(null)
 
   useEffect(() => {
     // Get the loanReference query parameter from the URL
@@ -95,6 +95,11 @@ const Messaging = () => {
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
     setSelectedImage(selectedImage);
+    if (selectedImage) {
+      // Create a URL for the selected image and set it in state
+      const imageUrl = URL.createObjectURL(selectedImage);
+      setselectedimageurl(imageUrl);
+    }
   };
   
 
@@ -167,9 +172,10 @@ const Messaging = () => {
         text: inputText,
         time: new Date().toLocaleTimeString(),
         status: "sending",
-        imageURL: selectedImage, // Set the imageURL with the selected image
+        imageURL: selectedimageurl, // Set the imageURL with the selected image
       };
 
+      setMessages([...messages, newMessage]);
       // Check if an image is selected
       if (selectedImage) {
         // Create a FormData object to send text and image
