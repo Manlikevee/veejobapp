@@ -7,10 +7,12 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [messagedata, setmessageData] = useState([]);
+  const [newmessagedata, setnewmessagedata] = useState([]);
   
   useEffect(() => {
     setActivityDataList(responseData.jobserialized);
     setmessageData(responseData.usecase)
+    setnewmessagedata(responseData.allmessages)
     setLoading(false);
   });
 
@@ -211,7 +213,7 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
             <div className="jmini">Discover Opportunities..</div>
           </div>
           <div className="messagingflow">
-          <>
+          {/* <>
           {messagedata.length > 0 ? (
                   messagedata.map((md, index) => (
          
@@ -228,6 +230,30 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
                   </div>
                 <div className="jmini">
                   victor odah ebube dbd d Lorem ipsum dolor sit.
+                </div>
+              </div>
+            </Link>   ))
+           ) : '' }
+</> */}
+
+<>
+{newmessagedata.length > 0 ? (
+                  newmessagedata.map((md, index) => (
+         
+          <Link to={`/app/Messaging/?messageid=${md.messageid.messageid}`} className="dbmessagingbox">
+              <div className="messagingboxicon">
+                <img
+                  src="https://i.pinimg.com/564x/f8/25/2a/f8252af763f0bb3b53a0cb8477f80711.jpg"
+                  alt=""
+                />
+              </div>
+              <div className="dbmessagingtext">
+                <div className="job-card-title">
+                  {md.messageid.sender.username == Usersname ? (md.messageid.reciever.username) : (md.messageid.sender.username) }
+                  </div>
+                <div className="jmini">
+                  {md.testj.length > 0 ? md.testj[md.testj.length - 1].message : ('Send a message now') }
+               
                 </div>
               </div>
             </Link>   ))

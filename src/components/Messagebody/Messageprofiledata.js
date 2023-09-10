@@ -3,7 +3,7 @@ import React from 'react'
 const Messageprofiledata = ({responsedata, Usersname}) => {
   return (
    <>
-    <div className="tpadm">
+    <div className="tpadm profiledata">
       <div className="profiendedit">
         <div className="profilepho">
           <img
@@ -19,7 +19,7 @@ const Messageprofiledata = ({responsedata, Usersname}) => {
         <div className="phon">0701373576</div>
       </div>
     </div>
-    <div className="btadm">
+    <div className="btadm profiledatabtn">
       CV
       <div className="btnrl">
         <button

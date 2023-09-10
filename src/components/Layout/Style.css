@@ -4007,6 +4007,10 @@ padding: 0px;
 flex-direction: column;
 align-items: flex-start;
 }
+
+ .profiledatabtn, .profiledata .rolee, .profiledata .state, .profiledata .phon, .profiledata .emai {
+  display: none;
+}
 .popup-content {
   position: relative;
   background-color: #fff;
