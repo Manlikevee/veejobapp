@@ -72,7 +72,7 @@ const Messaging = () => {
       fetchData();
   
       // Fetch data every 10 seconds
-      const intervalId = setInterval(fetchData, 30000);
+      const intervalId = setInterval(fetchData, 5000);
   
       // Cleanup the interval when the component unmounts
       return () => clearInterval(intervalId);
@@ -171,7 +171,7 @@ const Messaging = () => {
                    {responsedata.messageserialized.testj.length > 0 ? (
                   responsedata.messageserialized.testj.map((activityData, index) => (
    
-                    <div className={`messages ${activityData.sender === Usersname ? 'sent' : activityData.reciever === Usersname ? 'sent' : 'received'}`}>
+                    <div className={`messages ${activityData.sender === Usersname ? 'sent' : activityData.reciever === Usersname ? 'received' : 'received'}`}>
                    {activityData.message}
                        <span className="metadata">
                    
