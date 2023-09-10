@@ -3371,6 +3371,12 @@ align-items: flex-end;
   text-align: center;
   position: relative;
   width: 48px;
+  font-size: 35px;
+  color: black;
+}
+
+#fileInput {
+  display: none;
 }
 
 .conversation-compose .photo:after {

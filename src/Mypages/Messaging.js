@@ -21,6 +21,7 @@ const Messaging = () => {
   const [messages, setMessages] = useState([]);
   const [Usersname, setUsersname] = useState();
   const [sendingmessage, setSendingmessage] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
 
   useEffect(() => {
@@ -90,58 +91,127 @@ const Messaging = () => {
 
 
 
+
+  const handleImageChange = (e) => {
+    const selectedImage = e.target.files[0];
+    setSelectedImage(selectedImage);
+  };
+  
+
   const handleInputChange = (e) => {
     setInputText(e.target.value);
   };
 
+
+
+  // const handleSendMessage = async () => {
+  //   if (inputText.trim() === "") {
+  //     toast.error('message cannot be blank')
+  //     return; // Don't send empty messages
+  //   }
+  //   // Create a new message object with the current time
+  //   setSendingmessage(true)
+  //   const newMessage = {
+    
+  //     text: inputText,
+  //     time: new Date().toLocaleTimeString(),
+  //     status: "sending", // You can set a sending status
+  //   };
+  
+  //   // Add the new message to the list of messages
+  //   setMessages([...messages, newMessage]);
+  //   try {
+   
+  //     // Make an API request to send the message
+  //     const response = await axiosInstance.post(`/messageportal/${myresponsed}/`, {
+  //       keyword: inputText,
+  //     });
+  
+  //     const updatedMessages = messages.filter(
+  //       (message) => message.text !== inputText
+  //     );
+  //     setMessages(updatedMessages);
+  
+  //     // Clear the input field
+  //     setInputText("");
+
+  //     // Handle the successful response, if needed
+  //     console.log("Message sent:", response.data);
+  //     toast.success('send successfully')
+  //     setresponsedata(response.data);
+  //     setSendingmessage(false)
+  //     // Clear the input field
+
+  
+  //     // Update the state or take any other action
+  //     // For example, you can set a status to "Sending" or update the UI
+  //   } catch (error) {
+  //     // Handle the error (e.g., show an error message)
+  //     setSendingmessage(false)
+  //     console.error("Message sending failed:", error);
+  //   }
+  // };
+  
+
   const handleSendMessage = async () => {
-    if (inputText.trim() === "") {
-      toast.error('message cannot be blank')
+    if (inputText.trim() === "" && !selectedImage) {
+      toast.error('Message cannot be blank');
       return; // Don't send empty messages
     }
-    // Create a new message object with the current time
-    setSendingmessage(true)
-    const newMessage = {
-    
-      text: inputText,
-      time: new Date().toLocaleTimeString(),
-      status: "sending", // You can set a sending status
-    };
-  
-    // Add the new message to the list of messages
-    setMessages([...messages, newMessage]);
+
     try {
-   
-      // Make an API request to send the message
-      const response = await axiosInstance.post(`/messageportal/${myresponsed}/`, {
-        keyword: inputText,
-      });
-  
-      const updatedMessages = messages.filter(
+      setSendingmessage(true);
+
+      // Create a new message object with the current time
+      const newMessage = {
+        text: inputText,
+        time: new Date().toLocaleTimeString(),
+        status: "sending",
+        imageURL: selectedImage, // Set the imageURL with the selected image
+      };
+
+      // Check if an image is selected
+      if (selectedImage) {
+        // Create a FormData object to send text and image
+        const formData = new FormData();
+        formData.append('myimg', selectedImage);
+        formData.append('keyword', inputText);
+
+        // Make an API request to send both text and image
+        const response = await axiosInstance.post(`/messageportal/${myresponsed}/`, formData);
+
+        // Handle the successful response, if needed
+        console.log("Message sent:", response.data);
+        toast.success('Sent successfully');
+        setresponsedata(response.data);
+      } else {
+        // No image selected, send only the text
+        const response = await axiosInstance.post(`/messageportal/${myresponsed}/`, {
+          keyword: inputText,
+        });
+
+        // Handle the successful response, if needed
+        console.log("Message sent:", response.data);
+        toast.success('Sent successfully');
+        setresponsedata(response.data);
+      }
+
+      // Add the new message to the list of messages
+        const updatedMessages = messages.filter(
         (message) => message.text !== inputText
       );
       setMessages(updatedMessages);
-  
-      // Clear the input field
+
+      // Clear the input field and image
       setInputText("");
-
-      // Handle the successful response, if needed
-      console.log("Message sent:", response.data);
-      toast.success('send successfully')
-      setresponsedata(response.data);
-      setSendingmessage(false)
-      // Clear the input field
-
-  
-      // Update the state or take any other action
-      // For example, you can set a status to "Sending" or update the UI
+      setSelectedImage(null);
+      setSendingmessage(false);
     } catch (error) {
       // Handle the error (e.g., show an error message)
-      setSendingmessage(false)
+      setSendingmessage(false);
       console.error("Message sending failed:", error);
     }
   };
-  
 
   
 
@@ -172,6 +242,8 @@ const Messaging = () => {
                   responsedata.messageserialized.testj.map((activityData, index) => (
    
                     <div className={`messages ${activityData.sender === Usersname ? 'sent' : activityData.reciever === Usersname ? 'received' : 'received'}`}>
+                  
+                  {activityData.image ? (<img src={activityData.imageurl.image} alt="image" />) : ''}
                    {activityData.message}
                        <span className="metadata">
                    
@@ -190,6 +262,7 @@ const Messaging = () => {
                 <>
       
         <div className="messages sent opc" key={index}>
+          {message.imageURL ? (<img src={message.imageURL} alt='dbdbd' />): ''}
         {message.text}
         <span className="metadata">
     
@@ -227,8 +300,12 @@ const Messaging = () => {
               onChange={handleInputChange}
             />
             <div className="photo">
-          
-
+            <label for="fileInput" class="camera-button">
+                    <input type="file" id="fileInput" accept="image/*" onChange={handleImageChange}/>
+            <span class="material-symbols-outlined zmdi zmdi-camera">
+           photo_camera
+            </span>
+</label>
             </div>
             <span id="speak" />
 {!sendingmessage ? (      <span className="send" onClick={handleSendMessage}>
