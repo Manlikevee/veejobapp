@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Layout from '../components/Layout/Layout'
 import { toast } from 'react-toastify';
 import axiosInstance from '../service/axiosinterceptor'
+import { Link } from "gatsby";
 const Jobs = () => {
   const [isloading, setisloading] = useState(true);
   const [responseData, setResponseData] = useState('');
@@ -243,10 +244,10 @@ return () => clearInterval(intervalId);
             </button>
           </div>
           <div className="job-card-buttons">
-            <button className="search-buttons card-buttons">Apply Now</button>
-            <button className="search-buttons card-buttons-msg">
+            <Link to='' className="search-buttons card-buttons">Apply Now</Link>
+            <Link to="" className="search-buttons card-buttons-msg">
               Messages
-            </button>
+            </Link>
           </div>
         </div>                 ))
            ) : '' }

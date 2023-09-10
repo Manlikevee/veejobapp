@@ -161,7 +161,7 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
           </div>
 
           <>
-                {activityDataList.length > 0 ? (
+                {activityDataList?.length > 0 ? (
                   activityDataList.map((activityData, index) => (
           <div className="dbjobscard">
             <div className="cardcolumntop">
@@ -237,7 +237,7 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
 </> */}
 
 <>
-{newmessagedata.length > 0 ? (
+{newmessagedata?.length > 0 ? (
                   newmessagedata.map((md, index) => (
          
           <Link to={`/app/Messaging/?messageid=${md.messageid.messageid}`} className="dbmessagingbox">
