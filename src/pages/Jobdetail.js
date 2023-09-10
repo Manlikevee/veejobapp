@@ -310,7 +310,7 @@ const Jobdetail = () => {
           </div>
           <div className="job-explain-content">
             <div className="job-title-wrapper">
-              <div className="job-card-title">    { myresponsed?.jobcard?.jobtitle }</div>
+              <div className="job-card-title">    { responsedata?.jobcard?.jobtitle }</div>
               <div className="job-action">
                 <svg
                   className="heart"
@@ -356,7 +356,7 @@ const Jobdetail = () => {
             </div>
             <div className="job-subtitle-wrapper">
               <div className="company-name">
-                Patreon <span className="comp-location">  { myresponsed?.jobcard?.joblocation }.</span>
+                Patreon <span className="comp-location">  { responsedata?.jobcard?.joblocation }.</span>
               </div>
               <div className="posted">
                 Posted 8 days ago
@@ -366,15 +366,15 @@ const Jobdetail = () => {
             <div className="explain-bar">
               <div className="explain-contents">
                 <div className="explain-title">Experience</div>
-                <div className="explain-subtitle">Minimum {myresponsed?.jobcard?.jobminimumexperience} Year</div>
+                <div className="explain-subtitle">Minimum {responsedata?.jobcard?.jobminimumexperience} Year</div>
               </div>
               <div className="explain-contents">
                 <div className="explain-title">Work Level</div>
-                <div className="explain-subtitle">{myresponsed?.jobcard?.workinglevel}</div>
+                <div className="explain-subtitle">{responsedata?.jobcard?.workinglevel}</div>
               </div>
               <div className="explain-contents">
                 <div className="explain-title">Employee Type</div>
-                <div className="explain-subtitle">Full Time {myresponsed?.jobcard?.jobemploymenttype}  Job</div>
+                <div className="explain-subtitle">Full Time {responsedata?.jobcard?.jobemploymenttype}  Job</div>
               </div>
               <div className="explain-contents">
                 <div className="explain-title">Offer Salary</div>
@@ -384,7 +384,7 @@ const Jobdetail = () => {
             <div className="overview-text">
               <div className="overview-text-header">Overview</div>
               <div className="overview-text-subheader">
-                { myresponsed?.jobcard?.jobdescription }
+                { responsedata?.jobcard?.jobdescription }
               </div>
             </div>
             {/* <div className="overview-text">
