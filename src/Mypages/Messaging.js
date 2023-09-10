@@ -23,6 +23,8 @@ const Messaging = () => {
   const [sendingmessage, setSendingmessage] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedimageurl, setselectedimageurl] = useState(null)
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupImage, setPopupImage] = useState(null);
 
   useEffect(() => {
     // Get the loanReference query parameter from the URL
@@ -219,7 +221,17 @@ const Messaging = () => {
     }
   };
 
-  
+  const openPopup = (imageSrc) => {
+    setPopupImage(imageSrc);
+    setShowPopup(true);
+  };
+
+  // Function to close the popup
+  const closePopup = () => {
+    setPopupImage(null);
+    setShowPopup(false);
+  };
+
 
   return (
     
@@ -227,6 +239,18 @@ const Messaging = () => {
         <br/>
         {isloading ? ( <>Loading.......</> ) : ( 
 
+<>
+
+{showPopup && (
+        <div className="imagepopup-overlay">
+          <div className="popup-content">
+            <span className="close-buttons" onClick={closePopup}>
+              &times;
+            </span>
+            <img src={popupImage} alt="Popup Image" />
+          </div>
+        </div>
+      )}
 
 <div className="shareintotwo">
 <div className="share1">
@@ -249,7 +273,7 @@ const Messaging = () => {
    
                     <div className={`messages ${activityData.sender === Usersname ? 'sent' : activityData.reciever === Usersname ? 'received' : 'received'}`}>
                   
-                  {activityData.image ? (<img src={activityData.imageurl.image} alt="image" />) : ''}
+                  {activityData.image ? (<img src={activityData.imageurl.image} alt="image" onClick={() => openPopup(activityData.imageurl.image)} />) : ''}
                    {activityData.message}
                        <span className="metadata">
                    
@@ -268,7 +292,7 @@ const Messaging = () => {
                 <>
       
         <div className="messages sent opc" key={index}>
-          {message.imageURL ? (<img src={message.imageURL} alt='dbdbd' />): ''}
+          {message.imageURL ? (<img src={message.imageURL} alt='dbdbd' onClick={() => openPopup(message.imageURL)} />): ''}
         {message.text}
         <span className="metadata">
     
@@ -339,7 +363,7 @@ send
 
 
 </div>
-
+</>
         ) }
 
 
