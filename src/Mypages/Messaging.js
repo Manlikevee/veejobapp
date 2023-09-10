@@ -154,7 +154,7 @@ const Messaging = () => {
 
 <div className="shareintotwo">
 <div className="share1">
- <Messageprofiledata/>
+ <Messageprofiledata responsedata={responsedata} Usersname={Usersname} />
 </div>
 
        <Messagebodycontainer>

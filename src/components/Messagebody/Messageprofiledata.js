@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Messageprofiledata = () => {
+const Messageprofiledata = ({responsedata, Usersname}) => {
   return (
    <>
     <div className="tpadm">
@@ -10,10 +10,10 @@ const Messageprofiledata = () => {
             src="https://images.unsplash.com/photo-1664575262619-b28fef7a40a4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=832&q=80"
             alt=""
           />
-        </div>
+        </div> 
         <br />
-        <div className="nam"> VICTOR ODAH</div>
-        <div className="rolee">Admin</div>
+        <div className="nam">  {responsedata?.usersdataserialized?.sender?.username == Usersname ? (responsedata?.usersdataserialized?.reciever.username) : (responsedata?.usersdataserialized?.sender.username)  }</div>
+        <div className="rolee"> Frontend Developer </div>
         <div className="state">Lagos, Nigeria</div>
         <div className="emai">Odahviktor@gmail.com</div>
         <div className="phon">0701373576</div>
