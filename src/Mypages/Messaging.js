@@ -10,7 +10,38 @@ import { getUser } from "../service/auth";
 import dayjs from 'dayjs';
 import MySpinner from "../components/Messagebody/MySpinner"
 import Linkify from 'react-linkify';
+import {
+  differenceInMinutes,
+  differenceInHours,
+  differenceInDays,
+  differenceInMonths,
+  differenceInYears,
+} from 'date-fns';
 
+function getTimeAgo(dateString) {
+  const currentDate = new Date();
+  const date = new Date(dateString);
+
+  const minutesDiff = differenceInMinutes(currentDate, date);
+  const hoursDiff = differenceInHours(currentDate, date);
+  const daysDiff = differenceInDays(currentDate, date);
+  const monthsDiff = differenceInMonths(currentDate, date);
+  const yearsDiff = differenceInYears(currentDate, date);
+
+  if (minutesDiff < 1) {
+    return 'just now';
+  } else if (minutesDiff < 60) {
+    return `${minutesDiff} minute${minutesDiff !== 1 ? 's' : ''} ago`;
+  } else if (hoursDiff < 24) {
+    return `${hoursDiff} hour${hoursDiff !== 1 ? 's' : ''} ago`;
+  } else if (daysDiff < 30) {
+    return `${daysDiff} day${daysDiff !== 1 ? 's' : ''} ago`;
+  } else if (monthsDiff < 12) {
+    return `${monthsDiff} month${monthsDiff !== 1 ? 's' : ''} ago`;
+  } else {
+    return `${yearsDiff} year${yearsDiff !== 1 ? 's' : ''} ago`;
+  }
+}
 
 
 const Messaging = () => {
@@ -277,7 +308,10 @@ const Messaging = () => {
                      <Linkify> {activityData.message} </Linkify>
                        <span className="metadata">
                    
-                         <span className="time">11:38 pm</span>
+                         <span className="time">
+                         {getTimeAgo(activityData.messagetime)} 
+                         
+                         </span>
                          <Tick/>
                        </span>
                      </div>

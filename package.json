@@ -17,6 +17,7 @@
   "dependencies": {
     "accounting": "^0.4.1",
     "axios": "^0.21.4",
+    "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
     "gatsby": "^5.12.3",
     "jwt-decode": "^3.1.2",
