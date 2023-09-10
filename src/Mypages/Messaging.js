@@ -9,7 +9,7 @@ import axiosInstance from '../service/axiosinterceptor'
 import { getUser } from "../service/auth";
 import dayjs from 'dayjs';
 import MySpinner from "../components/Messagebody/MySpinner"
-
+import Linkify from 'react-linkify';
 
 
 
@@ -274,7 +274,7 @@ const Messaging = () => {
                     <div className={`messages ${activityData.sender === Usersname ? 'sent' : activityData.reciever === Usersname ? 'received' : 'received'}`}>
                   
                   {activityData.image ? (<img src={activityData.imageurl.image} alt="image" onClick={() => openPopup(activityData.imageurl.image)} />) : ''}
-                   {activityData.message}
+                     <Linkify> {activityData.message} </Linkify>
                        <span className="metadata">
                    
                          <span className="time">11:38 pm</span>
@@ -293,7 +293,9 @@ const Messaging = () => {
       
         <div className="messages sent opc" key={index}>
           {message.imageURL ? (<img src={message.imageURL} alt='dbdbd' onClick={() => openPopup(message.imageURL)} />): ''}
-        {message.text}
+        
+
+        <Linkify>{message.text}</Linkify>
         <span className="metadata">
     
           <span className="time">{message.time} pm</span>
