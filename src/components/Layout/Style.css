@@ -3207,10 +3207,12 @@ text-align: left;
 }
 
 .messagingflexbox .messagingbox{
-  width: 25%;
+  width: 22%;
 }
 .messagingflexbox .messagingflow{
-  max-height: 80vh;
+  max-height: 55vh;
+  gap: 10px;
+  overflow-x: hidden;
 }
 .conversation ::-webkit-scrollbar-thumb {
   background: #b3ada7;

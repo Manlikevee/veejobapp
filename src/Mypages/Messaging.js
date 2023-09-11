@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import axiosInstance from '../service/axiosinterceptor'
 import ScrollableFeed from 'react-scrollable-feed';
 import { getUser } from "../service/auth";
+import {Link} from "gatsby"
 import dayjs from 'dayjs';
 import MySpinner from "../components/Messagebody/MySpinner"
 import Linkify from 'react-linkify';
@@ -57,6 +58,8 @@ const Messaging = () => {
   const [selectedimageurl, setselectedimageurl] = useState(null)
   const [showPopup, setShowPopup] = useState(false);
   const [popupImage, setPopupImage] = useState(null);
+  const [newmessagedata, setnewmessagedata] = useState([]);
+
 
   useEffect(() => {
     // Get the loanReference query parameter from the URL
@@ -70,7 +73,8 @@ const Messaging = () => {
         console.log(response.data);
         toast.success('fetched data')
         setresponsedata(response.data);
-        setUsersname(getUser().username)
+        setnewmessagedata(response.data.allmessages);
+        setUsersname(getUser().username);
         setisloading(false);
       })
       .catch(error => {
@@ -94,6 +98,7 @@ const Messaging = () => {
         // Handle the response as needed
 
         setresponsedata(response.data);
+        setnewmessagedata(response.data.allmessages);
         console.log(response.data);
       } catch (error) {
         // Fail silently without showing errors
@@ -224,6 +229,7 @@ const Messaging = () => {
         console.log("Message sent:", response.data);
         toast.success('Sent successfully');
         setresponsedata(response.data);
+        setnewmessagedata(response.data.allmessages);
       } else {
         // No image selected, send only the text
         const response = await axiosInstance.post(`/messageportal/${myresponsed}/`, {
@@ -234,6 +240,7 @@ const Messaging = () => {
         console.log("Message sent:", response.data);
         toast.success('Sent successfully');
         setresponsedata(response.data);
+        setnewmessagedata(response.data.allmessages);
       }
 
       // Add the new message to the list of messages
@@ -301,6 +308,32 @@ const Messaging = () => {
             </div>
           <div className="messagingflow">
         
+
+          <>
+{newmessagedata?.length > 0 ? (
+                  newmessagedata.map((md, index) => (
+         
+          <Link to={`/app/Messaging/?messageid=${md.messageid.messageid}`} className="dbmessagingbox">
+              <div className="messagingboxicon">
+                <img
+                  src="https://i.pinimg.com/564x/f8/25/2a/f8252af763f0bb3b53a0cb8477f80711.jpg"
+                  alt=""
+                />
+              </div>
+              <div className="dbmessagingtext">
+                <div className="job-card-title">
+                  {md.messageid.sender.username == Usersname ? (md.messageid.reciever.username) : (md.messageid.sender.username) }
+                  </div>
+                <div className="jmini">
+                  {md.testj.length > 0 ? md.testj[md.testj.length - 1].message : ('Send a message now') }
+               
+                </div>
+              </div>
+            </Link>   ))
+           ) : '' }
+</>
+
+
             <div className="dbmessagingbox">
               <div className="messagingboxicon">
                 <img
