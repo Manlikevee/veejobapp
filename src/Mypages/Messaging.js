@@ -45,6 +45,49 @@ function getTimeAgo(dateString) {
   }
 }
 
+function whatsappActive(dateString) {
+  const currentDate = new Date();
+  const date = new Date(dateString);
+
+  const minutesDiff = differenceInMinutes(currentDate, date);
+
+  if (minutesDiff < 1) {
+    // User is active (less than 1 minute ago)
+    return (
+      <span>
+        <span className="green-dot"></span> Active
+      </span>
+    );
+  } else if (minutesDiff < 60) {
+    return `Last Seen ${minutesDiff} minute${minutesDiff !== 1 ? 's' : ''} ago`;
+  } else {
+    const hoursDiff = differenceInHours(currentDate, date);
+
+    if (hoursDiff < 24) {
+      return `Last Seen ${hoursDiff} hour${hoursDiff !== 1 ? 's' : ''} ago`;
+    } else {
+      const daysDiff = differenceInDays(currentDate, date);
+
+      if (daysDiff < 7) {
+        return `Last Seen ${daysDiff} day${daysDiff !== 1 ? 's' : ''} ago`;
+      } else if (daysDiff < 30) {
+        const weeksDiff = Math.floor(daysDiff / 7);
+        return `Last Seen ${weeksDiff} week${weeksDiff !== 1 ? 's' : ''} ago`;
+      } else {
+        const monthsDiff = differenceInMonths(currentDate, date);
+
+        if (monthsDiff < 12) {
+          return `Last Seen ${monthsDiff} month${monthsDiff !== 1 ? 's' : ''} ago`;
+        } else {
+          const yearsDiff = differenceInYears(currentDate, date);
+          return `Last Seen ${yearsDiff} year${yearsDiff !== 1 ? 's' : ''} ago`;
+        }
+      }
+    }
+  }
+}
+
+
 
 const Messaging = () => {
   const [isloading, setisloading] = useState(true);
@@ -393,12 +436,23 @@ const Messaging = () => {
                   alt=""
                 />) }
   </div>
-  <div className="name">
-    <span>{responsedata?.usersdataserialized?.sender?.username == Usersname ? (responsedata?.usersdataserialized?.reciever.username) : (responsedata?.usersdataserialized?.sender.username)  }</span>
+  {responsedata?.usersdataserialized?.sender?.username == Usersname ?
+
+   (  
+    <div className="name">
+    <span> {responsedata?.usersdataserialized?.reciever.username} </span>
+    <span className="status">    {whatsappActive(responsedata?.usersdataserialized?.receiver_profile.last_seen)}   </span>
+    </div>
+    ) : ( 
+      <div className="name">
+      <span> {responsedata?.usersdataserialized?.sender.username} </span>
+      <span className="status">    {whatsappActive(responsedata?.usersdataserialized?.sender_profile.last_seen)}   </span>
+      </div>
+    
+    )  }
 
 
 
-  </div>
   <div className="actions more">
     <i className="zmdi zmdi-more-vert" />
   </div>

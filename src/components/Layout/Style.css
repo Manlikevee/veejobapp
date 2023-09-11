@@ -3177,7 +3177,8 @@ text-align: left;
 .user-bar .status {
   display: block;
   font-size: 13px;
-  font-weight: 400;
+  color: #737373;
+  font-weight: 300;
   letter-spacing: 0;
   width:auto;
 }
