@@ -43,7 +43,9 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
           <div className="dbsubtext">Role Match</div>
         </div>
       </div>
-      <div className="dashboarddatacard bookmark">
+      
+      
+      <Link  to='/app/Saves' className="dashboarddatacard bookmark">
         <div className="dbicons mysave">
           <span className="material-symbols-outlined">bookmarks</span>
         </div>
@@ -51,7 +53,9 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
           <div className="dbtitle">30</div>
           <div className="dbsubtext">Saved application</div>
         </div>
-      </div>
+      </Link>
+   
+   
     </div>
     <br />
     <br />

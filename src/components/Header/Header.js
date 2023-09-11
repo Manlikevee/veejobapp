@@ -89,11 +89,18 @@ const Header = () => {
     space_dashboard
     </span>
      Dashboard
+
+
+
+
       </Link>
       <Link to='/app/Alljobs' activeClassName="active">
         <span class="material-symbols-outlined">
     work_update
-    </span>All Jobs </Link>
+    </span>All Jobs 
+    
+    
+    </Link>
       <Link to='/Jobdetail/' activeClassName="active"><span class="material-symbols-outlined">
     work_history
     </span> Applications</Link>
