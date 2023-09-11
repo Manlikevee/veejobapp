@@ -242,10 +242,19 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
          
           <Link to={`/app/Messaging/?messageid=${md.messageid.messageid}`} className="dbmessagingbox">
               <div className="messagingboxicon">
-                <img
-                  src="https://i.pinimg.com/564x/f8/25/2a/f8252af763f0bb3b53a0cb8477f80711.jpg"
+              {md.messageid.sender.username == Usersname ? (
+                <>                <img
+                src={md.messageid.receiver_profile.avatar}
+                alt=""
+              />
+             
+                </>
+                ) : ( <img
+                  src={md.messageid.sender_profile.avatar}
                   alt=""
-                />
+                />) }
+             
+           
               </div>
               <div className="dbmessagingtext">
                 <div className="job-card-title">

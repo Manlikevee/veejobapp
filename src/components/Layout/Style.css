@@ -3354,6 +3354,7 @@ align-items: flex-end;
   height: 60px;
   width: 100%;
   z-index: 2;
+  margin-bottom: 7px;
 }
 
 .conversation-compose div,

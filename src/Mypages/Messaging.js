@@ -70,7 +70,7 @@ const Messaging = () => {
     if (myres) {
     axiosInstance.get(`/messageportal/${myres}/`)
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         toast.success('fetched data')
         setresponsedata(response.data);
         setnewmessagedata(response.data.allmessages);
@@ -99,7 +99,7 @@ const Messaging = () => {
 
         setresponsedata(response.data);
         setnewmessagedata(response.data.allmessages);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         // Fail silently without showing errors
         console.error('Fetch error (silently ignored)', error);
@@ -226,7 +226,7 @@ const Messaging = () => {
         const response = await axiosInstance.post(`/messageportal/${myresponsed}/`, formData);
 
         // Handle the successful response, if needed
-        console.log("Message sent:", response.data);
+        // console.log("Message sent:", response.data);
         toast.success('Sent successfully');
         setresponsedata(response.data);
         setnewmessagedata(response.data.allmessages);
@@ -237,7 +237,7 @@ const Messaging = () => {
         });
 
         // Handle the successful response, if needed
-        console.log("Message sent:", response.data);
+        // console.log("Message sent:", response.data);
         toast.success('Sent successfully');
         setresponsedata(response.data);
         setnewmessagedata(response.data.allmessages);
@@ -315,10 +315,17 @@ const Messaging = () => {
          
           <Link to={`/app/Messaging/?messageid=${md.messageid.messageid}`} className="dbmessagingbox">
               <div className="messagingboxicon">
-                <img
-                  src="https://i.pinimg.com/564x/f8/25/2a/f8252af763f0bb3b53a0cb8477f80711.jpg"
+              {md.messageid.sender.username == Usersname ? (
+                <>                <img
+                src={md.messageid.receiver_profile.avatar}
+                alt=""
+              />
+             
+                </>
+                ) : ( <img
+                  src={md.messageid.sender_profile.avatar}
                   alt=""
-                />
+                />) }
               </div>
               <div className="dbmessagingtext">
                 <div className="job-card-title">
@@ -372,10 +379,24 @@ const Messaging = () => {
     <i className="zmdi zmdi-arrow-left" />
   </div>
   <div className="avatar">
-    <img src="https://i.ibb.co/2Yg7tWv/Rumbiiha-Swaibu.jpg" alt="Avatar" />
+    {/* <img src="https://i.ibb.co/2Yg7tWv/Rumbiiha-Swaibu.jpg" alt="Avatar" /> */}
+    
+    {responsedata?.usersdataserialized?.sender?.username == Usersname ? (
+                <>                <img
+                src={responsedata?.usersdataserialized?.receiver_profile.avatar}
+                alt=""
+              />
+             
+                </>
+                ) : ( <img
+                  src={responsedata?.usersdataserialized?.sender_profile.avatar}
+                  alt=""
+                />) }
   </div>
   <div className="name">
     <span>{responsedata?.usersdataserialized?.sender?.username == Usersname ? (responsedata?.usersdataserialized?.reciever.username) : (responsedata?.usersdataserialized?.sender.username)  }</span>
+
+
 
   </div>
   <div className="actions more">
