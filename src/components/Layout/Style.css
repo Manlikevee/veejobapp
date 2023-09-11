@@ -3110,10 +3110,10 @@ text-align: left;
 }
 
 .user-bar {
-  height: 55px;
-  background: #d1d7db;
-  color: #fff;
-  padding: 0 8px;
+  height: 48px;
+  background-color: var(--header-bg-color);
+  color: var(--subtitle-color);
+  padding: 9px 8px;
   font-size: 24px;
   position: relative;
   z-index: 1;
@@ -3163,14 +3163,15 @@ text-align: left;
 }
 
 .user-bar .name {
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 500;
   text-overflow: ellipsis;
   letter-spacing: 0.3px;
   margin: 0 0 0 8px;
   overflow: hidden;
   white-space: nowrap;
   width: auto;
+  line-height: 1.5;
 }
 
 .user-bar .status {
@@ -3200,6 +3201,17 @@ text-align: left;
   background: transparent;
 }
 
+.messagingflexbox{
+  display: flex;
+  gap: 17px;
+}
+
+.messagingflexbox .messagingbox{
+  width: 25%;
+}
+.messagingflexbox .messagingflow{
+  max-height: 80vh;
+}
 .conversation ::-webkit-scrollbar-thumb {
   background: #b3ada7;
 }
@@ -3337,7 +3349,7 @@ transform: perspective(800px) rotateY(-179.9deg);
   flex-direction: row;
 align-items: flex-end;
   overflow: hidden;
-  height: 50px;
+  height: 60px;
   width: 100%;
   z-index: 2;
 }
@@ -3470,7 +3482,7 @@ cursor: pointer;
     max-width: 80%;
     word-wrap: break-word;
 }
-  
+
 }
 
 .toptextdata{
@@ -3832,6 +3844,11 @@ object-fit: contain;
   .veedbflex{
       flex-direction: column;
   }
+
+  .messagingflexbox .messagingbox{
+    display: none;
+  }
+    
   .jobssection{
       display: grid;
       align-items: center;
@@ -4076,3 +4093,83 @@ padding: 27px;
 }
 }
 
+.chatcontain{
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: calc(95vh - 80px);
+  overflow-y: auto;
+  background: var(--theme-bg-color3);
+}
+
+
+.sendings{
+  margin-left: auto;
+  background: #e1ffc7;
+border-radius: 5px 0px 5px 5px;
+color: #000;
+margin-top: 7px;
+}
+
+  
+.sendings .metadata{
+  margin-left: auto;
+  margin-top: -3px;
+  padding: 0 0 0 16px;
+}
+
+.receives .metadata .time {
+  color: var(--subtitle-color);
+}
+.sendings:after {
+border-width: 0px 0 10px 10px;
+border-color: transparent transparent transparent #e1ffc7;
+top: 0;
+right: -10px;
+
+}
+
+.nnnd{
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+.receives{
+border-radius: 0px 5px 5px 5px;
+margin-top: 7px;
+background: var(--header-bg-color);
+color: var(--subtitle-color);
+}
+
+.outboxs{
+ max-width: 45%;
+ padding: 10px;
+width: fit-content;
+line-height: 1.5em;
+font-size: 14px;
+word-wrap: break-word;
+
+}
+@media screen and (max-width: 800px){
+  .outboxs {
+    max-width: 80%;
+    word-wrap: break-word;
+}
+.chatcontain{
+  padding: 5px;
+}
+}
+
+
+.dflex{
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 10px;
+}
+
+.wwq input{
+  background: none;
+}

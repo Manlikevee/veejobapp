@@ -6,6 +6,7 @@ import Messageprofiledata from "../components/Messagebody/Messageprofiledata";
 import Tick from "../components/Messagebody/Tick";
 import { toast } from 'react-toastify';
 import axiosInstance from '../service/axiosinterceptor'
+import ScrollableFeed from 'react-scrollable-feed';
 import { getUser } from "../service/auth";
 import dayjs from 'dayjs';
 import MySpinner from "../components/Messagebody/MySpinner"
@@ -283,26 +284,87 @@ const Messaging = () => {
         </div>
       )}
 
-<div className="shareintotwo">
-<div className="share1">
- <Messageprofiledata responsedata={responsedata} Usersname={Usersname} />
+<div className='messagingflexbox'>
+<div className="messagingbox">
+
+          <div className="msgtitle">
+            <div className="job-card-title dbd">Messages</div>
+            <div className="jmini">Discover Opportunities..</div>
+          </div>
+          <div className="forminput wwq">
+              <input
+                type="email"
+                placeholder="Search for User"
+                name="username"
+                id="id_username"
+              />
+            </div>
+          <div className="messagingflow">
+        
+            <div className="dbmessagingbox">
+              <div className="messagingboxicon">
+                <img
+                  src="https://i.pinimg.com/564x/37/ef/13/37ef13b5f1d38d72b01ff07675b4d8bd.jpg"
+                  alt=""
+                />
+              </div>
+              <div className="dbmessagingtext">
+                <div className="job-card-title">Victor Odah</div>
+                <div className="jmini">
+                  victor odah ebube dbd d Lorem ipsum dolor sit.
+                </div>
+              </div>
+            </div>
+            <div className="dbmessagingbox">
+              <div className="messagingboxicon">
+                <img
+                  src="https://i.pinimg.com/564x/00/29/93/002993ca60ccc2ad63e90d60c019163f.jpg"
+                  alt=""
+                />
+              </div>
+              <div className="dbmessagingtext">
+                <div className="job-card-title">Victoria justice</div>
+                <div className="jmini">
+                  victor odah ebube dbd d Lorem ipsum dolor sit.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    <div className="chatcontain">
+
+    <div className="user-bar">
+  <div className="back">
+    <i className="zmdi zmdi-arrow-left" />
+  </div>
+  <div className="avatar">
+    <img src="https://i.ibb.co/2Yg7tWv/Rumbiiha-Swaibu.jpg" alt="Avatar" />
+  </div>
+  <div className="name">
+    <span>{responsedata?.usersdataserialized?.sender?.username == Usersname ? (responsedata?.usersdataserialized?.reciever.username) : (responsedata?.usersdataserialized?.sender.username)  }</span>
+
+  </div>
+  <div className="actions more">
+    <i className="zmdi zmdi-more-vert" />
+  </div>
+  <div className="actions attachment">
+    <i className="zmdi zmdi-phone" />
+  </div>
+  <div className="actions ">
+    <img src="https://i.ibb.co/LdnbHSG/ic-action-videocall.png" className='nnnd' />
+  </div>
 </div>
 
-       <Messagebodycontainer>
-        <div className="conversation">
-          <div className="conversation-container" id="stb" >
-            <div className="msms" style={{ width: "100%" }}>
-              <div id="ap">
-
-
-           
-
-                {responsedata ? (
+    <ScrollableFeed>
+        <div className='dflex'>
+   
+        {responsedata ? (
                   <>
                    {responsedata.messageserialized.testj.length > 0 ? (
                   responsedata.messageserialized.testj.map((activityData, index) => (
    
-                    <div className={`messages ${activityData.sender === Usersname ? 'sent' : activityData.reciever === Usersname ? 'received' : 'received'}`}>
+                    <div className={`outboxs ${activityData.sender === Usersname ? 'sendings' : activityData.reciever === Usersname ? 'receives' : 'receives'}`}>
                   
                   {activityData.image ? (<img src={activityData.imageurl.image} alt="image" onClick={() => openPopup(activityData.imageurl.image)} />) : ''}
                      <Linkify> {activityData.message} </Linkify>
@@ -325,7 +387,7 @@ const Messaging = () => {
                 {messages.map((message, index) => (
                 <>
       
-        <div className="messages sent opc" key={index}>
+        <div className="outboxs sendings opc" key={index}>
           {message.imageURL ? (<img src={message.imageURL} alt='dbdbd' onClick={() => openPopup(message.imageURL)} />): ''}
         
 
@@ -340,16 +402,15 @@ const Messaging = () => {
       ))}
              
 
-           
-              </div>
-           
-            </div>
 
-      
 
-          </div>
-   
-          <div
+
+
+</div>
+
+    
+      </ScrollableFeed>
+      <div
             id="form"
             className="conversation-compose"
             onsubmit="event.preventDefault();"
@@ -392,12 +453,9 @@ send
 
       
           </div>
-        </div>
-     
-     </Messagebodycontainer>
-    
 
 
+</div>
 </div>
 </>
         ) }
