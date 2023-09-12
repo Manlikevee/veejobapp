@@ -718,6 +718,11 @@ body {
 
 }
 
+.applicationpage .search-type{
+  position: relative;
+  width: 100%;
+}
+
 
 
 .alert {
@@ -1300,14 +1305,6 @@ height: 100%;
 .detail-page .job-cards,
 .detail-page .searched-bar {
   display: none;
-}
-@media screen and (max-width: 1300px) {
-  .detail-page .search-type {
-    display: none;
-  }
-  .detail-page .searched-jobs {
-    padding-left: 0;
-  }
 }
 
 @media screen and (max-width:1000px){
@@ -2534,9 +2531,14 @@ display: block;
     width: 100%;
 }
 
+
+.usercompanylogo{
+  width: 160px;
+  object-fit: contain;
+}
 .shareintotwo{
     display: flex;
-    grid-gap: 10px;
+    grid-gap: 15px;
     width: 100%;
 }
 
@@ -2548,7 +2550,7 @@ top: 10%;
     display: flex;
     flex-direction: column;
     grid-gap: 20px;
-    padding: 10px;
+    padding: 0px;
 }
 
 .tpadm{
@@ -3486,6 +3488,18 @@ cursor: pointer;
   .conversation .conversation-container {
     height: calc(86vh - 130px);
   }
+
+  .casa {
+    width: 100%;
+    margin: auto;
+    margin-bottom: 9px;
+}
+.gp{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .back{
     font-size:30px;
     float:left;
@@ -4276,7 +4290,7 @@ justify-content: center;
 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1;
-  top: 53px;
+  top: 50px;
 }
 .navgrid {
   width: 100%;
@@ -4313,7 +4327,16 @@ background-color: #BFDFFF;
 border-radius: 50%;
 padding: 8px;
 }
-
+.applybutton{
+  padding: 7px;
+    min-width: 86px;
+    background: var(--active-color);
+    color: white;
+    border-radius: 5px;
+    margin-inline: 9px;
+    font-size: 14px;
+    text-align: center;
+}
 .app-tracker{
 color: #FFA500 
 ;
@@ -4335,3 +4358,49 @@ transition: 0.5s;
 }
 
 
+.btn{
+  padding: 8px;
+  width: 100%;
+  margin-top: 4px;
+  border-radius: 4px;
+  border: 1px solid rgba(235, 127, 53, 1);
+  font-family: poppins;
+  line-height: 1.5;
+}
+
+.flexdata {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.fldatacontent {
+  width: 250px;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: normal;
+  word-break: break-all;
+}
+
+.flexcontenttitle {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.mynameis {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: var(--active-color);
+  padding-block: 5px;
+}
+
+.ppoto img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}

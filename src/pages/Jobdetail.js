@@ -3,12 +3,18 @@ import Layout from '../components/Layout/Layout'
 import { toast } from 'react-toastify';
 import axiosInstance from '../service/axiosinterceptor'
 import { getUser } from "../service/auth";
+import { Link } from "gatsby";
 
 const Jobdetail = () => {
   const [isloading, setisloading] = useState(true);
   const [myresponsed, setmuresponsed] = useState('');
   const [responsedata, setresponsedata] = useState('');
   const [Usersname, setUsersname] = useState();
+  const randomimages = [
+    {
+      
+    }
+  ]
 
   useEffect(() => {
     // Get the loanReference query parameter from the URL
@@ -339,19 +345,19 @@ const Jobdetail = () => {
                   <circle cx={18} cy={19} r={3} />
                   <path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4" />
                 </svg>
-                <a
-                  href=""
+                <Link 
+                to={`/app/Applications/?jobreference=${responsedata?.jobcard?.id}`}
+                className="applybutton"
                   style={{
                     padding: 8,
-                    background: "rgb(46, 40, 130)",
                     color: "white",
                     borderRadius: 5,
                     marginInline: 9,
-                    fontSize: 14
+                    fontSize: 14,
                   }}
                 >
-                  applysss
-                </a>
+                  apply
+                </Link>
               </div>
             </div>
             <div className="job-subtitle-wrapper">

@@ -4,12 +4,18 @@ import {  isLoggedIn , getUser, logout } from '../../service/auth';
 import {navigate} from "gatsby";
 
 const Header = () => {
-  
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
     const [navclicked, setnavclicked] = useState(false)
     const[darkMode, setDarkMode]= useState('')
     const [isFullScreen, setIsFullScreen] = useState(false);
 
-
+    const showOverlay = () => {
+      setIsOverlayVisible(true);
+    };
+  
+    const hideOverlay = () => {
+      setIsOverlayVisible(false);
+    };
 
   
     const toggleFullScreen = () => {
@@ -73,7 +79,9 @@ const Header = () => {
   return (
     <>
     <div id="navlinkovalay" className={` ${navclicked ? 'navlinkactiveovalay' : ''}`}  />
-    <div id="navlinkoverlay" />
+    {isOverlayVisible && (
+   <div id="navlinkoverlay"  className='shw'/>
+    )} 
 
     <div className="header">
     <div className="logo">
@@ -90,17 +98,15 @@ const Header = () => {
     </span>
      Dashboard
 
-
-
-
       </Link>
-      <div className='hml' activeClassName="active">
+
+      <div className='hml' activeClassName="active" onMouseOver={showOverlay} onMouseOut={hideOverlay}>
         <span class="material-symbols-outlined">
     work_update
     </span>All Jobs 
     <div className="myjobmenu">
   <div className="navgrid">
-    <a className="navgriditem">
+    <Link to='/app/Alljobs' className="navgriditem" activeClassName="active">
       <div className="navgridlogo">
         <span className="material-symbols-outlined all-roles">work</span>
       </div>
@@ -112,8 +118,8 @@ const Header = () => {
           All Jobs
         </div>
       </div>
-    </a>
-    <a className="navgriditem">
+    </Link>
+    <Link to='/app/Saves' className="navgriditem" activeClassName="active">
       <div className="navgridlogo">
         <span className="material-symbols-outlined new-updates">
           work_update
@@ -122,8 +128,8 @@ const Header = () => {
       <div className="navgridtext">
         <div className="textgridtitle">Saved Jobs</div>
       </div>
-    </a>
-    <a className="navgriditem">
+    </Link>
+    <Link to='' className="navgriditem">
       <div className="navgridlogo">
         <span className="material-symbols-outlined app-tracker">
           work_update
@@ -132,23 +138,29 @@ const Header = () => {
       <div className="navgridtext">
         <div className="textgridtitle">Application tracker</div>
       </div>
-    </a>
-    <a className="navgriditem">
+    </Link>
+    <Link to='' className="navgriditem">
       <div className="navgridlogo">
         <span className="material-symbols-outlined job-match">work_alert</span>
       </div>
       <div className="navgridtext">
         <div className="textgridtitle">Job Match</div>
       </div>
-    </a>
+    </Link>
   </div>
 </div>
 
     
     </div>
-      <Link to='/Jobdetail/' activeClassName="active"><span class="material-symbols-outlined">
-    work_history
-    </span> Applications</Link>
+      <Link to='/Jobdetail/' activeClassName="active">
+      <span class="material-symbols-outlined">
+forum
+</span> Messaging</Link>
+
+<Link to='/Jobdetail/' activeClassName="active">
+<span class="material-symbols-outlined">
+stream_apps
+</span> Timeline</Link>
     <Link to='/app/profile' activeClassName="active"><span class="material-symbols-outlined">
     account_box
     </span> Profile</Link>

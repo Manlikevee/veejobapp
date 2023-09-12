@@ -18,7 +18,7 @@ const Saves = () => {
       post_id: jobId,
     };
     // Make the Axios POST request
-    axiosInstance.post('/like_post/', data)
+    axiosInstance.post('/savedlike_post/', data)
       .then((response) => {
       
         // Handle the response here (e.g., update the UI)
@@ -47,7 +47,7 @@ const Saves = () => {
     };
 
     // Make the Axios POST request
-    axiosInstance.post('/like_post/', data)
+    axiosInstance.post('/savedlike_post/', data)
       .then((response) => {
       
         // Handle the response here (e.g., update the UI)
