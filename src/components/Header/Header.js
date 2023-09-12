@@ -7,8 +7,6 @@ const Header = () => {
   
     const [navclicked, setnavclicked] = useState(false)
     const[darkMode, setDarkMode]= useState('')
-     
-
     const [isFullScreen, setIsFullScreen] = useState(false);
 
 
@@ -75,6 +73,8 @@ const Header = () => {
   return (
     <>
     <div id="navlinkovalay" className={` ${navclicked ? 'navlinkactiveovalay' : ''}`}  />
+    <div id="navlinkoverlay" />
+
     <div className="header">
     <div className="logo">
       <Link to='/' style={{ color: "inherit", textDecoration: "none" }}>
@@ -94,13 +94,58 @@ const Header = () => {
 
 
       </Link>
-      <Link to='/app/Alljobs' activeClassName="active">
+      <div className='hml' activeClassName="active">
         <span class="material-symbols-outlined">
     work_update
     </span>All Jobs 
+    <div className="myjobmenu">
+  <div className="navgrid">
+    <a className="navgriditem">
+      <div className="navgridlogo">
+        <span className="material-symbols-outlined all-roles">work</span>
+      </div>
+      <div className="navgridtext">
+        <div
+          className="textgridtitle aos-init aos-animate"
+          data-aos="fade-up-right"
+        >
+          All Jobs
+        </div>
+      </div>
+    </a>
+    <a className="navgriditem">
+      <div className="navgridlogo">
+        <span className="material-symbols-outlined new-updates">
+          work_update
+        </span>
+      </div>
+      <div className="navgridtext">
+        <div className="textgridtitle">Saved Jobs</div>
+      </div>
+    </a>
+    <a className="navgriditem">
+      <div className="navgridlogo">
+        <span className="material-symbols-outlined app-tracker">
+          work_update
+        </span>
+      </div>
+      <div className="navgridtext">
+        <div className="textgridtitle">Application tracker</div>
+      </div>
+    </a>
+    <a className="navgriditem">
+      <div className="navgridlogo">
+        <span className="material-symbols-outlined job-match">work_alert</span>
+      </div>
+      <div className="navgridtext">
+        <div className="textgridtitle">Job Match</div>
+      </div>
+    </a>
+  </div>
+</div>
+
     
-    
-    </Link>
+    </div>
       <Link to='/Jobdetail/' activeClassName="active"><span class="material-symbols-outlined">
     work_history
     </span> Applications</Link>

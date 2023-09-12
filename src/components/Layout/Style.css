@@ -4223,3 +4223,115 @@ word-wrap: break-word;
 }
 
 
+.hml{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 30px;
+}
+/* Style for the navlink overlay */
+#navlinkoverlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+display: none; /* Initially hidden */
+z-index: 999; /* Ensure the overlay is above other content */
+display: none;
+background-color: rgba(0, 0, 0, 0.7);
+position: fixed;
+backdrop-filter: blur(2px);
+bottom: 0;
+left: 0;
+right: 0;
+top: 0;
+
+align-items: center;
+justify-content: center;
+
+}
+
+
+.links ul li:hover .mega-menu {
+  display: block;
+}
+.hml:hover .myjobmenu{
+  display: block;
+}
+.myjobmenu{
+  transform: 0.5s;
+  position: absolute;
+  display: none;
+  width: fit-content;
+  min-width: 35%;
+  border-radius: 3px;
+  box-shadow: 0 3px 3px 0 rgb(0 0 0 / 5%), 0 5px 15px 0 rgb(0 0 0 / 5%);
+  background: var(--header-bg-color);
+
+
+  color: var(--subtitle-color);
+  padding: 15px;
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  top: 53px;
+}
+.navgrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-auto-rows: 1fr;
+  grid-gap: 10px;
+  gap: 10px;
+}
+.navgriditem {
+  padding: 13px;
+  border-radius: 5px;
+  background-color: rgba(20, 20, 255, 0.033);
+  transition: 0.5s ease-in-out;
+}
+.navgriditem {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin: 0 !important;
+}
+
+.all-roles{
+color: #008000;
+background-color: #C0FFC0;
+border-radius: 50%;
+padding: 8px;
+
+}
+
+.new-updates{
+color: #0000FF;
+background-color: #BFDFFF;
+border-radius: 50%;
+padding: 8px;
+}
+
+.app-tracker{
+color: #FFA500 
+;
+background-color: #FFDAB9;
+border-radius: 50%;
+padding: 8px;
+}
+
+.job-match{
+  color: #800080;
+  border-radius: 50%;
+padding: 8px;
+background-color:  #D8BFD8;
+}
+
+.shw{
+display: flex !important;
+transition: 0.5s;
+}
+
+
