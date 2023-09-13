@@ -157,7 +157,7 @@ const Header = () => {
 forum
 </span> Messaging</Link>
 
-<Link to='/Jobdetail/' activeClassName="active">
+<Link to='/Explorepage' activeClassName="active">
 <span class="material-symbols-outlined">
 stream_apps
 </span> Timeline</Link>
