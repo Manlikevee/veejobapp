@@ -12,6 +12,9 @@ import {Link} from "gatsby"
 import dayjs from 'dayjs';
 import MySpinner from "../components/Messagebody/MySpinner"
 import Linkify from 'react-linkify';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import {
   differenceInMinutes,
   differenceInHours,
@@ -329,7 +332,11 @@ const Messaging = () => {
             <span className="close-buttons" onClick={closePopup}>
               &times;
             </span>
-            <img src={popupImage} alt="Popup Image" />
+            <LazyLoadImage
+   alt="Popup Image"
+    effect="blur"
+    src={popupImage} />
+      
           </div>
         </div>
       )}
@@ -474,7 +481,12 @@ const Messaging = () => {
    
                     <div className={`outboxs ${activityData.sender === Usersname ? 'sendings' : activityData.reciever === Usersname ? 'receives' : 'receives'}`}>
                   
-                  {activityData.image ? (<img src={activityData.imageurl.image} alt="image" onClick={() => openPopup(activityData.imageurl.image)} />) : ''}
+                  {activityData.image ? (
+                                    <LazyLoadImage
+                                    alt="Popup Image"
+                                    onClick={() => openPopup(activityData.imageurl.image)}
+                                     effect="blur"
+                                   src={activityData.imageurl.image} />) : ''}
                      <Linkify> {activityData.message} </Linkify>
                        <span className="metadata">
                    
