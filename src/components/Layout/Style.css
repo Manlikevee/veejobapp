@@ -4714,6 +4714,10 @@ height: 60px;
   width: 100%;
 }
 
+.profilepho span{
+  width: 100%;
+}
+
 .postcardbody a{
   color: var(--active-color);
 }

@@ -234,10 +234,12 @@ const Explorepage = () => {
         <div className="tpadm">
           <div className="profiendedit">
             <div className="profilepho">
-              <img
-                src="https://images.unsplash.com/photo-1664575262619-b28fef7a40a4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=832&q=80"
-                alt=""
-              />
+            <LazyLoadImage
+            effect="blur"
+              src={myresponseData?.myprofileserializer?.avatar}
+              alt=""
+            />
+              
             </div>
             <br />
             <div className="nams"> VICTOR ODAH</div>
@@ -452,7 +454,7 @@ const Explorepage = () => {
       />
     </div>
     <div className="postcarddetails">
-      <div className="postcardname">@{data.user.username}</div>
+      <div className="postcardname">@{data.user.username} </div>
       <div className="postcarddataname">
         {" "}
         Web Developer at ISSL - Internet Solutions Services Limited{" "}
