@@ -5,10 +5,9 @@ import Layout from '../components/Layout/Layout'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import axiosInstance from "../service/axiosinterceptor";
-
-
-
+import { getUser } from "../service/auth";
 import { Link } from 'gatsby'
+
 function TextWithHashtags({ text }) {
   // Use regular expression to find hashtags and replace them with anchor tags
   const processedText = text.split(/(#\w+)/g).map((segment, index) => {
@@ -38,6 +37,45 @@ const Explorepage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [timelineData, setTimelineData] = useState('')
   const [tagData, setTagdata] = useState('')
+  const[randomusers, setrandomusers] = useState('')
+  const [currentUserId, setcurrentUserId] = useState('')
+
+
+  const LikeJob = (jobId) => {
+    
+
+    const data = {
+      post_id: jobId,
+    };
+    // Make the Axios POST request
+    axiosInstance.post('/savedtimelinepost/', data)
+      .then((response) => {
+      
+        // Handle the response here (e.g., update the UI)
+        if (response?.data?.message){
+          toast.info(response.data.message)
+          setTimelineData(response.data.allposts)
+          setTagdata(response.data.tagdata)
+        }
+      })
+      .catch((error) => {
+        alert('error')
+        // Handle any errors that occurred during the request
+        console.error('Error:', error);
+        toast.error('An Error Occured')
+        
+      });    
+    // Make an API request to save the job with jobId for the current user
+    // Update the UI to set activityData.isLiked to true if successful
+  };
+
+
+
+
+
+
+
+
 
   const handleTextInputChange = (event) => {
     const inputText = event.target.value;
@@ -151,7 +189,9 @@ const Explorepage = () => {
   
         // Set initialFetchCompleted to true once the initial fetch is successful
         if (!initialFetchCompleted) {
+          setrandomusers(response.data.profileserializer)
           initialFetchCompleted = true;
+          setcurrentUserId(getUser().id);
         }
       } catch (error) {
         // Handle errors
@@ -446,12 +486,30 @@ const Explorepage = () => {
     <div className="postcardline" />
     <div className="myactionbuttons">
       <div className="mypostbn">
-        <button>
-          <span className="material-symbols-outlined activated">
-            favorite
-          </span>{" "}
-          Like
-        </button>
+     
+      {data.likes.some((likedUser) => likedUser === currentUserId) ? (
+
+<button onClick={() => LikeJob(data.id)}>
+<span className="material-symbols-outlined activated">
+  favorite
+</span>{" "}
+Like
+</button>
+
+
+        ) : (
+          <button onClick={() => LikeJob(data.id)}>
+<span className="material-symbols-outlined">
+  favorite
+</span>{" "}
+Like
+</button>
+         
+        )}
+
+
+
+     
       </div>
       <div className="mypostbn">
         <button>
@@ -545,40 +603,30 @@ const Explorepage = () => {
               </div>
             </div>
             <div className="socialmediatrendbody">
-              <div className="trendblock suggest">
-                <div className="trendname">
-                  <div className="trendimage">
-                    <img
-                      src="https://plus.unsplash.com/premium_photo-1670588892214-19d7d31e4293?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
-                      alt=""
-                    />
-                  </div>
-                  <div>
-                    <div className="trendtitle">The New York Times</div>
-                    <div className="trendnumber">@nytimes</div>
-                  </div>
-                </div>
-                <div className="trenddot">
-                  <button>Follow</button>
-                </div>
-              </div>
-              <div className="trendblock suggest">
-                <div className="trendname">
-                  <div className="trendimage">
-                    <img
-                      src="https://plus.unsplash.com/premium_photo-1670588892214-19d7d31e4293?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
-                      alt=""
-                    />
-                  </div>
-                  <div>
-                    <div className="trendtitle">The New York Times</div>
-                    <div className="trendnumber">@nytimes</div>
-                  </div>
-                </div>
-                <div className="trenddot">
-                  <button>Follow</button>
-                </div>
-              </div>
+             
+            {randomusers ? ( 
+  randomusers?.map((data, index) => (
+    <div className="trendblock suggest" key={randomusers.id}>
+    <div className="trendname">
+      <div className="trendimage">
+      <LazyLoadImage
+            effect="blur"
+              src={data.avatar}
+              alt=""
+            />
+      </div>
+      <div>
+        <div className="trendtitle">{data.user.username}</div>
+        <div className="trendnumber">@{data.user.username}</div>
+      </div>
+    </div>
+    <div className="trenddot">
+      <button>Follow</button>
+    </div>
+  </div>
+ 
+))) : (  '' ) }
+        
             </div>
           </div>
         </div>
