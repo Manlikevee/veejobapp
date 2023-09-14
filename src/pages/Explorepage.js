@@ -5,7 +5,25 @@ import Layout from '../components/Layout/Layout'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import axiosInstance from "../service/axiosinterceptor";
+import { Link } from 'gatsby'
+function TextWithHashtags({ text }) {
+  // Use regular expression to find hashtags and replace them with anchor tags
+  const processedText = text.split(/(#\w+)/g).map((segment, index) => {
+    if (segment.startsWith('#')) {
+      const hashtag = segment.substring(1); // Remove the '#'
+      return (
+        <Link key={index} to={`#${hashtag}`}>
+          {segment}
+        </Link>
+      );
+    }
+    return segment;
+  });
+
+  return <div>{processedText}</div>;
+}
 const Explorepage = () => {
+  const [initialFetchCompleted, setInitialFetchCompleted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isloading, setisloading] = useState(true);
   const [responsedata, setResponsedata] = useState([]);
@@ -84,18 +102,88 @@ const Explorepage = () => {
   };
 
 
-  useEffect(() => {
-    axiosInstance
-      .get('/Timeline')
-      .then(response => {
-        // Handle the response as needed
-        toast.success('successfully fetched');
+  // useEffect(() => {
+  //   axiosInstance
+  //     .get('/Timeline')
+  //     .then(response => {
+  //       // Handle the response as needed
+  //       toast.success('successfully fetched');
     
+  //       setmyResponseData(response.data);
+  //       console.log(response.data);
+  //       setLoading(false);
+  //     })
+  //     .catch(error => {
+  //       // Handle errors
+  //       console.error('GET request error', error);
+  //       if (error.response && error.response.data && error.response.data.error) {
+  //         toast.error(error.response.data.error);
+  //       } else {
+  //         toast.error('An error occurred while Loading Your Data');
+  //       }
+  //       setLoading(false);
+  //     });
+  // }, []);
+
+
+  // useEffect(() => {
+  //   if(myresponseData){
+  //     const fetchData = async () => {
+  //       try {
+  //         const response = await axiosInstance.get('/Timeline');
+  //         // Handle the response as needed
+  
+  //         setmyResponseData(response.data);
+  //         console.log(response.data);
+  //       } catch (error) {
+  //         // Fail silently without showing errors
+  //         console.error('Fetch error (silently ignored)', error);
+  //       }
+  //     };
+  //     fetchData();
+  
+  //     // Fetch data every 10 seconds
+  //     const intervalId = setInterval(fetchData, 30000);
+    
+  //     // Cleanup the interval when the component unmounts
+  //     return () => clearInterval(intervalId);
+  //   }
+
+  // else{
+  //   console.log('hello world')
+  // }
+  //   // Fetch data initially
+
+  // }, []);
+
+
+
+      
+  useEffect(() => {
+    let initialFetchCompleted = false;
+  
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.get('/Timeline');
+        // Handle the response as needed
+       
+
+        if (!initialFetchCompleted) {
+          toast.success('successfully fetched');
+        } 
+        
+      
+  
+        setInitialFetchCompleted(true)
         setmyResponseData(response.data);
         console.log(response.data);
         setLoading(false);
-      })
-      .catch(error => {
+  
+        // Set initialFetchCompleted to true once the initial fetch is successful
+        if (!initialFetchCompleted) {
+          initialFetchCompleted = true;
+        }
+      } catch (error) {
         // Handle errors
         console.error('GET request error', error);
         if (error.response && error.response.data && error.response.data.error) {
@@ -104,38 +192,22 @@ const Explorepage = () => {
           toast.error('An error occurred while Loading Your Data');
         }
         setLoading(false);
-      });
-  }, []);
-
-
-  useEffect(() => {
-    if(myresponseData){
-      const fetchData = async () => {
-        try {
-          const response = await axiosInstance.get('/Timeline');
-          // Handle the response as needed
+      }
+    };
   
-          setmyResponseData(response.data);
-          console.log(response.data);
-        } catch (error) {
-          // Fail silently without showing errors
-          console.error('Fetch error (silently ignored)', error);
-        }
-      };
-      fetchData();
+    const intervalId = setInterval(() => {
+      if (initialFetchCompleted) {
+        fetchData();
+      } else {
+        console.log('Waiting');
+      }
+    }, 20000);
   
-      // Fetch data every 10 seconds
-      const intervalId = setInterval(fetchData, 30000);
-    
-      // Cleanup the interval when the component unmounts
-      return () => clearInterval(intervalId);
-    }
-
-  else{
-    console.log('hello world')
-  }
     // Fetch data initially
-
+    fetchData();
+  
+    // Cleanup the interval when the component unmounts
+    return () => clearInterval(intervalId);
   }, []);
 
 
@@ -182,14 +254,18 @@ const Explorepage = () => {
               </div>
               <div className="constructtext fdc">
               <small className="ddsa">      Characters: {textInput.length} / 200</small>
-   <div className="wids"> <input
+   <div className="wids"> 
+   {/* <input
                   type="text"
                   name=""
                   id=""
-                  value={textInput}
-                  onChange={handleTextInputChange}
+
                   placeholder="What are You feeling"
-                />
+                /> */}
+                <textarea placeholder="Describe yourself here..."
+                                  value={textInput}
+                                  onChange={handleTextInputChange}
+                ></textarea>
                 <button>Post</button></div>
                
               </div>
@@ -375,7 +451,7 @@ const Explorepage = () => {
     </div>
   </div>
   <div className="postcardbody">
-{data.message}
+   <TextWithHashtags  text={data.message}  />
   </div>
   <div className="postcardimage">
 <div className="pcphoto">
@@ -454,6 +530,31 @@ const Explorepage = () => {
               </div>
             </div>
             <div className="socialmediatrendbody">
+       
+            {myresponseData ? ( 
+  myresponseData?.trending?.map((data, index) => (
+    <div className="trendblock" key={data.name}>
+    <div className="trendname">
+      <div className="trendtitle">#{data.name}</div>
+    </div>
+    <div className="trenddot">
+      <div className="trendnumber">{data.number} Tweets</div>
+    </div>
+  </div>
+
+))) : (
+  
+  <div className="trendblock">
+  <div className="trendname">
+    <div className="trendtitle">#TrendingPosts</div>
+  </div>
+  <div className="trenddot">
+    <div className="trendnumber">50.4K Tweets</div>
+  </div>
+</div>
+) } 
+
+{/*            
               <div className="trendblock">
                 <div className="trendname">
                   <div className="trendtitle">#Revolution</div>
@@ -461,23 +562,7 @@ const Explorepage = () => {
                 <div className="trenddot">
                   <div className="trendnumber">50.4K Tweets</div>
                 </div>
-              </div>
-              <div className="trendblock">
-                <div className="trendname">
-                  <div className="trendtitle">#Revolution</div>
-                </div>
-                <div className="trenddot">
-                  <div className="trendnumber">50.4K Tweets</div>
-                </div>
-              </div>
-              <div className="trendblock">
-                <div className="trendname">
-                  <div className="trendtitle">#Revolution</div>
-                </div>
-                <div className="trenddot">
-                  <div className="trendnumber">50.4K Tweets</div>
-                </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

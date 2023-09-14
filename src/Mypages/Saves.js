@@ -9,7 +9,7 @@ const Saves = () => {
   const [responseData, setResponseData] = useState('');
   const [loading, setLoading] = useState(true);
   const [currentUserId, setcurrentUserId] = useState('')
-
+  const [initialFetchCompleted, setInitialFetchCompleted] = useState(false);
   
   const saveJob = (jobId) => {
     
@@ -71,58 +71,112 @@ const Saves = () => {
   };
 
 
-  useEffect(() => {
-    axiosInstance
-      .get('/usersaves')
-      .then(response => {
-        // Handle the response as needed
-        setResponseData(response.data);
-        setcurrentUserId(getUser().id);
-        console.log(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        // Handle errors
-        console.error('GET request error', error);
-        if (error.response && error.response.data && error.response.data.error) {
-          toast.error(error.response.data.error);
-        } else {
-          toast.error('An error occurred while Loading Your Data');
-        }
-        setLoading(false);
-      });
-  }, []);
+//   useEffect(() => {
+//     axiosInstance
+//       .get('/usersaves')
+//       .then(response => {
+//         // Handle the response as needed
+//         setResponseData(response.data);
+//         setcurrentUserId(getUser().id);
+//         console.log(response.data);
+//         setLoading(false);
+//       })
+//       .catch(error => {
+//         // Handle errors
+//         console.error('GET request error', error);
+//         if (error.response && error.response.data && error.response.data.error) {
+//           toast.error(error.response.data.error);
+//         } else {
+//           toast.error('An error occurred while Loading Your Data');
+//         }
+//         setLoading(false);
+//       });
+//   }, []);
     
 
+// useEffect(() => {
+
+//   if(responseData){
+
+// const fetchData = async () => {
+//   try {
+//     const response = await axiosInstance.get('/usersaves');
+//     // Handle the response as needed
+
+//     setResponseData(response.data);
+//     // console.log(response.data);
+//   } catch (error) {
+//     // Fail silently without showing errors
+//     console.error('Fetch error (silently ignored)', error);
+//   }
+// };
+
+// // Fetch data initially
+// fetchData();
+
+// // Fetch data every 10 seconds
+// const intervalId = setInterval(fetchData, 30000);
+
+// // Cleanup the interval when the component unmounts
+// return () => clearInterval(intervalId);
+//   }
+//   else{
+//     console.log('loading......')
+//   }
+// }, []);
+
+
+      
 useEffect(() => {
+  let initialFetchCompleted = false;
 
-  if(responseData){
+  const fetchData = async () => {
+    try {
+      const response = await axiosInstance.get('/usersaves');
+      // Handle the response as needed
+     
 
-const fetchData = async () => {
-  try {
-    const response = await axiosInstance.get('/usersaves');
-    // Handle the response as needed
+      if (!initialFetchCompleted) {
+        toast.success('successfully fetched');
+      } 
+      
+    
 
-    setResponseData(response.data);
-    // console.log(response.data);
-  } catch (error) {
-    // Fail silently without showing errors
-    console.error('Fetch error (silently ignored)', error);
-  }
-};
+      setInitialFetchCompleted(true)
+      setResponseData(response.data);
+      setcurrentUserId(getUser().id);
+      console.log(response.data);
+      setLoading(false);
 
-// Fetch data initially
-fetchData();
+      // Set initialFetchCompleted to true once the initial fetch is successful
+      if (!initialFetchCompleted) {
+        initialFetchCompleted = true;
+      }
+    } catch (error) {
+      // Handle errors
+      console.error('GET request error', error);
+      if (error.response && error.response.data && error.response.data.error) {
+        toast.error(error.response.data.error);
+      } else {
+        toast.error('An error occurred while Loading Your Data');
+      }
+      setLoading(false);
+    }
+  };
 
-// Fetch data every 10 seconds
-const intervalId = setInterval(fetchData, 30000);
+  const intervalId = setInterval(() => {
+    if (initialFetchCompleted) {
+      fetchData();
+    } else {
+      console.log('Waiting');
+    }
+  }, 20000);
 
-// Cleanup the interval when the component unmounts
-return () => clearInterval(intervalId);
-  }
-  else{
-    console.log('loading......')
-  }
+  // Fetch data initially
+  fetchData();
+
+  // Cleanup the interval when the component unmounts
+  return () => clearInterval(intervalId);
 }, []);
 
   return (
@@ -243,7 +297,7 @@ return () => clearInterval(intervalId);
             </button>
           </div> 
           <div className="job-card-buttons">
-            <Link to={`/Jobdetail/?jobid=${activityData.id}`} className="search-buttons card-buttons">Apply Now</Link>
+            <Link to={`/app/Jobdetail/?jobid=${activityData.id}`} className="search-buttons card-buttons">Apply Now</Link>
           
             {activityData.likes.some((likedUser) => likedUser === currentUserId) ? (
           <div to="" className="search-buttons card-buttons-msg myjobsaved" onClick={() => unsaveJob(activityData.id)}>

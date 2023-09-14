@@ -8,6 +8,7 @@ import Jobs from "../Mypages/Jobs"
 import Messaging from "../Mypages/Messaging"
 import Saves from "../Mypages/Saves"
 import Application from "../Mypages/Application"
+import Jobdetail from "../Mypages/Jobdetail"
 const App = () => (
 
 
@@ -19,6 +20,7 @@ const App = () => (
       <PrivateRoute path="/app/Alljobs" component={Jobs} />
       <PrivateRoute path="/app/Applications" component={Application} />
       <PrivateRoute path="/app/Messaging" component={Messaging} />
+      <PrivateRoute path="/app/Jobdetail" component={Jobdetail} />
       <Login path="/app/login" />
     </Router>
 

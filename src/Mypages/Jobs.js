@@ -9,6 +9,7 @@ const Jobs = () => {
   const [responseData, setResponseData] = useState('');
   const [loading, setLoading] = useState(true);
   const [currentUserId, setcurrentUserId] = useState('')
+  const [initialFetchCompleted, setInitialFetchCompleted] = useState(false);
 
   
   const saveJob = (jobId) => {
@@ -71,59 +72,116 @@ const Jobs = () => {
   };
 
 
-  useEffect(() => {
-    axiosInstance
-      .get('/userjobs')
-      .then(response => {
-        // Handle the response as needed
-        setResponseData(response.data);
-        setcurrentUserId(getUser().id);
-        console.log(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        // Handle errors
-        console.error('GET request error', error);
-        if (error.response && error.response.data && error.response.data.error) {
-          toast.error(error.response.data.error);
-        } else {
-          toast.error('An error occurred while Loading Your Data');
-        }
-        setLoading(false);
-      });
-  }, []);
+//   useEffect(() => {
+//     axiosInstance
+//       .get('/userjobs')
+//       .then(response => {
+//         // Handle the response as needed
+//         setResponseData(response.data);
+//         setcurrentUserId(getUser().id);
+//         console.log(response.data);
+//         setLoading(false);
+//       })
+//       .catch(error => {
+//         // Handle errors
+//         console.error('GET request error', error);
+//         if (error.response && error.response.data && error.response.data.error) {
+//           toast.error(error.response.data.error);
+//         } else {
+//           toast.error('An error occurred while Loading Your Data');
+//         }
+//         setLoading(false);
+//       });
+//   }, []);
 
 
+// useEffect(() => {
+
+//   if(responseData){
+// const fetchData = async () => {
+//   try {
+//     const response = await axiosInstance.get('/userjobs');
+//     // Handle the response as needed
+
+//     setResponseData(response.data);
+//     // console.log(response.data);
+//   } catch (error) {
+//     // Fail silently without showing errors
+//     console.error('Fetch error (silently ignored)', error);
+//   }
+// };
+
+// // Fetch data initially
+// fetchData();
+
+// // Fetch data every 10 seconds
+// const intervalId = setInterval(fetchData, 30000);
+
+// // Cleanup the interval when the component unmounts
+// return () => clearInterval(intervalId);
+//   }
+//   else{
+//     console.log('yello')
+//   }
+
+// }, []);
+
+
+
+      
 useEffect(() => {
+  let initialFetchCompleted = false;
 
-  if(responseData){
-const fetchData = async () => {
-  try {
-    const response = await axiosInstance.get('/userjobs');
-    // Handle the response as needed
+  const fetchData = async () => {
+    try {
+      const response = await axiosInstance.get('/userjobs');
+      // Handle the response as needed
+     
 
-    setResponseData(response.data);
-    // console.log(response.data);
-  } catch (error) {
-    // Fail silently without showing errors
-    console.error('Fetch error (silently ignored)', error);
-  }
-};
+      if (!initialFetchCompleted) {
+        toast.success('successfully fetched');
+      } 
+      
+    
 
-// Fetch data initially
-fetchData();
+      setInitialFetchCompleted(true)
+      setResponseData(response.data);
+      console.log(response.data);
+      setLoading(true);
+      setcurrentUserId(getUser().id);
 
-// Fetch data every 10 seconds
-const intervalId = setInterval(fetchData, 30000);
+      // Set initialFetchCompleted to true once the initial fetch is successful
+      if (!initialFetchCompleted) {
+        initialFetchCompleted = true;
+      }
+    } catch (error) {
+      // Handle errors
+      console.error('GET request error', error);
+      if (error.response && error.response.data && error.response.data.error) {
+        toast.error(error.response.data.error);
+      } else {
+        toast.error('An error occurred while Loading Your Data');
+      }
+      setLoading(false);
+    }
+  };
 
-// Cleanup the interval when the component unmounts
-return () => clearInterval(intervalId);
-  }
-  else{
-    console.log('yello')
-  }
+  const intervalId = setInterval(() => {
+    if (initialFetchCompleted) {
+      fetchData();
+    } else {
+      console.log('Waiting');
+    }
+  }, 20000);
 
+  // Fetch data initially
+  fetchData();
+
+  // Cleanup the interval when the component unmounts
+  return () => clearInterval(intervalId);
 }, []);
+
+
 
   return (
 
@@ -314,7 +372,7 @@ return () => clearInterval(intervalId);
             </button>
           </div> 
           <div className="job-card-buttons">
-            <Link to={`/Jobdetail/?jobid=${activityData.id}`} className="search-buttons card-buttons">Apply Now</Link>
+            <Link to={`/app/Jobdetail/?jobid=${activityData.id}`} className="search-buttons card-buttons">Apply Now</Link>
           
             {activityData.likes.some((likedUser) => likedUser === currentUserId) ? (
           <div to="" className="search-buttons card-buttons-msg myjobsaved" onClick={() => unsaveJob(activityData.id)}>
@@ -331,12 +389,8 @@ return () => clearInterval(intervalId);
               
       </div> ) : (
          <> 
-      <style
-        dangerouslySetInnerHTML={{
-          __html:
-            '\n      .skelent span{\n        height: 57px;\n    width: 57px;\n      background: #d9d9d9;\n      border-radius: 50%;\n      position: relative;\n      overflow: hidden;\n      }\n    \n      .skelent .pcardname{\n        height: 15px;\n        width: 100px;\n        margin: 4px;\n        background: #d9d9d9;\n      }\n      .skelent .pcardesignation{\n        height: 15px;\n        width: 100px;\n        margin: 4px;\n        background: #d9d9d9;\n      }\n    \n      .skelent .pcardtime{\n        height: 15px;\n        width: 150px;\n        margin: 4px;\n        background: #d9d9d9;\n      }\n      .description{\n      margin: 25px 0;\n    }\n    .description .linez{\n      background: #d9d9d9;\n      border-radius: 10px;\n      height: 16px;\n      margin: 10px 0;\n      overflow: hidden;\n      position: relative;\n    }\n    .description .line-1{\n      width: calc(100% - 15%);\n    }\n    .description .line-3{\n      width: calc(100% - 40%);\n    }\n    .cars .btns .btn {\n        height: 35px;\n        width: 100%;\n        background: #d9d9d9;\n        border-radius: 25px;\n        position: relative;\n        overflow: hidden;\n    }\n    .btns .btn-1 {\n        margin-right: 8px;\n    }\n    \n    .btns{\n      display: flex;\n        gap: 30px;\n        padding: 12px;\n    }\n    .skelent .pcardtime::before,\n    .skelent .pcardtime::before,\n    .skelent span::before,\n    .description .linez::before,\n    .btns .btn::before{\n      position: absolute;\n      content: "";\n      height: 100%;\n      width: 100%;\n      background-image: linear-gradient(to right, #f4f4f4 0%, rgba(0,0,0,0.07) 20%, #d9d9d9 40%, #d9d9d9 100%);\n      background-repeat: no-repeat;\n      background-size: 450px 400px;\n      animation: shimmer 1s linear infinite;\n    }\n    \n    .details div::before{\n      animation-delay: 0.25s;\n    }\n    \n    @keyframes shimmer {\n      0%{\n        background-position: -450px 0;\n      }\n      100%{\n        background-position: 450px 0;\n      }\n    }\n    \n    .cars{\n      width: 100%;\n      padding: 30px;\n      border-radius: 10px;\n    \n    }\n    .cars .header{\n      display: flex;\n      align-items: center;\n    }\n    .header .img{\n      height: 75px;\n      width: 75px;\n      background: #d9d9d9;\n      border-radius: 50%;\n      position: relative;\n      overflow: hidden;\n    }\n    .header .details{\n      margin-left: 20px;\n    }\n    .details span{\n      display: block;\n      background: #d9d9d9;\n      border-radius: 10px;\n      overflow: hidden;\n      position: relative;\n    }\n    .details .name{\n      height: 15px;\n      width: 100px;\n    }\n    .details .about{\n      height: 13px;\n      width: 150px;\n      margin-top: 10px;\n    }\n    .cars .description{\n      margin: 25px 0;\n    }\n    .description .line{\n      background: #d9d9d9;\n      border-radius: 10px;\n      height: 13px;\n      margin: 10px 0;\n      overflow: hidden;\n      position: relative;\n    }\n    .description .line-1{\n      width: calc(100% - 15%);\n    }\n    .description .line-3{\n      width: calc(100% - 40%);\n    }\n    .cars .btns{\n      display: flex;\n    }\n    .cars .btns .btn{\n      height: 45px;\n      width: 100%;\n      background: #d9d9d9;\n      border-radius: 25px;\n      position: relative;\n      overflow: hidden;\n    }\n    .btns .btn-1{\n      margin-right: 8px;\n    }\n    .btns .btn-2{\n      margin-left: 8px;\n    }\n    .header .img::before,\n    .details span::before,\n    .description .line::before,\n    .btns .btn::before{\n      position: absolute;\n      content: "";\n      height: 100%;\n      width: 100%;\n      background-image: linear-gradient(to right, #d9d9d9 0%, rgba(0,0,0,0.07) 20%, #d9d9d9 40%, #d9d9d9 100%);\n      background-repeat: no-repeat;\n      background-size: 450px 400px;\n      animation: shimmer 1s linear infinite;\n    }\n    .header .img::before{\n      background-size: 650px 600px;\n    }\n    .details span::before{\n      animation-delay: 0.2s;\n    }\n    .btns .btn-2::before{\n      animation-delay: 0.22s;\n    }\n    @keyframes shimmer {\n      0%{\n        background-position: -450px 0;\n      }\n      100%{\n        background-position: 450px 0;\n      }\n    }\n     \n    '
-        }}
-      />
+
+
       <div  className="job-cards">
         <div className="job-card cars">
           <div className="postcard">
