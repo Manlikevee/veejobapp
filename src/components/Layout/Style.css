@@ -1737,6 +1737,7 @@ margin-top: 64.5px;
 }
 .opc{
   opacity: 0.7;
+  user-select: none;
 }
 .canclb {
   height: 72px;
@@ -4711,6 +4712,10 @@ height: 60px;
 
 .pcphoto span{
   width: 100%;
+}
+
+.postcardbody a{
+  color: var(--active-color);
 }
 .postcardbody{
   padding: 10px;

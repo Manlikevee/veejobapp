@@ -5,6 +5,9 @@ import Layout from '../components/Layout/Layout'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import axiosInstance from "../service/axiosinterceptor";
+
+
+
 import { Link } from 'gatsby'
 function TextWithHashtags({ text }) {
   // Use regular expression to find hashtags and replace them with anchor tags
@@ -32,46 +35,40 @@ const Explorepage = () => {
   const [textInput, setTextInput] = useState(''); // State to store the text input value
   const [imageFile, setImageFile] = useState(null);
   const [selectedimageurl, setselectedimageurl] = useState(null)
+  const [isLoading, setIsLoading] = useState(false);
+  const [timelineData, setTimelineData] = useState('')
+  const [tagData, setTagdata] = useState('')
 
   const handleTextInputChange = (event) => {
     const inputText = event.target.value;
 
-    // Limit the number of characters to 200 characters
     if (inputText.length <= 200) {
       setTextInput(inputText);
     }
   };
 
-  // Function to handle file input change
   const handleImageFileChange = (event) => {
     const file = event.target.files[0];
 
     if (file) {
-      // Process the selected image file (e.g., create an object URL)
       const imageUrl = URL.createObjectURL(file);
       setselectedimageurl(imageUrl);
     } else {
-      // Clear the image if no file is selected
       setselectedimageurl(null);
     }
 
     setImageFile(file);
   };
 
-  // Function to handle form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (textInput.trim() === '') {
-      // Check if the text input is empty
       toast.error('Text input cannot be empty');
       return;
     }
 
-    // Process the text input (e.g., store it or send it to an API)
-    console.log('Text Input:', textInput);
-
-    if (imageFile) {
+   if (imageFile) {
       // Process the selected image file (e.g., upload it or display it)
       console.log('Selected Image File:', imageFile);
     }
@@ -91,71 +88,42 @@ const Explorepage = () => {
     setImageFile(null);
     setselectedimageurl(null);
 
-    // Show a toast message upon successful submission
-    toast.success('Form submitted successfully!');
+ 
+
+    setIsLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('text', textInput);
+
+      if (imageFile) {
+        formData.append('myimg', imageFile);
+      }
+
+      const response = await axiosInstance.post(`/newtimelinepost`, formData);
+
+      console.log('Message sent:', response.data);
+      setTagdata(response.data.trending)
+      setTimelineData(response.data.allposts)
+      setResponsedata([]);
+
+      toast.success('Form submitted successfully!');
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('An error occurred while submitting the form.');
+    } finally {
+      setIsLoading(false);
+
+      setTextInput('');
+      setImageFile(null);
+      setselectedimageurl(null);
+    }
   };
 
-  // Function to handle removing the selected image
   const handleRemoveImage = () => {
     setImageFile(null);
     setselectedimageurl(null);
-  };
-
-
-  // useEffect(() => {
-  //   axiosInstance
-  //     .get('/Timeline')
-  //     .then(response => {
-  //       // Handle the response as needed
-  //       toast.success('successfully fetched');
-    
-  //       setmyResponseData(response.data);
-  //       console.log(response.data);
-  //       setLoading(false);
-  //     })
-  //     .catch(error => {
-  //       // Handle errors
-  //       console.error('GET request error', error);
-  //       if (error.response && error.response.data && error.response.data.error) {
-  //         toast.error(error.response.data.error);
-  //       } else {
-  //         toast.error('An error occurred while Loading Your Data');
-  //       }
-  //       setLoading(false);
-  //     });
-  // }, []);
-
-
-  // useEffect(() => {
-  //   if(myresponseData){
-  //     const fetchData = async () => {
-  //       try {
-  //         const response = await axiosInstance.get('/Timeline');
-  //         // Handle the response as needed
-  
-  //         setmyResponseData(response.data);
-  //         console.log(response.data);
-  //       } catch (error) {
-  //         // Fail silently without showing errors
-  //         console.error('Fetch error (silently ignored)', error);
-  //       }
-  //     };
-  //     fetchData();
-  
-  //     // Fetch data every 10 seconds
-  //     const intervalId = setInterval(fetchData, 30000);
-    
-  //     // Cleanup the interval when the component unmounts
-  //     return () => clearInterval(intervalId);
-  //   }
-
-  // else{
-  //   console.log('hello world')
-  // }
-  //   // Fetch data initially
-
-  // }, []);
-
+  }
 
 
       
@@ -176,6 +144,8 @@ const Explorepage = () => {
   
         setInitialFetchCompleted(true)
         setmyResponseData(response.data);
+        setTimelineData(response.data.allposts)      
+        setTagdata(response.data?.trending)  
         console.log(response.data);
         setLoading(false);
   
@@ -341,7 +311,7 @@ const Explorepage = () => {
 
         {responsedata.slice().reverse().map((data, index) => (
          <> 
-          <div key={index} className="socialmediapostcard">
+          <div key={index} className="socialmediapostcard opc">
             <div className="postcardheader">
               <div className="postcardprofilephoto">
                 <img
@@ -430,9 +400,9 @@ const Explorepage = () => {
 
 {loading ? ( <>Loading.......</> ) : (
 <>
-{myresponseData ? ( 
-  myresponseData.allposts.map((data, index) => (
-  <div className="socialmediapostcard">
+{timelineData ? ( 
+  timelineData.map((data, index) => (
+  <div className="socialmediapostcard " >
   <div className="postcardheader">
     <div className="postcardprofilephoto">
     <LazyLoadImage
@@ -531,8 +501,8 @@ const Explorepage = () => {
             </div>
             <div className="socialmediatrendbody">
        
-            {myresponseData ? ( 
-  myresponseData?.trending?.map((data, index) => (
+            {tagData ? ( 
+  tagData?.map((data, index) => (
     <div className="trendblock" key={data.name}>
     <div className="trendname">
       <div className="trendtitle">#{data.name}</div>
