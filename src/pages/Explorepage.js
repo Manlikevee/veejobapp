@@ -4,10 +4,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import Layout from '../components/Layout/Layout'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import axiosInstance from "../service/axiosinterceptor";
 const Explorepage = () => {
-
+  const [loading, setLoading] = useState(true);
   const [isloading, setisloading] = useState(true);
   const [responsedata, setResponsedata] = useState([]);
+  const [myresponseData, setmyResponseData] = useState('');
   const [inputText, setInputText] = useState("");
   const [textInput, setTextInput] = useState(''); // State to store the text input value
   const [imageFile, setImageFile] = useState(null);
@@ -80,6 +82,64 @@ const Explorepage = () => {
     setImageFile(null);
     setselectedimageurl(null);
   };
+
+
+  useEffect(() => {
+    axiosInstance
+      .get('/Timeline')
+      .then(response => {
+        // Handle the response as needed
+        toast.success('successfully fetched');
+    
+        setmyResponseData(response.data);
+        console.log(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        // Handle errors
+        console.error('GET request error', error);
+        if (error.response && error.response.data && error.response.data.error) {
+          toast.error(error.response.data.error);
+        } else {
+          toast.error('An error occurred while Loading Your Data');
+        }
+        setLoading(false);
+      });
+  }, []);
+
+
+  useEffect(() => {
+    if(myresponseData){
+      const fetchData = async () => {
+        try {
+          const response = await axiosInstance.get('/Timeline');
+          // Handle the response as needed
+  
+          setmyResponseData(response.data);
+          console.log(response.data);
+        } catch (error) {
+          // Fail silently without showing errors
+          console.error('Fetch error (silently ignored)', error);
+        }
+      };
+      fetchData();
+  
+      // Fetch data every 10 seconds
+      const intervalId = setInterval(fetchData, 30000);
+    
+      // Cleanup the interval when the component unmounts
+      return () => clearInterval(intervalId);
+    }
+
+  else{
+    console.log('hello world')
+  }
+    // Fetch data initially
+
+  }, []);
+
+
+
   return (
     <Layout>
     <div className="wrapper detail-page">
@@ -292,219 +352,96 @@ const Explorepage = () => {
 
 
 
+{loading ? ( <>Loading.......</> ) : (
+<>
+{myresponseData ? ( 
+  myresponseData.allposts.map((data, index) => (
+  <div className="socialmediapostcard">
+  <div className="postcardheader">
+    <div className="postcardprofilephoto">
+    <LazyLoadImage
+       effect="blur"
+        src={data.sender_profile.avatar}
+        alt=""
+      />
+    </div>
+    <div className="postcarddetails">
+      <div className="postcardname">@{data.user.username}</div>
+      <div className="postcarddataname">
+        {" "}
+        Web Developer at ISSL - Internet Solutions Services Limited{" "}
+      </div>
+      <div className="postcardtimeago"> 20 de janeiro </div>
+    </div>
+  </div>
+  <div className="postcardbody">
+{data.message}
+  </div>
+  <div className="postcardimage">
+<div className="pcphoto">
+  {data.image? (
+               <LazyLoadImage
+               effect="blur"
+                 src={data.image}
+                 alt=""
+               />
+  ) : '' }
+  </div>
+  </div>
+  <div className="posthistory">
+    <div className="postdata">
+      <span>{data.likes.length}</span>Likes
+    </div>{" "}
+    <div className="postdata">
+      {data?.testj?.length }<span>Comments</span>
+    </div>
+  </div>
+  <div className="postcardbuttons">
+    <div className="postcardline" />
+    <div className="myactionbuttons">
+      <div className="mypostbn">
+        <button>
+          <span className="material-symbols-outlined activated">
+            favorite
+          </span>{" "}
+          Like
+        </button>
+      </div>
+      <div className="mypostbn">
+        <button>
+          <span className="material-symbols-outlined">chat</span>
+          Comment
+        </button>
+      </div>
+      <div className="mypostbn">
+        <button>
+          <span className="material-symbols-outlined">share</span>
+          Share
+        </button>
+      </div>
+    </div>
+    <div className="postcardline" />
+  </div>
+  <div className="comments">
+    <div className="commentdata">
+      <div className="commentinput">
+        <input type="text" placeholder="Leave A Commment" />{" "}
+        <button>
+          <span className="material-symbols-outlined">send</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  </div>   ))) : ('') } 
+</>
 
-          <div className="socialmediapostcard">
-            <div className="postcardheader">
-              <div className="postcardprofilephoto">
-                <img
-                  src="https://plus.unsplash.com/premium_photo-1670588892214-19d7d31e4293?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
-                  alt=""
-                />
-              </div>
-              <div className="postcarddetails">
-                <div className="postcardname">@Codefive</div>
-                <div className="postcarddataname">
-                  {" "}
-                  Web Developer at ISSL - Internet Solutions Services Limited{" "}
-                </div>
-                <div className="postcardtimeago"> 20 de janeiro </div>
-              </div>
-            </div>
-            <div className="postcardbody">
-              Tivemos o privilégio de conceber o website da Foxspeed: uma
-              solução eCommerce em Wordpress, com um design vanguardista!
-              Convidamo-lo a visitar o site foxspeed.pt
-            </div>
-            <div className="posthistory">
-              <div className="postdata">
-                <span>12</span>Comments
-              </div>{" "}
-              <div className="postdata">
-                13<span>Shares</span>
-              </div>
-            </div>
-            <div className="postcardbuttons">
-              <div className="postcardline" />
-              <div className="myactionbuttons">
-                <div className="mypostbn">
-                  <button>
-                    <span className="material-symbols-outlined activated">
-                      favorite
-                    </span>{" "}
-                    Like
-                  </button>
-                </div>
-                <div className="mypostbn">
-                  <button>
-                    <span className="material-symbols-outlined">chat</span>
-                    Comment
-                  </button>
-                </div>
-                <div className="mypostbn">
-                  <button>
-                    <span className="material-symbols-outlined">share</span>
-                    Share
-                  </button>
-                </div>
-              </div>
-              <div className="postcardline" />
-            </div>
-            <div className="comments">
-              <div className="commentdata">
-                <div className="commentinput">
-                  <input type="text" placeholder="Leave A Commment" />{" "}
-                  <button>
-                    <span className="material-symbols-outlined">send</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+) }
 
-
-          <div className="socialmediapostcard">
-            <div className="postcardheader">
-              <div className="postcardprofilephoto">
-                <img
-                  src="https://plus.unsplash.com/premium_photo-1670588892214-19d7d31e4293?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
-                  alt=""
-                />
-              </div>
-              <div className="postcarddetails">
-                <div className="postcardname">@Codefive</div>
-                <div className="postcarddataname">
-                  {" "}
-                  Web Developer at ISSL - Internet Solutions Services Limited{" "}
-                </div>
-                <div className="postcardtimeago"> 20 de janeiro </div>
-              </div>
-            </div>
-            <div className="postcardbody">
-              Tivemos o privilégio de conceber o website da Foxspeed: uma
-              solução eCommerce em Wordpress, com um design vanguardista!
-              Convidamo-lo a visitar o site foxspeed.pt
-            </div>
-            <div className="posthistory">
-              <div className="postdata">
-                <span>12</span>Comments
-              </div>{" "}
-              <div className="postdata">
-                13<span>Shares</span>
-              </div>
-            </div>
-            <div className="postcardbuttons">
-              <div className="postcardline" />
-              <div className="myactionbuttons">
-                <div className="mypostbn">
-                  <button>
-                    <span className="material-symbols-outlined activated">
-                      favorite
-                    </span>{" "}
-                    Like
-                  </button>
-                </div>
-                <div className="mypostbn">
-                  <button>
-                    <span className="material-symbols-outlined">chat</span>
-                    Comment
-                  </button>
-                </div>
-                <div className="mypostbn">
-                  <button>
-                    <span className="material-symbols-outlined">share</span>
-                    Share
-                  </button>
-                </div>
-              </div>
-              <div className="postcardline" />
-            </div>
-            <div className="comments">
-              <div className="commentdata">
-                <div className="commentinput">
-                  <input type="text" placeholder="Leave A Commment" />{" "}
-                  <button>
-                    <span className="material-symbols-outlined">send</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+        
 
 
+      
 
-          <div className="socialmediapostcard">
-            <div className="postcardheader">
-              <div className="postcardprofilephoto">
-                <img
-                  src="https://plus.unsplash.com/premium_photo-1670588892214-19d7d31e4293?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
-                  alt=""
-                />
-              </div>
-              <div className="postcarddetails">
-                <div className="postcardname">@Codefive</div>
-                <div className="postcarddataname">
-                  {" "}
-                  Web Developer at ISSL - Internet Solutions Services Limited{" "}
-                </div>
-                <div className="postcardtimeago"> 20 de janeiro </div>
-              </div>
-            </div>
-            <div className="postcardbody">
-              Tivemoss scsc o privilégio de conceber o website da Foxspeed: uma
-              solução eCommerce em Wordpress, com um design vanguardista!
-              Convidamo-lo a visitar o site foxspeed.pt
-            </div>
-            <div className="postcardimage">
-              <img
-                src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                alt=""
-              />
-            </div>
-            <div className="posthistory">
-              <div className="postdata">
-                <span>12</span>Comments
-              </div>{" "}
-              <div className="postdata">
-                13<span>Shares</span>
-              </div>
-            </div>
-            <div className="postcardbuttons">
-              <div className="postcardline" />
-              <div className="myactionbuttons">
-                <div className="mypostbn">
-                  <button>
-                    <span className="material-symbols-outlined activated">
-                      favorite
-                    </span>{" "}
-                    Like
-                  </button>
-                </div>
-                <div className="mypostbn">
-                  <button>
-                    <span className="material-symbols-outlined">chat</span>
-                    Comment
-                  </button>
-                </div>
-                <div className="mypostbn">
-                  <button>
-                    <span className="material-symbols-outlined">share</span>
-                    Share
-                  </button>
-                </div>
-              </div>
-              <div className="postcardline" />
-            </div>
-            <div className="comments">
-              <div className="commentdata">
-                <div className="commentinput">
-                  <input type="text" placeholder="Leave A Commment" />{" "}
-                  <button>
-                    <span className="material-symbols-outlined">send</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div className="socilamediasidethree">

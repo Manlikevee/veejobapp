@@ -4522,6 +4522,9 @@ transition: 0.5s;
   flex-direction: column;
   gap: 20px;
 }
+.socialmediasideone{
+  width: 45%;
+}
 .socialmediasidetwo{
   width: 100%;
 }
@@ -4673,7 +4676,7 @@ line-height: 1.5em;
 
 .socialmediapostcard{
   width: 100%;
-  border-radius: 2px;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -4704,12 +4707,16 @@ height: 60px;
   padding: 10px;
 
 }
+
+.pcphoto span{
+  width: 100%;
+}
 .postcardbody{
   padding: 10px;
   font-size: 14px;
   margin-top: 0;
-  color: var(--subtitle-color);
-  line-height: 1.9em;
+  color: var(--subtitle-color3);
+  line-height: 1.6em;
 }
 .postcarddetails{
   display: flex;

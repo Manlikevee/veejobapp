@@ -94,36 +94,36 @@ const Jobs = () => {
   }, []);
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axiosInstance.get('/userjobs');
-        // Handle the response as needed
-  
-        setResponseData(response.data);
-        // console.log(response.data);
-  
-        // Your additional logic that should only run when there is responseData
-        // ...
-  
-      } catch (error) {
-        // Fail silently without showing errors
-        console.error('Fetch error (silently ignored)', error);
-      }
-    };
-  
-    if (responseData) {
-      // Fetch data initially
-      fetchData();
-  
-      // Fetch data every 10 seconds
-      const intervalId = setInterval(fetchData, 30000);
-  
-      // Cleanup the interval when the component unmounts
-      return () => clearInterval(intervalId);
-    }
-  }, [responseData]);
-  
+useEffect(() => {
+
+  if(responseData){
+const fetchData = async () => {
+  try {
+    const response = await axiosInstance.get('/userjobs');
+    // Handle the response as needed
+
+    setResponseData(response.data);
+    // console.log(response.data);
+  } catch (error) {
+    // Fail silently without showing errors
+    console.error('Fetch error (silently ignored)', error);
+  }
+};
+
+// Fetch data initially
+fetchData();
+
+// Fetch data every 10 seconds
+const intervalId = setInterval(fetchData, 30000);
+
+// Cleanup the interval when the component unmounts
+return () => clearInterval(intervalId);
+  }
+  else{
+    console.log('yello')
+  }
+
+}, []);
 
   return (
 
