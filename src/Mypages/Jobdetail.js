@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import axiosInstance from '../service/axiosinterceptor'
 import { getUser } from "../service/auth";
 import { Link } from "gatsby";
+import TawkToChat from "../components/Utility/TawkToChat";
 
 const Jobdetail = () => {
   const [isloading, setisloading] = useState(true);
@@ -46,6 +47,8 @@ const Jobdetail = () => {
   return (
     <div>
         <Layout>
+
+          <TawkToChat/>
 
         {isloading ?  ( <>Loading.......</> ) : (  
           

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getUser } from '../../service/auth'
 import { Link } from 'gatsby'
+import TawkToChat from '../Utility/TawkToChat';
 
 const Home = ({responseData,timeOfDay, Usersname}) => {
   const [activityDataList, setActivityDataList] = useState([]);
@@ -19,6 +20,7 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
 
   return (
     <div>
+      <TawkToChat/>
 <div className="wrapper detail-page">
   <div className="main-content">
     <br />

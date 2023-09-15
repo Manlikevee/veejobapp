@@ -105,7 +105,7 @@ const Messaging = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupImage, setPopupImage] = useState(null);
   const [newmessagedata, setnewmessagedata] = useState([]);
-
+  
 
   useEffect(() => {
     // Get the loanReference query parameter from the URL

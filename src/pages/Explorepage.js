@@ -7,6 +7,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import axiosInstance from "../service/axiosinterceptor";
 import { getUser } from "../service/auth";
 import { Link } from 'gatsby'
+import Clock from "../components/Utility/Clock"
 
 function TextWithHashtags({ text }) {
   // Use regular expression to find hashtags and replace them with anchor tags
@@ -271,7 +272,7 @@ const Explorepage = () => {
     <div className="socialmediacontainer">
       <div className="socialmediasideone">
         <div className="socialmediaend">
-          <div id="MyClockDisplay" className="clocks" onload="showTime()" />
+  <Clock/>
         </div>
         <div className="tpadm">
           <div className="profiendedit">

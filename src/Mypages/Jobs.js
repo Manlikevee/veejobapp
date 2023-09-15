@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import axiosInstance from '../service/axiosinterceptor'
 import { Link } from "gatsby";
 import { getUser } from "../service/auth";
+import TawkToChat from "../components/Utility/TawkToChat";
 const Jobs = () => {
   const [isloading, setisloading] = useState(true);
   const [responseData, setResponseData] = useState('');
@@ -147,7 +148,7 @@ useEffect(() => {
       setInitialFetchCompleted(true)
       setResponseData(response.data);
       console.log(response.data);
-      setLoading(true);
+      setLoading(false);
       setcurrentUserId(getUser().id);
 
       // Set initialFetchCompleted to true once the initial fetch is successful
@@ -190,7 +191,7 @@ useEffect(() => {
 
     <Layout>
     <div>
-
+<TawkToChat/>
   
     <div className="wrapper">
   <div className="search-menu">
