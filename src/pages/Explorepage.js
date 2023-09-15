@@ -39,6 +39,9 @@ const Explorepage = () => {
   const [tagData, setTagdata] = useState('')
   const[randomusers, setrandomusers] = useState('')
   const [currentUserId, setcurrentUserId] = useState('')
+  const [startIndex, setStartIndex] = useState(0); // Index to start loading more items
+  const itemsPerPage = 10; // Number of items to load initially and per scroll
+  const loadMoreThreshold = 200; // Distance from the bottom to trigger loading more
 
 
   const LikeJob = (jobId) => {
@@ -218,6 +221,45 @@ const Explorepage = () => {
   
     // Cleanup the interval when the component unmounts
     return () => clearInterval(intervalId);
+  }, []);
+
+
+  const loadMoreItems = () => {
+    setStartIndex((prevStartIndex) => prevStartIndex + itemsPerPage);
+  };
+
+  // Detect when the user scrolls to the bottom of the page
+  const handleScroll = () => {
+    const windowHeight =
+      'innerHeight' in window
+        ? window.innerHeight
+        : document.documentElement.offsetHeight;
+
+    const body = document.body;
+    const html = document.documentElement;
+
+    const docHeight = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight
+    );
+
+    const windowBottom = windowHeight + window.pageYOffset;
+
+    // Load more items when the user is close to the bottom
+    if (windowBottom + loadMoreThreshold >= docHeight) {
+      loadMoreItems();
+    }
+  };
+
+  // Attach the scroll event listener
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
 
@@ -443,7 +485,7 @@ const Explorepage = () => {
 {loading ? ( <>Loading.......</> ) : (
 <>
 {timelineData ? ( 
-  timelineData.map((data, index) => (
+  timelineData.slice(0, startIndex + itemsPerPage).map((data, index) => (
   <div className="socialmediapostcard " >
   <div className="postcardheader">
     <div className="postcardprofilephoto">
