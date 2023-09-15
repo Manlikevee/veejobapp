@@ -36,6 +36,7 @@ const Explorepage = () => {
   const [imageFile, setImageFile] = useState(null);
   const [selectedimageurl, setselectedimageurl] = useState(null)
   const [isLoading, setIsLoading] = useState(false);
+  const [newcomment, setNewcomment] = useState(false)
   const [timelineData, setTimelineData] = useState('')
   const [tagData, setTagdata] = useState('')
   const[randomusers, setrandomusers] = useState('')
@@ -43,7 +44,7 @@ const Explorepage = () => {
   const [startIndex, setStartIndex] = useState(0); // Index to start loading more items
   const itemsPerPage = 10; // Number of items to load initially and per scroll
   const loadMoreThreshold = 200; // Distance from the bottom to trigger loading more
-
+  const [Mycommenttext,setMycommenttext] = useState('')
 
   const LikeJob = (jobId) => {
     
@@ -73,6 +74,58 @@ const Explorepage = () => {
     // Update the UI to set activityData.isLiked to true if successful
   };
 
+
+  const handleCommentTextInputChange = (event) => {
+    const Mycommenttexts = event.target.value;
+
+    if (Mycommenttexts.length <= 200) {
+      setMycommenttext(Mycommenttexts);
+    }
+    else{
+      toast.info('you cant type anymore')
+    }
+  };
+
+
+
+  const CommentJob = (jobId ) => {
+    const keyword = Mycommenttext
+    setNewcomment(true)
+    if(!keyword){
+      alert('please type something')
+      setNewcomment(false)
+    }
+
+    if(keyword){
+
+      const data = {
+        keyword: keyword,
+      };
+      // Make the Axios POST request
+      axiosInstance.post(`/newcomment/${jobId}/`, data)
+        .then((response) => {
+          setNewcomment(false)
+          setMycommenttext('')
+          // Handle the response here (e.g., update the UI)
+          if (response?.data?.message){
+            toast.info(response.data.message)
+            setTimelineData(response.data.allposts)
+
+          }
+        })
+        .catch((error) => {
+          alert('error')
+          setNewcomment(false)
+          // Handle any errors that occurred during the request
+          console.error('Error:', error);
+          toast.error('An Error Occured')
+          
+        });    
+    }
+   
+    // Make an API request to save the job with jobId for the current user
+    // Update the UI to set activityData.isLiked to true if successful
+  };
 
 
 
@@ -134,32 +187,40 @@ const Explorepage = () => {
 
     setIsLoading(true);
 
-    try {
-      const formData = new FormData();
-      formData.append('text', textInput);
+    if(!newcomment){
+      try {
+        const formData = new FormData();
+        formData.append('text', textInput);
 
-      if (imageFile) {
-        formData.append('myimg', imageFile);
+  
+        if (imageFile) {
+          formData.append('myimg', imageFile);
+        }
+        setNewcomment(true)
+        const response = await axiosInstance.post(`/newtimelinepost`, formData);
+  
+        console.log('Message sent:', response.data);
+        setTagdata(response.data.trending)
+        setTimelineData(response.data.allposts)
+        setResponsedata([]);
+        setNewcomment(false)
+        toast.success('Form submitted successfully!');
+      } catch (error) {
+        console.error('Error:', error);
+        toast.error('An error occurred while submitting the form.');
+        setNewcomment(false)
+      } finally {
+        setIsLoading(false);
+        setNewcomment(false)
+  
+        setTextInput('');
+        setImageFile(null);
+        setselectedimageurl(null);
       }
-
-      const response = await axiosInstance.post(`/newtimelinepost`, formData);
-
-      console.log('Message sent:', response.data);
-      setTagdata(response.data.trending)
-      setTimelineData(response.data.allposts)
-      setResponsedata([]);
-
-      toast.success('Form submitted successfully!');
-    } catch (error) {
-      console.error('Error:', error);
-      toast.error('An error occurred while submitting the form.');
-    } finally {
-      setIsLoading(false);
-
-      setTextInput('');
-      setImageFile(null);
-      setselectedimageurl(null);
+  
     }
+
+
   };
 
   const handleRemoveImage = () => {
@@ -321,7 +382,20 @@ const Explorepage = () => {
                                   value={textInput}
                                   onChange={handleTextInputChange}
                 ></textarea>
-                <button>Post</button></div>
+               
+               {newcomment ? (
+                <button>
+                  <span className="send ">
+              <div className="circle">
+              <span class="material-symbols-outlined zmdi loading-icon zmdi-mail-send">
+              cached
+</span>
+ 
+              </div>
+            </span>
+                </button>
+               ) : (<button>Post</button>) }
+                </div>
                
               </div>
          
@@ -563,7 +637,7 @@ Like
         </button>
       </div>
       <div className="mypostbn">
-        <button>
+        <button >
           <span className="material-symbols-outlined">share</span>
           Share
         </button>
@@ -574,10 +648,28 @@ Like
   <div className="comments">
     <div className="commentdata">
       <div className="commentinput">
-        <input type="text" placeholder="Leave A Commment" />{" "}
-        <button>
+        <input type="text" placeholder="Leave A Commment" 
+          value={Mycommenttext}
+          onChange={handleCommentTextInputChange}
+        />{" "}
+     
+     {newcomment ? (<button onClick={() => CommentJob(data.messageid)}>
+          
+     <span className="send ">
+              <div className="circle">
+              <span class="material-symbols-outlined zmdi loading-icon zmdi-mail-send">
+              cached
+</span>
+</div>
+</span>
+
+        </button> )
+     : (<button onClick={() => CommentJob(data.messageid)}>
+          
           <span className="material-symbols-outlined">send</span>
-        </button>
+        </button>) }
+   
+     
       </div>
     </div>
   </div>
