@@ -183,15 +183,22 @@ const Explorepage = () => {
 
   const handleImageFileChange = (event) => {
     const file = event.target.files[0];
+    const maxSizeInBytes = 1024 * 1024;
 
-    if (file) {
+    if (file.size > maxSizeInBytes) {
+      alert('File size exceeds the limit (1MB)');
+      setImageFile(null); // Clear the image file in state
+      setselectedimageurl(null); // Clear the selected image URL
+    }
+    else if (file) {
       const imageUrl = URL.createObjectURL(file);
       setselectedimageurl(imageUrl);
+      setImageFile(file);
     } else {
       setselectedimageurl(null);
     }
 
-    setImageFile(file);
+   
   };
 
   const handleSubmit = async (event) => {
