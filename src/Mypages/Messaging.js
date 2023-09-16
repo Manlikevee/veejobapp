@@ -14,7 +14,7 @@ import MySpinner from "../components/Messagebody/MySpinner"
 import Linkify from 'react-linkify';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import Modalbx from "../components/Utility/Modalbx";
+
 import {
   differenceInMinutes,
   differenceInHours,
@@ -108,9 +108,6 @@ const Messaging = () => {
   const [modalshow, setModalshow] = useState(false)
 
 
-const openmdl = () => {
-  setModalshow(true)
-}
 
   useEffect(() => {
     // Get the loanReference query parameter from the URL
@@ -294,10 +291,10 @@ const openmdl = () => {
         </div>
       )}
 
-{modalshow ? (<Modalbx/>) : ('')}
 
 
-<div className='messagingflexbox'onClick={openmdl}>
+
+<div className='messagingflexbox'>
 <div className="messagingbox">
 
           <div className="msgtitle">

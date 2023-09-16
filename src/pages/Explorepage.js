@@ -8,6 +8,9 @@ import axiosInstance from "../service/axiosinterceptor";
 import { getUser } from "../service/auth";
 import { Link } from 'gatsby'
 import Clock from "../components/Utility/Clock"
+import Modalbx from "../components/Utility/Modalbx";
+
+
 
 function TextWithHashtags({ text }) {
   // Use regular expression to find hashtags and replace them with anchor tags
@@ -45,9 +48,41 @@ const Explorepage = () => {
   const itemsPerPage = 10; // Number of items to load initially and per scroll
   const loadMoreThreshold = 200; // Distance from the bottom to trigger loading more
   const [Mycommenttext,setMycommenttext] = useState('')
+  const [modalshow, setModalshow] = useState(false)
+  const [modalload, setModalload] = useState(true)
+  const [modaldata, setmodaldata] = useState('')
 
+  const openmdl = (postId) => {
+   
+    setModalshow(true)
+    if (postId) {
+      axiosInstance.get(`/postingsinglepage/${postId}`)
+        .then(response => {
+          console.log(response.data);
+          toast.success('fetched data')
+          setmodaldata(response.data);
+          setModalload(false);
+        })
+        .catch(error => {
+          toast.error('Error fetching profile data')
+          console.error("Error fetching profile data:", error);
+          setModalload(false);
+        });
+  
+      }
+      else{
+        alert('no ref')
+      }
+  }
+
+  const closeModal = (postId) => {
+    setmodaldata('')
+    setModalshow(false)
+  }
+ 
+ 
   const LikeJob = (jobId) => {
-    
+
 
     const data = {
       post_id: jobId,
@@ -61,6 +96,9 @@ const Explorepage = () => {
           toast.info(response.data.message)
           setTimelineData(response.data.allposts)
           setTagdata(response.data.tagdata)
+          if(modalshow){
+            setmodaldata(response.data);
+          }
         }
       })
       .catch((error) => {
@@ -110,7 +148,8 @@ const Explorepage = () => {
           if (response?.data?.message){
             toast.info(response.data.message)
             setTimelineData(response.data.allposts)
-
+            setmodaldata(response.data);
+         
           }
         })
         .catch((error) => {
@@ -260,12 +299,15 @@ const Explorepage = () => {
         }
       } catch (error) {
         // Handle errors
-        console.error('GET request error', error);
-        if (error.response && error.response.data && error.response.data.error) {
-          toast.error(error.response.data.error);
-        } else {
-          toast.error('An error occurred while Loading Your Data');
+        if (!initialFetchCompleted){
+          if (error.response && error.response.data && error.response.data.error) {
+            toast.error(error.response.data.error);
+          } else {
+            toast.error('An error occurred while Loading Your Data');
+          }
         }
+        console.error('GET request error', error);
+
         setLoading(false);
       }
     };
@@ -328,11 +370,14 @@ const Explorepage = () => {
 
   return (
     <Layout>
+      {modalshow ? (<Modalbx show={modalshow} closeModal={closeModal} modaldata={modaldata} LikeJob={LikeJob} newcomment={newcomment} CommentJob={CommentJob}
+      handleCommentTextInputChange={handleCommentTextInputChange}      Mycommenttext= {Mycommenttext}
+      />) : ('')}
     <div className="wrapper detail-page">
   <div className="main-content">
     <div className="socialmediacontainer">
       <div className="socialmediasideone">
-        <div className="socialmediaend">
+        <div className="socialmediaend" >
   <Clock/>
         </div>
         <div className="tpadm">
@@ -588,6 +633,7 @@ const Explorepage = () => {
                <LazyLoadImage
                effect="blur"
                  src={data.image}
+                 onClick={() => openmdl(data.messageid)}
                  alt=""
                />
   ) : '' }
@@ -608,7 +654,7 @@ const Explorepage = () => {
      
       {data.likes.some((likedUser) => likedUser === currentUserId) ? (
 
-<button onClick={() => LikeJob(data.id)}>
+<button onClick={() => LikeJob(data.messageid)} >
 <span className="material-symbols-outlined activated">
   favorite
 </span>{" "}
@@ -617,7 +663,7 @@ Like
 
 
         ) : (
-          <button onClick={() => LikeJob(data.id)}>
+          <button onClick={() => LikeJob(data.messageid)}>
 <span className="material-symbols-outlined">
   favorite
 </span>{" "}
@@ -631,7 +677,7 @@ Like
      
       </div>
       <div className="mypostbn">
-        <button>
+        <button onClick={() => openmdl(data.messageid)}>
           <span className="material-symbols-outlined">chat</span>
           Comment
         </button>

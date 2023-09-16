@@ -18,12 +18,12 @@ const Layout = ({ children }) => {
     {/* Add more head tags here */}
   </Helmet>  
         <Header/>
-        <ToastContainer/>
+    
 
         <div className="job">
         {children}
         </div>
-
+        <ToastContainer/>
         
         </div>
   )
