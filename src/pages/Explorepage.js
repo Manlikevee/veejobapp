@@ -59,7 +59,7 @@ const Explorepage = () => {
       axiosInstance.get(`/postingsinglepage/${postId}`)
         .then(response => {
           console.log(response.data);
-          toast.success('fetched data')
+     
           setmodaldata(response.data);
           setModalload(false);
         })
