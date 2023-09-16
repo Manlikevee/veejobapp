@@ -377,9 +377,7 @@ const Explorepage = () => {
 
   return (
     <Layout>
-      {modalshow ? (<Modalbx show={modalshow} closeModal={closeModal} modaldata={modaldata} LikeJob={LikeJob} newcomment={newcomment} CommentJob={CommentJob}
-      handleCommentTextInputChange={handleCommentTextInputChange}      Mycommenttext= {Mycommenttext}
-      />) : ('')}
+
     <div className="wrapper detail-page">
   <div className="main-content">
     <div className="socialmediacontainer">
@@ -611,6 +609,11 @@ const Explorepage = () => {
 
 {loading ? ( <>Loading.......</> ) : (
 <>
+
+{modalshow ? (<Modalbx show={modalshow} closeModal={closeModal} modaldata={modaldata} LikeJob={LikeJob} newcomment={newcomment} CommentJob={CommentJob}
+      handleCommentTextInputChange={handleCommentTextInputChange}      Mycommenttext= {Mycommenttext} currentUserId={currentUserId}
+      />) : ('')}
+
 {timelineData ? ( 
   timelineData.slice(0, startIndex + itemsPerPage).map((data, index) => (
   <div className="socialmediapostcard " >

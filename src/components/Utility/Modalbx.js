@@ -26,7 +26,7 @@ function TextWithHashtags({ text }) {
   return <div>{processedText}</div>;
 }
 
-const Modalbx = ({ show, closeModal,modaldata, LikeJob, newcomment, CommentJob, handleCommentTextInputChange, Mycommenttext }) => {
+const Modalbx = ({ show, closeModal,modaldata, LikeJob, newcomment, CommentJob, handleCommentTextInputChange, Mycommenttext, currentUserId }) => {
   return (
     <div>
 
@@ -75,14 +75,42 @@ const Modalbx = ({ show, closeModal,modaldata, LikeJob, newcomment, CommentJob, 
         <div className="postcardbuttons">
           <div className="postcardline" />
           <div className="myactionbuttons">
-            <div className="mypostbn">
+
+          <div className="mypostbn">
+     
+     {modaldata?.mypost?.likes.some((likedUser) => likedUser === currentUserId) ? (
+
+<button onClick={() => LikeJob(modaldata?.mypost?.messageid)} >
+<span className="material-symbols-outlined activated">
+ favorite
+</span>{" "}
+Like
+</button>
+
+
+       ) : (
+         <button onClick={() => LikeJob(modaldata?.mypost?.messageid)}>
+<span className="material-symbols-outlined">
+ favorite
+</span>{" "}
+Like
+</button>
+        
+       )}
+
+
+
+    
+     </div>
+
+            {/* <div className="mypostbn">
               <button onClick={() => LikeJob(modaldata?.mypost?.messageid)} >
                 <span className="material-symbols-outlined activated">
                   favorite
                 </span>{" "}
                 Like
               </button>
-            </div>
+            </div> */}
             <div className="mypostbn">
               <button>
                 <span className="material-symbols-outlined">chat</span>
