@@ -5492,7 +5492,10 @@ max-width: 70%;
     
 }
 
-
+.blks{
+  cursor: pointer;
+  color: var(--subtitle-color);
+}
 
 nav {
   position: fixed;

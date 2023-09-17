@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Applicationdata = ({responsedata}) => {
+const Applicationdata = ({responsedata, ApplyJob}) => {
 
     const  [userProfileData, setUserProfileData] = useState([]);
     const  [jobdetail, setJobdetail] = useState([]);
@@ -472,7 +472,7 @@ const Applicationdata = ({responsedata}) => {
                     <div className="btadm">
                     Click 'Apply' to Submit your application.
                       <div className="btnrl">
-                        <button className="btn accept">Apply</button>
+                        <button className="btn accept" onClick={() => ApplyJob(jobdetail.id)}>Apply</button>
                         <button className="btn decline">Decline</button>
                       </div>
                     </div>

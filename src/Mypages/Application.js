@@ -49,12 +49,37 @@ const Application = () => {
   }, []);
  
  
+  const ApplyJob = (jobId) => {
+    
+
+
+    // Make the Axios POST request
+    axiosInstance.get(`/applications/${jobId}`)
+      .then((response) => {
+      
+        // Handle the response here (e.g., update the UI)
+        if (response?.data?.message){
+          toast.info(response.data.message)
+
+        }
+      })
+      .catch((error) => {
+        alert('error')
+        // Handle any errors that occurred during the request
+        console.error('Error:', error);
+        toast.error('An Error Occured')
+        
+      });    
+    // Make an API request to save the job with jobId for the current user
+    // Update the UI to set activityData.isLiked to true if successful
+  };
+
   return (
     <Layout>
 
       {isloading ? ('Loading') : (   
       <>
-      {responsedata?.job_detail?  (<Applicationdata responsedata={responsedata}/>) : (<Errorpopup/>)}
+      {responsedata?.job_detail?  (<Applicationdata responsedata={responsedata} ApplyJob={ApplyJob}/>) : (<Errorpopup/>)}
       </>  )}
 
 

@@ -9,6 +9,7 @@ import { getUser } from "../service/auth";
 import { Link } from 'gatsby'
 import Clock from "../components/Utility/Clock"
 import Modalbx from "../components/Utility/Modalbx";
+import { navigate } from 'gatsby';
 import {
   differenceInMinutes,
   differenceInHours,
@@ -47,7 +48,7 @@ function TextWithHashtags({ text }) {
   const processedText = text.split(/(#\w+)/g).map((segment, index) => {
     if (segment.startsWith('#')) {
       const hashtag = segment.substring(1); // Remove the '#'
-      return ( 
+      return (
         <Link key={index} to={`/Exploretags/?tag=${hashtag}`}>
           {segment}
         </Link>
@@ -58,7 +59,7 @@ function TextWithHashtags({ text }) {
 
   return <div>{processedText}</div>;
 }
-const Explorepage = () => {
+const Exploretags = () => {
   const [initialFetchCompleted, setInitialFetchCompleted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isloading, setisloading] = useState(true);
@@ -81,6 +82,7 @@ const Explorepage = () => {
   const [modalshow, setModalshow] = useState(false)
   const [modalload, setModalload] = useState(true)
   const [modaldata, setmodaldata] = useState('')
+  const [Verificationtoken, SetVerificationtoken] = useState('');
   function getTimeAgo(dateString) {
   const currentDate = new Date();
   const date = new Date(dateString);
@@ -164,6 +166,7 @@ const Explorepage = () => {
 
     const data = {
       post_id: jobId,
+      tagslug: Verificationtoken,
     };
     // Make the Axios POST request
     axiosInstance.post('/savedtimelinepost/', data)
@@ -216,6 +219,7 @@ const Explorepage = () => {
 
       const data = {
         keyword: keyword,
+        tagslug: Verificationtoken,
       };
       // Make the Axios POST request
       axiosInstance.post(`/newcomment/${jobId}/`, data)
@@ -356,10 +360,18 @@ const Explorepage = () => {
       
   useEffect(() => {
     let initialFetchCompleted = false;
-  
+        // Get the loanReference query parameter from the URL
+        const queryParams = new URLSearchParams(window.location.search);
+        const loanReferenceValue = queryParams.get('tag');
+    
+        SetVerificationtoken(loanReferenceValue);
     const fetchData = async () => {
+        if(!loanReferenceValue){
+alert('An Error Occured')
+        }
       try {
-        const response = await axiosInstance.get('/Timeline');
+   
+        const response = await axiosInstance.get(`/tag/${loanReferenceValue}`);
         // Handle the response as needed
        
 
@@ -410,8 +422,13 @@ const Explorepage = () => {
   
     // Cleanup the interval when the component unmounts
     return () => clearInterval(intervalId);
+
   }, []);
 
+  const Changetag = (tag) => {
+
+    navigate(`/Exploretags/?tag=${tag}`);
+  }
 
   const loadMoreItems = () => {
     setStartIndex((prevStartIndex) => prevStartIndex + itemsPerPage);
@@ -450,6 +467,7 @@ const Explorepage = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
 
 
 
@@ -942,15 +960,18 @@ Like
             <div className="socialmediatrendbody">
        
             {tagData ? ( 
+
+
+
   tagData?.map((data, index) => (
-    <div className="trendblock" key={data.name}>
+    <Link to={`/Exploretags/?tag=${data.name}`} onClick={() => Changetag(data.name)}   className="trendblock blks" key={data.name}>
     <div className="trendname">
       <div className="trendtitle">#{data.name}</div>
     </div>
     <div className="trenddot">
       <div className="trendnumber">{data.number} Tweets</div>
     </div>
-  </div>
+  </Link>
 
 ))) : (
   
@@ -1058,4 +1079,4 @@ Like
   )
 }
 
-export default Explorepage
+export default Exploretags
