@@ -9,8 +9,38 @@ import { getUser } from "../service/auth";
 import { Link } from 'gatsby'
 import Clock from "../components/Utility/Clock"
 import Modalbx from "../components/Utility/Modalbx";
+import {
+  differenceInMinutes,
+  differenceInHours,
+  differenceInDays,
+  differenceInMonths,
+  differenceInYears,
+} from 'date-fns';
 
+function getTimeAgo(dateString) {
+  const currentDate = new Date();
+  const date = new Date(dateString);
 
+  const minutesDiff = differenceInMinutes(currentDate, date);
+  const hoursDiff = differenceInHours(currentDate, date);
+  const daysDiff = differenceInDays(currentDate, date);
+  const monthsDiff = differenceInMonths(currentDate, date);
+  const yearsDiff = differenceInYears(currentDate, date);
+
+  if (minutesDiff < 1) {
+    return 'just now';
+  } else if (minutesDiff < 60) {
+    return `${minutesDiff} minute${minutesDiff !== 1 ? 's' : ''} ago`;
+  } else if (hoursDiff < 24) {
+    return `${hoursDiff} hour${hoursDiff !== 1 ? 's' : ''} ago`;
+  } else if (daysDiff < 30) {
+    return `${daysDiff} day${daysDiff !== 1 ? 's' : ''} ago`;
+  } else if (monthsDiff < 12) {
+    return `${monthsDiff} month${monthsDiff !== 1 ? 's' : ''} ago`;
+  } else {
+    return `${yearsDiff} year${yearsDiff !== 1 ? 's' : ''} ago`;
+  }
+}
 
 function TextWithHashtags({ text }) {
   // Use regular expression to find hashtags and replace them with anchor tags
@@ -51,6 +81,54 @@ const Explorepage = () => {
   const [modalshow, setModalshow] = useState(false)
   const [modalload, setModalload] = useState(true)
   const [modaldata, setmodaldata] = useState('')
+  function getTimeAgo(dateString) {
+  const currentDate = new Date();
+  const date = new Date(dateString);
+
+  const minutesDiff = differenceInMinutes(currentDate, date);
+  const hoursDiff = differenceInHours(currentDate, date);
+  const daysDiff = differenceInDays(currentDate, date);
+  const monthsDiff = differenceInMonths(currentDate, date);
+  const yearsDiff = differenceInYears(currentDate, date);
+
+  if (minutesDiff < 1) {
+    return 'just now';
+  } else if (minutesDiff < 60) {
+    return `${minutesDiff} minute${minutesDiff !== 1 ? 's' : ''} ago`;
+  } else if (hoursDiff < 24) {
+    return `${hoursDiff} hour${hoursDiff !== 1 ? 's' : ''} ago`;
+  } else if (daysDiff < 30) {
+    return `${daysDiff} day${daysDiff !== 1 ? 's' : ''} ago`;
+  } else if (monthsDiff < 12) {
+    return `${monthsDiff} month${monthsDiff !== 1 ? 's' : ''} ago`;
+  } else {
+    return `${yearsDiff} year${yearsDiff !== 1 ? 's' : ''} ago`;
+  }
+}
+  
+  
+  const [activeNavItem, setActiveNavItem] = useState('feed');
+  
+    const handleNavItemClick = (navItem) => {
+      setActiveNavItem(navItem);
+    };
+  
+    const [boxes, setBoxes] = useState({
+      feed: true,
+      message: false,
+      trend: false,
+    });
+  
+    const toggleBoxVisibility = (boxId) => {
+      const updatedBoxes = { ...boxes };
+      Object.keys(updatedBoxes).forEach((key) => {
+        updatedBoxes[key] = key === boxId;
+      });
+      setBoxes(updatedBoxes);
+    };
+
+
+
 
   const openmdl = (postId) => {
    
@@ -381,7 +459,8 @@ const Explorepage = () => {
     <div className="wrapper detail-page">
   <div className="main-content">
     <div className="socialmediacontainer">
-      <div className="socialmediasideone">
+    
+      <div className={`smediabox socialmediasideone ${boxes.message ? 'showing' : ''}`}>
         <div className="socialmediaend" >
   <Clock/>
         </div>
@@ -401,12 +480,121 @@ const Explorepage = () => {
             <div className="phon">0701373576</div>
           </div>
         </div>
+        <div className="newpostme">
+        < form onSubmit={handleSubmit} className="socialmediaend">
+          <div className="constructmessage">
+            <div className="constructtop">
+              <div className="constructimg">
+                {" "}
+                <img
+                  src="https://images.unsplash.com/photo-1687360441348-1bb4a85824e8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                  alt=""
+                  loading="lazy"
+                />{" "}
+              </div>
+              <div className="constructtext fdc">
+              <small className="ddsa">      Characters: {textInput.length} / 200</small>
+   <div className="wids"> 
+   {/* <input
+                  type="text"
+                  name=""
+                  id=""
+
+                  placeholder="What are You feeling"
+                /> */}
+                <textarea placeholder="Describe yourself here..."
+                                  value={textInput}
+                                  onChange={handleTextInputChange}
+                ></textarea>
+               
+               {newcomment ? (
+                <button>
+                  <span className="send ">
+              <div className="circle">
+              <span class="material-symbols-outlined zmdi loading-icon zmdi-mail-send">
+              cached
+</span>
+ 
+              </div>
+            </span>
+                </button>
+               ) : (<button>Post</button>) }
+                </div>
+               
+              </div>
+         
+            </div>
+            <div className="constructbottom">
+              <div className="constructimg">
+                {" "}
+                <img src="" alt="" loading="lazy" />{" "}
+              </div>
+              <div className="constructortext">
+                <div className="hw">
+              
+                <label for="fileInput" class="camera-button">
+                <div>
+                <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            onChange={handleImageFileChange}
+          />
+                    <span className="material-symbols-outlined cam">
+                      photo_camera
+                    </span>{" "}
+                    Photo/Video
+                    </div>
+                  </label>
+               
+                </div>
+                <div className="hw">
+                  {" "}
+                  <div className="image">
+                    <span className="material-symbols-outlined feels">
+                      sentiment_satisfied
+                    </span>{" "}
+                    Feeling
+                  </div>
+                </div>
+                <div className="hw">
+                  {" "}
+                  <div className="feeling">
+                    <span className="material-symbols-outlined live">
+                      live_tv
+                    </span>{" "}
+                    Live Video
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {imageFile && (
+            <div className="wid">
+              <img
+                src={selectedimageurl}
+                alt="Selected"
+                className="myimgss"
+
+              />
+              <button type="button" onClick={handleRemoveImage}>
+                Remove Image
+              </button>
+            </div>
+          )}
+        
+
+
+        </form>
+        </div>
         {/* <div class="socialmediaend">
 
 
           </div> */}
       </div>
-      <div className="socialmediasidetwo">
+
+      <div className={`smediabox socialmediasidetwo ${boxes.feed ? 'showing' : ''}`}>
         < form onSubmit={handleSubmit} className="socialmediaend">
           <div className="constructmessage">
             <div className="constructtop">
@@ -631,7 +819,7 @@ const Explorepage = () => {
         {" "}
         Web Developer at ISSL - Internet Solutions Services Limited{" "}
       </div>
-      <div className="postcardtimeago"> 20 de janeiro </div>
+      <div className="postcardtimeago"> {getTimeAgo(data.messagetime)}  </div>
     </div>
   </div>
   <div className="postcardbody">
@@ -741,7 +929,8 @@ Like
 
         </div>
       </div>
-      <div className="socilamediasidethree">
+
+      <div className={`smediabox socilamediasidethree ${boxes.trend  ? 'showing' : ''}`}>
         <div className="socialmediaend">
           <div className="socaildata">
             <div className="socialmediahead">
@@ -826,7 +1015,44 @@ Like
       </div>
     </div>
   </div>
+
+
 </div>
+
+
+<nav>
+        <div className="nav-box">
+          <div className="nav-container">
+            <li className={`nav__item ${activeNavItem === 'feed' ? 'active' : ''}`}>
+              <div  className="nav__item-link" onClick={() => { handleNavItemClick('feed'); toggleBoxVisibility('feed'); }}>
+                <div className="nav__item-icon">
+                  <span className="material-symbols-outlined">feed</span>
+                </div>
+                <span className="nav__item-text">Feed</span>
+              </div>
+            </li>
+
+            <li className={`nav__item ${activeNavItem === 'message' ? 'active' : ''}`}>
+              <div  className="nav__item-link" onClick={() => { handleNavItemClick('message'); toggleBoxVisibility('message'); }}>
+                <div className="nav__item-icon">
+                  <span className="material-symbols-outlined">add</span>
+                </div>
+                <span className="nav__item-text">Post</span>
+              </div>
+            </li>
+
+            <li className={`nav__item ${activeNavItem === 'trend' ? 'active' : ''}`}>
+              <div className="nav__item-link" onClick={() => { handleNavItemClick('trend'); toggleBoxVisibility('trend'); }}>
+                <div className="nav__item-icon">
+                  <span className="material-symbols-outlined">tag</span>
+                </div>
+                <span className="nav__item-text">Trend</span>
+              </div>
+            </li>
+          </div>
+        </div>
+      </nav>
+
 
     </Layout>
   )

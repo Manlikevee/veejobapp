@@ -470,9 +470,9 @@ const Applicationdata = ({responsedata}) => {
                   </div>
                   <div className="share1">
                     <div className="btadm">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Click 'Apply' to Submit your application.
                       <div className="btnrl">
-                        <button className="btn accept">Accept</button>
+                        <button className="btn accept">Apply</button>
                         <button className="btn decline">Decline</button>
                       </div>
                     </div>

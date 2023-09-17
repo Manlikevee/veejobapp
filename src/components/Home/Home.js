@@ -52,8 +52,8 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
           <span className="material-symbols-outlined">bookmarks</span>
         </div>
         <div className="dbtextdata">
-          <div className="dbtitle">30</div>
-          <div className="dbsubtext">Saved application</div>
+          <div className="dbtitle">{responseData.jobcardcount}</div>
+          <div className="dbsubtext">Saved Roles</div>
         </div>
       </Link>
    

@@ -316,7 +316,7 @@ const Messaging = () => {
 {newmessagedata?.length > 0 ? (
                   newmessagedata.map((md, index) => (
          
-          <Link to={`/app/Messaging/?messageid=${md.messageid.messageid}`} className="dbmessagingbox">
+          <a href={`/app/Messaging/?messageid=${md.messageid.messageid}`} className="dbmessagingbox">
               <div className="messagingboxicon">
               {md.messageid.sender.username == Usersname ? (
                 <>                <img
@@ -339,7 +339,7 @@ const Messaging = () => {
                
                 </div>
               </div>
-            </Link>   ))
+            </a>   ))
            ) : '' }
 </>
 

@@ -147,15 +147,20 @@ const Header = () => {
         <div className="textgridtitle">Job Match</div>
       </div>
     </Link>
+
+
+  
   </div>
+
+
 </div>
 
     
     </div>
-      <Link to='/Jobdetail/' activeClassName="active">
+      {/* <Link to='/Jobdetail/' activeClassName="active">
       <span class="material-symbols-outlined">
 forum
-</span> Messaging</Link>
+</span> Messaging</Link> */}
 
 <Link to='/Explorepage' activeClassName="active">
 <span class="material-symbols-outlined">
@@ -164,13 +169,33 @@ stream_apps
     <Link to='/app/profile' activeClassName="active"><span class="material-symbols-outlined">
     account_box
     </span> Profile</Link>
+
+    {isLoggedIn() ? (
+          <a
+            href="/"
+            className='logout'
+            onClick={event => {
+              event.preventDefault()
+              logout(() => navigate(`/app/login`))
+            }}
+          >
+        <span class="material-symbols-outlined">
+logout
+</span>    Logout
+          </a>
+        ) : (    <Link to='/Login' 
+        className='logout'
+        activeClassName="active"><span class="material-symbols-outlined">
+        account_box
+        </span> Profile</Link>)}
+
+    </div>
+    <div className="user-settings">
     <Link  >
     <span class="material-symbols-outlined" onClick={toggleFullScreen}>
 expand_content
 </span>
     </Link>
-    </div>
-    <div className="user-settings">
       <div className="dark-light" onClick={toggleDarkMode}>
         <svg
           viewBox="0 0 24 24"
@@ -197,6 +222,7 @@ expand_content
           <rect x={3} y={3} width={18} height={18} rx={2} ry={2} />
         </svg>
       </div>
+
      <Link to='/Userprofile' className='usb'> <img
         className="user-profile"
         src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%283%29+%281%29.png"
