@@ -2917,7 +2917,9 @@ font-size: 14px;
     display: flex;
     grid-gap: 10px;
 }
-
+.btnrl .btn{
+  text-align: center;
+}
 .timeline.education{
     width: 100%;
     height: 50vh;
@@ -3992,11 +3994,15 @@ object-fit: contain;
   height: 100vh;
 
 }
+.veelogincontainer form{
+  width: 100%;
+}
+
 
 .loginsideone{
 width: 100%;
 /* background: var(--vvd); */
-padding: 70px;
+padding: 40px;
 display: flex;
 flex-direction: column;
 justify-content: space-between;
@@ -4004,6 +4010,10 @@ justify-content: space-between;
 background-repeat: repeat;
 background-attachment: fixed;
 background-size: contain;
+}
+
+.register{
+  flex-direction: row-reverse;
 }
 .loginsidetwo{
 display: flex;
@@ -4017,6 +4027,54 @@ background-size: cover;
 background-position: right;
 padding: 60px;
 }
+
+.register .loginsidetwo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  background: linear-gradient(180.09deg,rgba(0,0,0,.176) 27.66%,rgba(0,0,0,.8) 78.79%),url(https://images.unsplash.com/photo-1616587894417-b93dfd1f700a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80);
+  
+  
+  background-size: cover;
+  background-position: right;
+  padding: 60px;
+  }
+
+  .verification .loginsidetwo {
+    background: linear-gradient(180.09deg,rgba(0,0,0,.176) 27.66%,rgba(0,0,0,.8) 78.79%),url(https://images.unsplash.com/photo-1507209696998-3c532be9b2b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80);
+  
+  
+    background-size: cover;
+    background-position: right;
+    padding: 60px;
+
+
+  }
+
+  .spinner {
+    border: 4px solid rgba(0, 0, 255, 0.3);
+    border-radius: 50%;
+    border-top: 4px solid #0000FF;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Center the spinner */
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+
 .loginblur{
 padding: 40px;
 width: 100%;
@@ -4057,6 +4115,7 @@ margin-bottom: 7px;
 line-height: 1.5;
 text-align: center;
 padding: 10px;
+width: 100%;
 }
 .loginlogo{
 margin: auto;

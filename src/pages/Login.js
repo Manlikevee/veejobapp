@@ -89,7 +89,7 @@ const Login = () => {
         </div>
         <div className="logintitle">
           Don’t have an account?{" "}
-          <a href="/Userregistration/">Create An Account</a>{" "}
+          <Link to='/Register'>Create An Account</Link>{" "}
         </div>
       </div>
 </form>
