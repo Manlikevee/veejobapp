@@ -4032,7 +4032,6 @@ padding: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60%;
   background: linear-gradient(180.09deg,rgba(0,0,0,.176) 27.66%,rgba(0,0,0,.8) 78.79%),url(https://images.unsplash.com/photo-1616587894417-b93dfd1f700a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80);
   
   
@@ -4136,7 +4135,7 @@ text-align: center;
 flex-direction: column-reverse;
 }
 .loginsidetwo{
-width: 100%;
+width: 100% !important;
 height:300px;
 max-height: 300px;
 }
