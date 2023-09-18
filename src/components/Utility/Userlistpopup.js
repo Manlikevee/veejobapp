@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 import { toast } from 'react-toastify';
 import axiosInstance from '../../service/axiosinterceptor'
 import { getUser } from "../../service/auth"
-
+import { navigate } from "gatsby";
 
 const Userlistpopup = ({hidepop, allusers}) => {
 
@@ -14,7 +14,7 @@ const Userlistpopup = ({hidepop, allusers}) => {
   
   
   const saveJob = (jobId) => {
-    alert(jobId)
+
     // Make the Axios POST request
     axiosInstance.get(`/usermessagecreate/${jobId}`)
       .then((response) => {
@@ -22,9 +22,9 @@ const Userlistpopup = ({hidepop, allusers}) => {
         // Handle the response here (e.g., update the UI)
         if (response?.data?.message){
           toast.info(response.data.message)
-          alert(response.data.id)
           setResponseData(response.data);
           console.log(response.data)
+          navigate(`/app/Messaging/?messageid=${response.data.id}`);
         }
       })
       .catch((error) => {
@@ -79,8 +79,8 @@ const Userlistpopup = ({hidepop, allusers}) => {
             />
           </div>
           <div className="userstat">
-            <div className="usersname">{data.username} {data.id}</div>
-            <div className="usersstack">{data.email}</div>
+            <div className="usersname">{data.username} </div>
+            {/* <div className="usersstack">{data.email}</div> */}
           </div>
         </div>
       </div>
