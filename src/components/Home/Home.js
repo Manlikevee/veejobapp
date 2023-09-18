@@ -4,6 +4,8 @@ import { Link } from 'gatsby'
 import TawkToChat from '../Utility/TawkToChat';
 import Userlistpopup from '../Utility/Userlistpopup';
 
+
+
 const Home = ({responseData,timeOfDay, Usersname}) => {
   const [activityDataList, setActivityDataList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,6 +14,17 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
   const [newmessagedata, setnewmessagedata] = useState([]);
   const [showpopup, setShowpopup] = useState(false)
   
+
+  const showpop = () => {
+    setShowpopup(true)
+  }
+
+ const hidepop = () => {
+   setShowpopup(false)
+
+}
+
+
   useEffect(() => {
     setActivityDataList(responseData.jobserialized);
     setmessageData(responseData.usecase)
@@ -19,15 +32,6 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
     setLoading(false);
   });
 
-  const showpop = () => {
-     setShowpopup = useState(true)
-
-  }
-
-  const hidepop = () => {
-    setShowpopup = useState(false)
-
- }
 
   return (
     <div>
@@ -139,12 +143,12 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
         </div>
       </div>
 
-{showpopup ? (<Userlistpopup hidepop={hidepop}/>) : ('') } 
+{showpopup ? (<Userlistpopup hidepop={hidepop} allusers={responseData.allusers}/>) : ('') } 
 
       <div className="dbsideflextwo">
         <div className="messagingbox">
           <div className="msgtitle">
-            <div className="job-card-title dbd">Messages     <span onClick={showpop()}>+</span></div>
+            <div className="job-card-title dbd">Messages     <span onClick={showpop} >+</span></div>
             <div className="jmini">Discover Opportunities..</div>
           </div>
           <div className="messagingflow">
