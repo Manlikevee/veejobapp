@@ -5623,3 +5623,56 @@ nav {
   transform: scale(0);
   transition: transform 250ms ease-in-out;
 }
+
+
+
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999999999999999999999991;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(2px);
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.modal-content {
+  background: var(--header-bg-color);
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+  animation: modalfade 0.5s;
+}
+
+.scrollboxing {
+  height: 50vh;
+  width: 100%;
+  padding: 10px;
+  overflow-y: scroll;
+  display: grid;
+  align-items: start;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: 90px;
+  gap: 15px;
+}
+
+@media screen and (max-width: 900px){
+.modal-content {
+  background: var(--header-bg-color);
+  padding: 20px;
+  border: 1px solid #888;
+  width: 90%;
+  animation: modalfade 0.5s;
+}
+}

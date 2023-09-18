@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getUser } from '../../service/auth'
 import { Link } from 'gatsby'
 import TawkToChat from '../Utility/TawkToChat';
+import Userlistpopup from '../Utility/Userlistpopup';
 
 const Home = ({responseData,timeOfDay, Usersname}) => {
   const [activityDataList, setActivityDataList] = useState([]);
@@ -9,6 +10,7 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
   const [error, setError] = useState(false);
   const [messagedata, setmessageData] = useState([]);
   const [newmessagedata, setnewmessagedata] = useState([]);
+  const [showpopup, setShowpopup] = useState(false)
   
   useEffect(() => {
     setActivityDataList(responseData.jobserialized);
@@ -17,6 +19,15 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
     setLoading(false);
   });
 
+  const showpop = () => {
+     setShowpopup = useState(true)
+
+  }
+
+  const hidepop = () => {
+    setShowpopup = useState(false)
+
+ }
 
   return (
     <div>
@@ -79,92 +90,7 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
           </div>
         </div>
         <div className="jobssection">
-          <div className="dbjobscard">
-            <div className="cardcolumntop">
-              <div className="dbcompanylogo">
-                <img
-                  src="https://nigerialogos.com/logos/omenka/omenka.svg"
-                  alt=""
-                />
-              </div>
-              <div className="dbcompanylocation">
-                <div className="spanicon">
-                  <span className="material-symbols-outlined">pin_drop</span>
-                </div>
-                <div className="local">Abuja, Nigeria</div>
-              </div>
-            </div>
-            <div className="cardcolumntitle">
-              <div className="dbjobservice">Financial Services</div>
-              <div className="dbjobtitle">Risk Consulting Director</div>
-            </div>
-            <div className="cardcolumnbody">
-              <div className="job-card-subtitle bigs">
-                victo Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Porro, ipsum est veniam pariatur tempora modi molestias mollitia
-                deleniti distinctio minima voluptatibus alias dolore corrupti
-                molestiae. Nobis facere dolorem tempora accusamus modi, commodi
-                sit amet eos voluptates soluta provident facilis ab suscipit!
-                Explicabo sequi quo amet dolor, quam nesciunt facere error!
-              </div>
-            </div>
-            <div className="dbtags">
-              <div className="job-detail-buttons">
-                <button className="search-buttons detail-button">
-                  Full Time
-                </button>
-                <button className="search-buttons detail-button">
-                  Min. 1 Year
-                </button>
-                <button className="search-buttons detail-button">
-                  Senior Level
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="dbjobscard">
-            <div className="cardcolumntop">
-              <div className="dbcompanylogo">
-                <img
-                  src="https://nigerialogos.com/logos/seedbuilders/seedbuilders.png"
-                  alt=""
-                />
-              </div>
-              <div className="dbcompanylocation">
-                <div className="spanicon">
-                  <span className="material-symbols-outlined">pin_drop</span>
-                </div>
-                <div className="local">Abuja, Nigeria</div>
-              </div>
-            </div>
-            <div className="cardcolumntitle">
-              <div className="dbjobservice">Financial Services</div>
-              <div className="dbjobtitle">Risk Consulting Director</div>
-            </div>
-            <div className="cardcolumnbody">
-              <div className="job-card-subtitle bigs">
-                victo Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Porro, ipsum est veniam pariatur tempora modi molestias mollitia
-                deleniti distinctio minima voluptatibus alias dolore corrupti
-                molestiae. Nobis facere dolorem tempora accusamus modi, commodi
-                sit amet eos voluptates soluta provident facilis ab suscipit!
-                Explicabo sequi quo amet dolor, quam nesciunt facere error!
-              </div>
-            </div>
-            <div className="dbtags">
-              <div className="job-detail-buttons">
-                <button className="search-buttons detail-button">
-                  Full Time
-                </button>
-                <button className="search-buttons detail-button">
-                  Min. 1 Year
-                </button>
-                <button className="search-buttons detail-button">
-                  Senior Level
-                </button>
-              </div>
-            </div>
-          </div>
+
 
           <>
                 {activityDataList?.length > 0 ? (
@@ -212,10 +138,13 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
 
         </div>
       </div>
+
+{showpopup ? (<Userlistpopup hidepop={hidepop}/>) : ('') } 
+
       <div className="dbsideflextwo">
         <div className="messagingbox">
           <div className="msgtitle">
-            <div className="job-card-title dbd">Messages</div>
+            <div className="job-card-title dbd">Messages     <span onClick={showpop()}>+</span></div>
             <div className="jmini">Discover Opportunities..</div>
           </div>
           <div className="messagingflow">
