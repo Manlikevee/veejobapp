@@ -49,9 +49,9 @@ function TextWithHashtags({ text }) {
     if (segment.startsWith('#')) {
       const hashtag = segment.substring(1); // Remove the '#'
       return (
-        <Link key={index} to={`/Exploretags/?tag=${hashtag}`}>
+        <a key={index} href={`/Exploretags/?tag=${hashtag}`}>
           {segment}
-        </Link>
+        </a>
       );
     }
     return segment;
@@ -162,12 +162,14 @@ const Exploretags = () => {
  
  
   const LikeJob = (jobId) => {
-
+    const queryParams = new URLSearchParams(window.location.search);
+    const loanReferenceValue = queryParams.get('tag');
 
     const data = {
       post_id: jobId,
-      tagslug: Verificationtoken,
+      tagslug: loanReferenceValue,
     };
+    alert(loanReferenceValue)
     // Make the Axios POST request
     axiosInstance.post('/savedtimelinepost/', data)
       .then((response) => {
@@ -216,10 +218,11 @@ const Exploretags = () => {
     }
 
     if(keyword){
-
+      const queryParams = new URLSearchParams(window.location.search);
+      const loanReferenceValue = queryParams.get('tag');
       const data = {
         keyword: keyword,
-        tagslug: Verificationtoken,
+        tagslug: loanReferenceValue,
       };
       // Make the Axios POST request
       axiosInstance.post(`/newcomment/${jobId}/`, data)
@@ -426,9 +429,16 @@ alert('An Error Occured')
   }, []);
 
   const Changetag = (tag) => {
+  // Navigate to the new URL with the tag parameter
+  navigate(`/Exploretags/?tag=${tag}`);
 
-    navigate(`/Exploretags/?tag=${tag}`);
-  }
+  // Get the query parameter from the current URL
+  const queryParams = new URLSearchParams(window.location.search);
+  const loanReferenceValue = queryParams.get('tag');
+
+  // Use a more descriptive variable name for clarity
+  alert(`Tag from URL: ${loanReferenceValue}`);
+};
 
   const loadMoreItems = () => {
     setStartIndex((prevStartIndex) => prevStartIndex + itemsPerPage);
@@ -964,14 +974,14 @@ Like
 
 
   tagData?.map((data, index) => (
-    <Link to={`/Exploretags/?tag=${data.name}`} onClick={() => Changetag(data.name)}   className="trendblock blks" key={data.name}>
+    <a href={`/Exploretags/?tag=${data.name}`} onClick={() => Changetag(data.name)}   className="trendblock blks" key={data.name}>
     <div className="trendname">
       <div className="trendtitle">#{data.name}</div>
     </div>
     <div className="trenddot">
       <div className="trendnumber">{data.number} Tweets</div>
     </div>
-  </Link>
+  </a>
 
 ))) : (
   

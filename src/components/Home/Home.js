@@ -32,7 +32,7 @@ const Home = ({responseData,timeOfDay, Usersname}) => {
           <span className="material-symbols-outlined">data_table</span>
         </div>
         <div className="dbtextdata">
-          <div className="dbtitle">30</div>
+          <div className="dbtitle">{responseData.submitcount}</div>
           <div className="dbsubtext">Submitted application</div>
         </div>
       </div>

@@ -48,9 +48,9 @@ function TextWithHashtags({ text }) {
     if (segment.startsWith('#')) {
       const hashtag = segment.substring(1); // Remove the '#'
       return ( 
-        <Link key={index} to={`/Exploretags/?tag=${hashtag}`}>
+        <a key={index} href={`/Exploretags/?tag=${hashtag}`}>
           {segment}
-        </Link>
+        </a>
       );
     }
     return segment;
@@ -943,14 +943,14 @@ Like
        
             {tagData ? ( 
   tagData?.map((data, index) => (
-    <div className="trendblock" key={data.name}>
+    <Link to={`/Exploretags/?tag=${data.name}`} className="trendblock blks" key={data.name}>
     <div className="trendname">
       <div className="trendtitle">#{data.name}</div>
     </div>
     <div className="trenddot">
       <div className="trendnumber">{data.number} Tweets</div>
     </div>
-  </div>
+  </Link>
 
 ))) : (
   
